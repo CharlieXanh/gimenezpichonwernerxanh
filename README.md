@@ -1,2 +1,1 @@
-# gimenezpichonwernerxanh
-Projet Logiciel Tranversal
+# Projet Logiciel Tranversal
