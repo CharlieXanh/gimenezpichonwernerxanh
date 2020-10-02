@@ -6,7 +6,7 @@ Dans le cadre de notre Projet Logiciel Transversal, il nous est demandé de réa
 ## Archétype de jeu
 Notre groupe a décidé de baser son jeu sur ***For the King*** qui est un RPG -Roguelite alternant déplacement et combat, les deux en tour par tour.
 
-## Explication
+## Explications sur l'archétype
 **RPG - "Role Play Game"** : Traduit en "Jeu de Rôle", cela définit un genre de jeu vidéo où les joueurs incarnent un ou plusieurs personnage qui évoluent au fil d'une quête.
 
 **Roguelite** : Ce terme définit un *sous-genre* du jeu vidéo. Ce sous-genre est dérivé du terme *Roguelike*, qui définit un jeu vidéo avec les caractéristiques suivantes :
@@ -15,6 +15,18 @@ Notre groupe a décidé de baser son jeu sur ***For the King*** qui est un RPG -
 > - Des combats tour par tour.
 > - Pas de fin.
 
-Dans notre cas plusieurs de ces caractéristiques ne sont pas respéctées, comme par exemple les niveaux procéduraux ou l'absence de fin, ce qui fait de notre jeu un **Roguelite**.
+Dans notre cas plusieurs de ces caractéristiques ne sont pas respéctées, comme par exemple **les niveaux procéduraux** ou **l'absence de fin**, ce qui fait de notre jeu un *Roguelite*.
 
 ## Le Jeu
+Nous avons choisi d'appeler notre jeu ***OUAW : "Once Upon A WEI"***, les joueurs y incarnent des étudiants fictifs de l'ENSEA qui affrontent des épreuves (sous forme monstrueuse) dans le but de valider leurs années et retrouver le WEI perdu depuis des temps immémoriaux.
+
+## Caractérisques du jeu
+|Caractérisque|Explications|
+|-|-|
+|Les étudiants||
+|Les épreuves||
+|La carte et les déplacements||
+|Les combats||
+
+## Informations sur le Projet
+Le jeu est programmé en C++.
