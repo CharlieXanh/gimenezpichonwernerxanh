@@ -5,5 +5,7 @@ Dans le cadre de notre Projet Logiciel Transversal, il nous est demandé de réa
 
 ## Archétype de jeu
 Notre groupe a décidé de baser son jeu sur ***For the King*** qui est un RPG -Roguelike alternant déplacement et combat, les deux en tour par tour.
+
 |RPG "Role Play Game"||
+|---|---|
 |Roguelike||
