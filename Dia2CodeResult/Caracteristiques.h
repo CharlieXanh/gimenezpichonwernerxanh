@@ -2,7 +2,7 @@
 #ifndef CARACTERISTIQUES__H
 #define CARACTERISTIQUES__H
 
-/// class Caracteristiques - 
+/// class Caracteristiques -
 class Caracteristiques {
   // Attributes
 protected:
@@ -13,8 +13,9 @@ protected:
   int vitesse;
   // Operations
 public:
-  Caracteristique ();
-  ~Caracteristique ();
+  Caracteristiques (int sante = 0 , int attaque = 0,                    int defense = 0,
+                    int initiative = 0, int vitesse = 0);
+  ~Caracteristiques ();
   // Setters and Getters
   int getSante() const;
   void setSante(int sante);
