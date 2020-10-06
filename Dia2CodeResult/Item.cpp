@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(String nom, int prix, Caracteristique bonus){
+Item::Item(std::string nom, int prix, Caracteristiques* bonus){
   this->nom = nom;
 
   this->setPrix(prix);
@@ -16,10 +16,18 @@ void Item::setPrix(int prix){
   this->prix = prix;
 }
 
-int Item::getNom() const{
+std::string Item::getNom() const{
   return this->nom;
 }
 
-void Item::setNom(String nom){
+void Item::setNom(std::string nom){
   this->nom = nom;
+}
+
+Caracteristiques* Item::getBonus() {
+  return this->bonus;
+}
+
+void Item::setBonus(Caracteristiques*  bonus){
+  this->bonus = bonus;
 }
