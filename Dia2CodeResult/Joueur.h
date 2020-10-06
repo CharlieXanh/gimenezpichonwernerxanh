@@ -2,6 +2,9 @@
 #ifndef JOUEUR__H
 #define JOUEUR__H
 
+#include <iostream>
+#include "Entite.h"
+
 /// class Joueur - 
 class Joueur {
   // Associations
@@ -9,11 +12,12 @@ class Joueur {
 private:
   String nom;
   Entite entite;
-  int monet;
+  int monnaie;
   // Operations
 public:
-  Joueur (String nom);
+  Joueur (std::string nom);
   ~Joueur ();
+  void ajoueMonnaie(int monnaie);
   // Setters and Getters
 };
 

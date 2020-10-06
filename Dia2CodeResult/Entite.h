@@ -2,6 +2,9 @@
 #ifndef ENTITE__H
 #define ENTITE__H
 
+#include "Caracteristiques.h"
+#include "Position.h"
+
 /// class Entite - 
 class Entite {
   // Associations
@@ -11,8 +14,8 @@ private:
   Position position;
   // Operations
 public:
-  Entite ();
-  ~Entite ();
+  Entite();
+  ~Entite();
   // Setters and Getters
 };
 

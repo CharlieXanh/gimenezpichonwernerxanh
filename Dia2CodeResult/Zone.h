@@ -11,8 +11,8 @@ private:
   String type;
   // Operations
 public:
-  Zone ();
-  ~Zone ();
+  Zone();
+  ~Zone();
   // Setters and Getters
 };
 
