@@ -2,18 +2,21 @@
 #ifndef ZONE__H
 #define ZONE__H
 
+#include "Position.h"
+
 /// class Zone - 
 class Zone {
   // Attributes
 private:
-  Position position;
-  int[2] taille;
-  String type;
+  Position* position;
+  int taille[2];
+  std::string type;
   // Operations
 public:
-  Zone();
+  Zone(int a = 0,int b=0,Position* position = new Position(),std::string type = "Null");
   ~Zone();
   // Setters and Getters
+  std::string getZone();
 };
 
 #endif

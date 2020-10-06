@@ -2,6 +2,8 @@
 #ifndef MAP__H
 #define MAP__H
 
+#include "Obstacle.h"
+
 /// class Map - 
 class Map {
   // Associations
@@ -11,8 +13,8 @@ private:
   std:vector<Obstacle> obstacles;
   // Operations
 public:
-  Map ();
-  ~Map ();
+  Map();
+  ~Map();
   // Setters and Getters
 };
 

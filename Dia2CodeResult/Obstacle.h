@@ -2,17 +2,22 @@
 #ifndef OBSTACLE__H
 #define OBSTACLE__H
 
+#include "Position.h"
+
 /// class Obstacle - 
 class Obstacle {
   // Attributes
 private:
-  Position position;
-  static int[2] taille;
+	Position* position;
+	int taille[2];
   // Operations
 public:
-  Obstacle ();
+  Obstacle (int a=0,int b=0,Position* position = new Position());
   ~Obstacle ();
   // Setters and Getters
+  int getX() const;
+  int getY() const;
+
 };
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef ETAT__H
 #define ETAT__H
 
+#include "Joueur.h"
+
 /// class Etat - 
 class Etat {
   // Associations
