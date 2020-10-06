@@ -2,19 +2,22 @@
 #ifndef ITEM__H
 #define ITEM__H
 
-/// class Item - 
+/// class Item -
 class Item {
   // Attributes
-public:
-  Caracteristique bonus;
+
 private:
+  Caracteristique bonus;
   String nom;
+protected:
   int prix;
   // Operations
 public:
-  Item ();
+  Item (String nom= "NomParDefaut", int prix = 100, Caracteristique bonus = new Caracteristiques());
   ~Item ();
   // Setters and Getters
+  int getPrix() const;
+  void setPrix(int prix);
 };
 
 #endif
