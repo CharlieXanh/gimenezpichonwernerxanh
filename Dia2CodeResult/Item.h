@@ -18,6 +18,8 @@ public:
   // Setters and Getters
   int getPrix() const;
   void setPrix(int prix);
+  int getNom() const;
+  void setNom(String nom);
 };
 
 #endif

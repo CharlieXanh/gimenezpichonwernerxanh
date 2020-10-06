@@ -15,3 +15,11 @@ int Item::getPrix() const{
 void Item::setPrix(int prix){
   this->prix = prix;
 }
+
+int Item::getNom() const{
+  return this->nom;
+}
+
+void Item::setNom(String nom){
+  this->nom = nom;
+}
