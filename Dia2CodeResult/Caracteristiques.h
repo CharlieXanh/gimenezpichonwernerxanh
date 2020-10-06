@@ -13,7 +13,7 @@ protected:
   int vitesse;
   // Operations
 public:
-  Caracteristiques (int sante = 0 , int attaque = 0,                    int defense = 0,
+  Caracteristiques (int sante = 0 , int attaque = 0, int defense = 0,
                     int initiative = 0, int vitesse = 0);
   ~Caracteristiques ();
   // Setters and Getters
