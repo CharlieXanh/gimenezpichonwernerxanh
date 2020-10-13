@@ -2,19 +2,23 @@
 #ifndef ECHANGE__H
 #define ECHANGE__H
 
+#include "Item.h"
+
+#define NB_ITEM 10
+
 // Etat
 /// class Echange - 
 class Echange : public Etat {
   // Associations
   // Attributes
 private:
-  std::vector<item> item;
+  std::vector<Item> item(NB_ITEM);
   // Operations
 public:
-  Echange ();
+  Echange();
   ~Echange ();
-  bool acheter (Item item);
-  bool terminerEchange ();
+  bool acheter(Item item);
+  std::vector<item> getItems();
   // Setters and Getters
 };
 

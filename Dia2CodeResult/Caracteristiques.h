@@ -27,6 +27,8 @@ public:
   void setInitiative(int initiative);
   int getVitesse() const;
   void setVitesse(int vitesse);
+  void addBonus(int sante = 0 , int attaque = 0, int defense = 0,
+                int initiative = 0, int vitesse = 0);
 };
 
 #endif

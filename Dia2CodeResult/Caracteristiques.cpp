@@ -8,8 +8,7 @@ Caracteristiques :: Caracteristiques (int sante, int attaque, int defense,
     setDefense(defense);
     setInitiative(initiative);
     setVitesse(vitesse);
-
-  }
+}
 
 Caracteristiques ::   ~Caracteristiques(){}
 
@@ -45,3 +44,11 @@ int Caracteristiques ::  getSante() const{
     this->vitesse = vitesse;
   }
   
+void Caracteristiques :: addBonus(int sante, int attaque, int defense,
+                    int initiative, int vitesse){
+  setSante(this->sante+sante);
+  setAttaque(this->attaque+attaque);
+  setDefense(this->defense+defense);
+  setInitiative(this->initiative+initiative);
+  setVitesse(this->vitesse+vitesse);
+}
