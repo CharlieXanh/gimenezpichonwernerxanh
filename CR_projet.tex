@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage[english,francais]{babel}
+\author{Charlie , Raph , Luc , Léo}
+\title{Projet PLT}
+\date{2020-10-02}
+
+\begin{document}
+\pagenumbering{gobble}
+ \maketitle
+ \newpage
+ \pagenumbering{arabic}
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\section{Règles}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[scale=0.8]{fiugre1.PNG}
+\end{center}
+\caption{Exemple de jeu en 2D}
+\label{Exemple de jeu en 2D}
+\end{figure}
+\subsection{Les phases de jeux}
+\begin{itemize}
+\item [--]Deplacement
+\item [--]Combat
+\item [--]Echange ( ou achat ) d'equipement
+\end{itemize}
+Début de partie : Phase de déplacement
+Fin de partie : Phase de combat
+\subsection{Phase de deplacement}
+\begin{itemize}
+\item [--]Entre chaque combat et échange
+\item [--]Fin de la phase : rencontre avec un ennemi du groupe (ou d’un joueur), échange
+\item [--]Le groupe (ou les joueurs) se déplacent sur une grille au tour par tour d’un nombre de case aléatoire
+\item [--]Les ennemis apparaissent et se déplacent sur la grille
+\item [--] La carte doit être explorée pour être révélée
+\end{itemize}
+\subsection{Phase de combat}
+\begin{itemize}
+\item [--]Commence à la rencontre d’un ennemi lors de la phase de déplacement
+\item [--]Fin du combat : une fois que les joueurs ou ennemis n’ont plus de santé
+\item [--]Chaque personnage choisit une action chacun leur tour
+\item [--]Un combat gagné rapporte des points
+\end{itemize}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[scale=0.8]{figure2.PNG}
+\end{center}
+\caption{Exemple de phase de combat}
+\label{Exemple de phase de combat}
+\end{figure}
+
+\subsection{Phase d'échange}
+\begin{itemize}
+\item [--]Commence lorsque les personnages se trouvent dans une zone d’échange
+\item [--]Fin de l’échange lorsque les joueurs quittent le menu, finit sur une phase de déplacement
+\item [--]Un menu spécifique d’échange propose des items à acheter ou d’échanger de l’équipement 
+\end{itemize}
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[scale=0.8]{figure3.png}
+\end{center}
+\caption{Resume de toutes les phases de jeu}
+\label{Resume de toutes les phases de jeu}
+\end{figure}
+\newpage
+\section{Ressources}
+Zones de cartes:
+\begin{itemize} \item [--] Visibilité
+	\begin{itemize} \item [--] Visibles
+				\item [--] inexplorées
+				\item [--] Explorées non visibles
+	\end{itemize}
+	\item[--]{Type de zone}
+	\begin{itemize}
+\item [--] Echange
+\item [--] Combat
+\item [--] Déplacement
+\end{itemize}
+\item [--]Décor de déplacement : 
+\begin{itemize}
+\item [--]Salle de TP
+\item [--]Salle de TD
+\item [--]Hall A,B,C,D
+\item [--] Jardin
+\item [--] Salle de partiel		
+\end{itemize}
+\end{itemize}	
+Interface utilisateur avec la santé, la date (si on l’utilise), les caractéristiques
+On peut faire des UML en ligne tous ensemble ?
+Pour faire des UMLs propre on peut utiliser LucidChart
+après on peut p-e faire des trucs a main(souris) levée sur whiteboard(awwapp/google draw) avant de faire du propre
+les deux sont en ligne btw 
+\end{document}
