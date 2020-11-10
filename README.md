@@ -1,9 +1,10 @@
 # Projet Logiciel Transversal
 
-> Ce projet a pour but de developper un jeu video dans le cadre de la formation "Informatique et systèmes" de l'Ecole Nationale Superieure de l'Electonique et de ses Applications
+> Ce projet a pour but de developper un jeu video dans le cadre de la formation "Informatique et systèmes" de l'Ecole Nationale Superieure de l'Electonique et de ses Applications.
+
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
-## Release 1.1
+## Release 1.final
 
 ## Get Started
 
@@ -28,7 +29,16 @@ $ make -j
 $ ./bin/client hello
 ```
 
-## Historique des release
+## Test unitaire
 
+```sh
+$ cd build
+$ ./test/shared/test_shared_dummy
+```
+
+## Historique des release
+* 1.final
+    * Creation du diagramme d'etat
+    * Implementation des premiers tests unitaires
 * 1.1
     * Implementation d'un message de retour
