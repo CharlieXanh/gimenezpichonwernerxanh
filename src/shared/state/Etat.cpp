@@ -1,5 +1,7 @@
 #include "Etat.h"
 
+using namespace state;
+
 // Etat::Etat (){
 //
 // }

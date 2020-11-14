@@ -1,5 +1,7 @@
 #include "Caracteristiques.h"
 
+using namespace state;
+
 Caracteristiques :: Caracteristiques (int sante, int attaque, int defense,
                     int initiative, int vitesse){
 
@@ -43,7 +45,7 @@ int Caracteristiques ::  getSante() const{
   void Caracteristiques :: setVitesse(int vitesse){
     this->vitesse = vitesse;
   }
-  
+
 void Caracteristiques :: addBonus(int sante, int attaque, int defense,
                     int initiative, int vitesse){
   setSante(this->sante+sante);
