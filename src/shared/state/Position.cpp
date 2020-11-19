@@ -1,5 +1,7 @@
 #include "Position.h"
 
+using namespace state;
+
 void Position::setX(int x){
 	this->x = x;
 }
@@ -31,8 +33,12 @@ void Position :: placer(int x, int y){
 	setY(y);
 }
 
-std::string Position::getOrientation() const{
+const std::string& Position::getOrientation() const{
 	return this->orientation;
+}
+
+void setOrientation(const std::string& orientation){
+
 }
 
 int Position :: getX() const{

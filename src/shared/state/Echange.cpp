@@ -8,6 +8,7 @@
 //
 // #define NB_ITEM_WORDS 10
 //
+// using namespace state;
 // using namespace std;
 //
 // Echange :: Echange(){

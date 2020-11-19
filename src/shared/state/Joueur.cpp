@@ -1,13 +1,13 @@
 #include "Joueur.h"
-#include <string>
 
-using namespace std;
+using namespace state;
 
-Joueur :: Joueur(std::string nom){
+ Joueur :: Joueur (std::string nom, Entite& entite, int monnaie)
+{
 	this->nom = nom;
 	this->monnaie = monnaie;
-	//this->entite = new Entite();
-}
+	this->entite =  entite;
+ }
 
 void Joueur :: ajoueMonnaie(int monnaie){
 	this->monnaie+=monnaie;

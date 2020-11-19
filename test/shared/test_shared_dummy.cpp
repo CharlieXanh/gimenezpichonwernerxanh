@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(TestStaticAssert)
   BOOST_CHECK(1);
 }
 
-BOOST_AUTO_TEST_CASE(TestEtat)
+BOOST_AUTO_TEST_CASE(TestStateNamespace)
 {
   //Position
   {
@@ -64,6 +64,21 @@ BOOST_AUTO_TEST_CASE(TestEtat)
   }
 
   //Item
+  {
+    Caracteristiques ca {100,10,9,8,7};
+    Item item {"Epee",30,&ca};
+    BOOST_CHECK_EQUAL(item.getPrix(),30);
+    BOOST_CHECK_EQUAL(item.getNom(),"Epee");
+    BOOST_CHECK_EQUAL(item.getBonus(),&ca);
+    item.setPrix(40);
+    item.setNom("Hache");
+    BOOST_CHECK_EQUAL(item.getPrix(),40);
+    BOOST_CHECK_EQUAL(item.getNom(),"Hache");
+    Caracteristiques nca {8,8,8,4,8};
+    item.setBonus(&nca);
+    // pas besoin de tester les autres getter ici on test le setBonus
+    BOOST_CHECK_EQUAL(nca.getSante(),8);
+  }
   //{
     // Caracteristiques ca {100,10,9,8,7};
     // Item item {"Epee",30,ca};
