@@ -62,29 +62,46 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
   //  Joueur j{"Jack",e,10};
 
   }
-
+//
   //Item
   {
-    // Caracteristiques ca {100,10,9,8,7};
-    // Item item {"Epee",30,ca};
-    // BOOST_CHECK_EQUAL(item.getPrix(),30);
-    // BOOST_CHECK_EQUAL(item.getNom(),"Epee");
-    // BOOST_CHECK_EQUAL(&item.getBonus(),&ca);
-    // item.setPrix(40);
-    // item.setNom("Hache");
-    // BOOST_CHECK_EQUAL(item.getPrix(),40);
-    // BOOST_CHECK_EQUAL(item.getNom(),"Hache");
-    // Caracteristiques nca {8,8,8,4,8};
-    // item.setBonus(nca);
-    // // pas besoin de tester les autres getter ici on test le setBonus
-    // BOOST_CHECK_EQUAL(nca.getSante(),8);
+  Caracteristiques ca {100,10,9,8,7};
+     Item item {"Epee",30,ca};
+    BOOST_CHECK_EQUAL(item.getPrix(),30);
+    BOOST_CHECK_EQUAL(item.getNom(),"Epee");
+    //BOOST_CHECK_EQUAL(item.getBonus(),&ca);
+    item.setPrix(40);
+    item.setNom("Hache");
+    BOOST_CHECK_EQUAL(item.getPrix(),40);
+    BOOST_CHECK_EQUAL(item.getNom(),"Hache");
+    Caracteristiques nca {8,8,8,4,8};
+    //item.setBonus(&nca);
+    //pas besoin de tester les autres getter ici on test le setBonus
+   BOOST_CHECK_EQUAL(nca.getSante(),8);
+  }
+  {
+    Caracteristiques ca {100,10,9,8,7};
+    Item item {"Epee",30,ca};
+    BOOST_CHECK_EQUAL(item.getPrix(),30);
+    BOOST_CHECK_EQUAL(item.getNom(),"Epee");
+    BOOST_CHECK_EQUAL(item.getBonus().getSante(),ca.getSante());
+    item.setPrix(40);
+    item.setNom("Hache");
+    BOOST_CHECK_EQUAL(item.getPrix(),40);
+    BOOST_CHECK_EQUAL(item.getNom(),"Hache");
+    Caracteristiques nca {8,8,8,4,8};
+    item.setBonus(nca);
+    // pas besoin de tester les autres getter ici on test le setBonus
+    BOOST_CHECK_EQUAL(item.getBonus().getSante(),8);
+
   }
 
   //Obstacle
   {
-    Position p {1,2,"NORTH"};
-    Obstacle obs {3,7,p};
-    //BOOST_CHECK_EQUAL(obs.getTaille(),std::vector<int>(1,2));
+     Position p {1,2,"NORTH"};
+     Obstacle obs {3,7,p};
+     std::vector<int> tab {1,2};
+     BOOST_CHECK_EQUAL(obs.getTaille()[0],3);
 
   }
 
@@ -93,6 +110,8 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
     Position p {1,2,"NORTH"};
     Zone zon {5,6,p,"class"};
   }
+
+
   // {
   //   Exemple ex {};
   //   ex.setX(21);
@@ -100,5 +119,4 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
   //   BOOST_CHECK_GT(ex.x, 11); // Greater than equl
   // }
 }
-
 /* vim: set sw=2 sts=2 et : */
