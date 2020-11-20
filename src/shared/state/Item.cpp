@@ -2,13 +2,9 @@
 
 using namespace state;
 
-Item::Item(std::string nom, int prix, Caracteristiques& bonus){
-  this->nom = nom;
-
-  this->setPrix(prix);
-
-  this->bonus = bonus;
-}
+Item::Item(std::string nom, int prix, Caracteristiques & bonus) :
+ nom(nom), bonus(bonus),prix(prix)
+{}
 
 int Item::getPrix() const{
   return this->prix;
