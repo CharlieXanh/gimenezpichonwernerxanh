@@ -3,8 +3,8 @@
 using namespace state;
 
 Obstacle :: Obstacle(int a, int b,Position& position){
-	this->taille[0] = a;
-	this->taille[1] = b;
+	this->taille.push_back(a);
+	this->taille.push_back(b);
 	this->position = position;
 }
 
@@ -20,7 +20,7 @@ const std::vector<int>& Obstacle::getTaille() const {
 }
 
 void setTaille(const std::vector<int>& taille){
-//	this->taille = taille;
+	//
 }
 
 Obstacle :: ~Obstacle(){}
