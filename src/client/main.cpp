@@ -12,6 +12,7 @@ void testSFML() {
 #include <state.h>
 #include <string.h>
 #include <render.h>
+#include <chrono>
 using namespace std;
 using namespace state;
 using namespace render;
@@ -31,20 +32,19 @@ int main(int argc,char* argv[])
   {
         sf::RenderWindow window(sf::VideoMode(720,720), "One Upon A Wei",sf::Style::Close);
 
-        sf::Event ev;
+        //sf::Event ev;
 
-        window.setVerticalSyncEnabled(true);
         sf::View view(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
-
-        auto tp = std::chrono::steady_clock::now();
-        float dt;
-        sf::Event event;
-
         Position position(100,100,"Ouest");
         StateRender state(position);
+        auto tp = std::chrono::steady_clock::now();
+        float dt;
+    while (window.isOpen())
+    {
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
 
-        while (window.isOpen())
-        {
+
             const auto new_tp = std::chrono::steady_clock::now();
             dt = std::chrono::duration<float>(new_tp - tp).count();
             tp = new_tp;
@@ -55,18 +55,18 @@ int main(int argc,char* argv[])
                     window.close();
             }
 
-            state.updatePosition()
+            state.updatePosition(position);
 
             window.clear();
-            view.setCenter(player.getPosition());
+            view.setCenter(state.player.getPosition());
             window.setView(view);
 
-            window.draw(map);
-            window.draw(*menu);
+            window.draw(*state.map);
+            //window.draw(*state.menu);
 
-            player.render_tile(window);
-
+            state.player.render_tile(window);
             window.display();
   }
     return 0;
+}
 }
