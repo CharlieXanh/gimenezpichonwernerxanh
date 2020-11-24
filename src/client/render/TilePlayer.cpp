@@ -40,61 +40,13 @@ void TilePlayer::render_tile(sf::RenderTarget& target)
 }
 
 
-
-void TilePlayer::update_pos(float dt,float speed)
+void TilePlayer::update_pos(int x, int y)
 {
-	sf::Vector2f v1 = sprite.getPosition();
-	position = sprite.getPosition();
-
-	float dx = speed * dt;
-	float dy = speed * dt;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z))
-	{
-		sprite.setPosition(v1.x, v1.y - dy);
-		curAnimation = AnimationIndex::WalkingUp;
-		animations[int(curAnimation)].Update(dt);
-		animations[int(curAnimation)].Applytosprite(sprite);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
-	{
-		sprite.setPosition(v1.x-dx, v1.y);
-		curAnimation = AnimationIndex::WalkingLeft;
-		animations[int(curAnimation)].Update(dt);
-		animations[int(curAnimation)].Applytosprite(sprite);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-	{
-		sprite.setPosition(v1.x, v1.y + dy);
-		curAnimation = AnimationIndex::WalkingDown;
-		animations[int(curAnimation)].Update(dt);
-		animations[int(curAnimation)].Applytosprite(sprite);
-
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-	{
-		sprite.setPosition(v1.x+dx, v1.y);
-		curAnimation = AnimationIndex::WalkingRight;
-		animations[int(curAnimation)].Update(dt);
-		animations[int(curAnimation)].Applytosprite(sprite);
-	}
-	else
-	{
-		curAnimation = AnimationIndex::WalkingDown;
-		animations[int(curAnimation)].Update(0);
-		animations[int(curAnimation)].Applytosprite(sprite);
-
-	}
+	this->position = sf::Vector2f(x,y);
+	this->sprite.setPosition(x,y);
 }
 
 sf::Vector2f TilePlayer::getPosition()
 {
 	return position;
-}
-
-void TilePlayer::update_tile(float dt,float speed)
-{
-	{
-		update_pos(dt, speed);
-	}
 }

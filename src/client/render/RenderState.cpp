@@ -9,7 +9,7 @@
 using namespace render;
 RenderState:: RenderState(Position position){
 
-	TilePlayer player;
+	TilePlayer player((float)position.getX(),(float)position.getY());
 	LayerMenu* menu = new LayerMenu(1);
 	TileMap map;
 
@@ -19,6 +19,7 @@ RenderState:: RenderState(Position position){
 	
 }
 
-RenderState :: updatePosition(){
-
+RenderState :: updatePosition(Position position){
+	player.update_pos(position);
+	menu->updatePosition(player.getPosition());
 }
