@@ -3,20 +3,16 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-
+// #include <SFML/Graphics.hpp>
+using namespace std;
 using namespace render;
-StateRender:: StateRender(state::Position& position)
-	:player(position.getX(),position.getY()){
-
-	//player((float)position.getX(),(float)position.getY());
-	//menu= new LayerMenu(1);
-
-	map->load("res/tilemap_packed.png", sf::Vector2u(16,16));
-
-}
+using namespace state;
+StateRender:: StateRender (state::Position const& position)
+	:player(position.getX(),position.getY())
+	{}
 
 
-void StateRender :: updatePosition(state::Position& position){
+void StateRender :: updatePosition(state::Position const& position){
 	player.update_pos(position);
-	menu->updatePosition(player.getPosition());
+	//menu->updatePosition(player.getPosition());
 }

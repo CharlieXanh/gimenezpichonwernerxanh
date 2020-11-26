@@ -28,23 +28,24 @@ int main(int argc,char* argv[])
 		cout << "State" << endl;
 
 	}
-  if(argc >= 2 && strcmp(argv[1],"Render") == 0 )
+  if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
-        sf::RenderWindow window(sf::VideoMode(720,720), "One Upon A Wei",sf::Style::Close);
+        sf::RenderWindow window(sf::VideoMode(500,500), "One Upon A Wei",sf::Style::Close);
 
         //sf::Event ev;
 
-        sf::View view(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
-        Position position(100,100,"Ouest");
-        StateRender state(position);
+        //sf::View view(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
+        Position pos(100,100,"Ouest");
+        StateRender state(pos);
+        
+        map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
         auto tp = std::chrono::steady_clock::now();
-        float dt;
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
 
-
+              float dt;
             const auto new_tp = std::chrono::steady_clock::now();
             dt = std::chrono::duration<float>(new_tp - tp).count();
             tp = new_tp;
@@ -54,18 +55,12 @@ int main(int argc,char* argv[])
                 if(event.type == sf::Event::Closed)
                     window.close();
             }
-
-            state.updatePosition(position);
-
             window.clear();
-            view.setCenter(state.player.getPosition());
-            window.setView(view);
-
-            window.draw(*state.map);
-            //window.draw(*state.menu);
-
-            state.player.render_tile(window);
-            window.display();
+            window.draw(map);
+              //view.setCenter(state.player.getPosition());
+              //window.setView(view);
+              state.player.render_tile(window);
+              window.display();
   }
     return 0;
 }

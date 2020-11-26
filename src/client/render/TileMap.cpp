@@ -5,6 +5,9 @@
 
 using namespace render;
 
+
+
+
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
     // apply the transform
@@ -44,7 +47,7 @@ std::vector<std::vector <int > > TileMap :: load_map(std::string fileName){
 bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
 {
 
-    this->tiles = load_map("map.txt");
+    this->tiles = load_map("res/Map/map.txt");
     // load the tileset texture
     if (!this->m_tileset.loadFromFile(tileset))
         return false;
@@ -65,7 +68,7 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
             int tv = tileNumber /(m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
-            sf::Vertex* quad = &m_vertices[(i + j * tiles.size()) * 4]; 
+            sf::Vertex* quad = &m_vertices[(i + j * tiles.size()) * 4];
 
             // define its 4 corners
             quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);

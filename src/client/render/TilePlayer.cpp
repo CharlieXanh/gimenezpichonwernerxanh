@@ -3,6 +3,7 @@
 using namespace std;
 using namespace render;
 
+
 TilePlayer::TilePlayer(float x, float y):position(x,y)
 {
 	this->animations[int(AnimationIndex::WalkingUp)] = Animation(64, 0, 64, 64);
@@ -10,11 +11,12 @@ TilePlayer::TilePlayer(float x, float y):position(x,y)
 	this->animations[int(AnimationIndex::WalkingLeft)] = Animation(64, 64, 64, 64);
 	this->animations[int(AnimationIndex::WalkingRight)] = Animation(64, 192, 64, 64);
 
-	this->initTexture();
-	this->initSprite();
+	initTexture();
+	initSprite();
+	cout << "ok" << endl;
 }
 
-TilePlayer::~TilePlayer(){}
+TilePlayer::~TilePlayer(){ cout << "joueur effacee" << endl;}
 
 void TilePlayer::initTexture()
 {
@@ -29,6 +31,7 @@ void TilePlayer::initTexture()
 void TilePlayer::initSprite()
 {
 	// Set the texture to the Sprite
+	sprite.setTexture(texture);
 	sprite.setTextureRect({64,64, 64, 64});
 	sprite.scale(0.3,0.3);
 	sprite.setPosition(position.x, position.y);
@@ -40,10 +43,10 @@ void TilePlayer::render_tile(sf::RenderTarget& target)
 }
 
 
-void TilePlayer::update_pos (state::Position& pos)
+void TilePlayer::update_pos (state::Position const& position)
 {
-	this->position = sf::Vector2f(pos.getX(),pos.getY());
-	this->sprite.setPosition(pos.getX(),pos.getY());
+	this->position = sf::Vector2f(position.getX(),position.getY());
+	this->sprite.setPosition(100,100);
 }
 
 sf::Vector2f TilePlayer::getPosition()
