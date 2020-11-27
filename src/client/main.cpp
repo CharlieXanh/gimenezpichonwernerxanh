@@ -1,5 +1,4 @@
 #include <iostream>
-
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
@@ -11,10 +10,11 @@ void testSFML() {
 
 #include <state.h>
 #include <string.h>
-
+#include <render.h>
+#include <chrono>
 using namespace std;
 using namespace state;
-
+using namespace render;
 int main(int argc,char* argv[])
 {
     //Exemple exemple;
@@ -25,7 +25,31 @@ int main(int argc,char* argv[])
 
 	if(argc >= 2 && strcmp(argv[1],"State") == 0 ){
 		cout << "State" << endl;
-		
+
 	}
+  if(argc >= 2 && strcmp(argv[1],"render") == 0 )
+  {
+        Position pos(200,200,"Nord");
+        StateRender state(pos);
+    while (state.window->isOpen())
+    {
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+
+
+
+            while (state.window->pollEvent(event))
+            {
+                if(event.type == sf::Event::Closed)
+              {
+                    state.end();
+            }
+            state.updatePosition(pos);
+            state.update();
+
+
+          }
+  }
     return 0;
+}
 }

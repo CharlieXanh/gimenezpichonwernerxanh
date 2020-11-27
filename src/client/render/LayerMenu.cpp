@@ -1,4 +1,4 @@
-#include "LayerMenu.h"
+#include "../render.h"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -10,7 +10,7 @@ LayerMenu :: LayerMenu(int scene){
 			break;
 		case 1:
 			//Rappel des stats:
-			this->tileMenu = loadElem("menuDeplacement.txt");
+			this->tileMenu = loadElem("res/menuDeplacement.txt");
 			break;
 		case 2:
 			break;
@@ -57,7 +57,7 @@ std::vector<TileMenu*> LayerMenu :: loadElem(std::string fileName){
     return TileVect;
 }
 
-void LayerMenu :: draw(sf::RenderTarget& target, sf::RenderStates states)
+void LayerMenu :: draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for(TileMenu* tm : this->tileMenu){
 		target.draw(tm->getSprite(), states);

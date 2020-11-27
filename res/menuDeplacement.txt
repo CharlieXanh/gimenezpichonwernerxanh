@@ -1,0 +1,9 @@
+res/button/b_button00.png
+bonjour
+res/DS-DIGI.TTF
+-180,-180
+
+res/button/r_button00.png
+PO :
+res/DS-DIGI.TTF
+-180,135
