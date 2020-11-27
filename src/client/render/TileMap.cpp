@@ -1,14 +1,12 @@
-#include "TileMap.h"
+#include "../render.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 
 using namespace render;
+using namespace std;
 
-
-
-
-void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states)
+void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // apply the transform
     states.transform *= getTransform();
@@ -47,7 +45,7 @@ std::vector<std::vector <int > > TileMap :: load_map(std::string fileName){
 bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
 {
 
-    this->tiles = load_map("res/Map/map.txt");
+    this->tiles = load_map("res/Map/map.csv");
     // load the tileset texture
     if (!this->m_tileset.loadFromFile(tileset))
         return false;

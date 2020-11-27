@@ -4,7 +4,7 @@ using namespace std;
 using namespace render;
 
 
-TilePlayer::TilePlayer(float x, float y):position(x,y)
+TilePlayer::TilePlayer(int x, int y):position(x,y)
 {
 	this->animations[int(AnimationIndex::WalkingUp)] = Animation(64, 0, 64, 64);
 	this->animations[int(AnimationIndex::WalkingDown)] = Animation(64, 128, 64, 64);
@@ -33,7 +33,7 @@ void TilePlayer::initSprite()
 	// Set the texture to the Sprite
 	sprite.setTexture(texture);
 	sprite.setTextureRect({64,64, 64, 64});
-	sprite.scale(0.3,0.3);
+	sprite.scale(0.8,0.8);
 	sprite.setPosition(position.x, position.y);
 }
 
@@ -45,11 +45,11 @@ void TilePlayer::render_tile(sf::RenderTarget& target)
 
 void TilePlayer::update_pos (state::Position const& position)
 {
-	this->position = sf::Vector2f(position.getX(),position.getY());
-	this->sprite.setPosition(100,100);
+	this->position = sf::Vector2i(position.getX(),position.getY());
+	this->sprite.setPosition(position.getX(),position.getY());
 }
 
-sf::Vector2f TilePlayer::getPosition()
+sf::Vector2i TilePlayer::getPosition()
 {
 	return position;
 }

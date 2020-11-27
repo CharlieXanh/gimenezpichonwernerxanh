@@ -1,5 +1,4 @@
 #include <iostream>
-
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
@@ -31,15 +30,13 @@ int main(int argc,char* argv[])
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
         sf::RenderWindow window(sf::VideoMode(500,500), "One Upon A Wei",sf::Style::Close);
-
         //sf::Event ev;
-
+        TileMap map;
+        map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
         //sf::View view(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
         Position pos(100,100,"Ouest");
         StateRender state(pos);
-        
-        map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
-        auto tp = std::chrono::steady_clock::now();
+     auto tp = std::chrono::steady_clock::now();
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -53,14 +50,17 @@ int main(int argc,char* argv[])
             while (window.pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
+              {
                     window.close();
             }
+
             window.clear();
             window.draw(map);
-              //view.setCenter(state.player.getPosition());
-              //window.setView(view);
-              state.player.render_tile(window);
-              window.display();
+            state.player.render_tile(window);
+            window.display();
+
+
+          }
   }
     return 0;
 }
