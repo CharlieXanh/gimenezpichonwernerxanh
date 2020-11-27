@@ -49,7 +49,7 @@ int main(int argc,char* argv[])
                     state.close();
             }
 
-            state.update()
+            state.update();
 
 
           }

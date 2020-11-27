@@ -13,15 +13,15 @@ StateRender:: StateRender (state::Position const& position)
 	:player(position.getX(),position.getY())
 	{
 		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
-		this->window(sf::VideoMode(500,500), "One Upon A Wei",sf::Style::Close)
-		this->view(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
+		this->window(sf::VideoMode(500,500), "One Upon A Wei",sf::Style::Close);
+		this->view= sf::View(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
 
 	}
 
 
 void StateRender :: updatePosition(state::Position const& position){
 	player.update_pos(position);
-	
+
 }
 
 void StateRender :: update(){
@@ -32,7 +32,7 @@ void StateRender :: update(){
 }
 
 void StateRender :: end(){
-	this->window.close()
+	this->window.close();
 }
 
 void StateRender::InitMap(){
