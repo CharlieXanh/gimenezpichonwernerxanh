@@ -32,7 +32,7 @@ int main(int argc,char* argv[])
         Position pos(100,100,"Ouest");
         StateRender state(pos);
      auto tp = std::chrono::steady_clock::now();
-    while (window.isOpen())
+    while (state.window->isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
@@ -41,12 +41,11 @@ int main(int argc,char* argv[])
             const auto new_tp = std::chrono::steady_clock::now();
             dt = std::chrono::duration<float>(new_tp - tp).count();
             tp = new_tp;
-
-            while (window.pollEvent(event))
+            while (state.window->pollEvent(event))
             {
                 if(event.type == sf::Event::Closed)
               {
-                    state.close();
+                    state.end();
             }
 
             state.update();

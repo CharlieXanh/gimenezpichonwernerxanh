@@ -27,7 +27,7 @@ void StateRender :: updatePosition(state::Position const& position){
 void StateRender :: update(){
 	this->window->clear();
 	this->window->draw(map);
-	this->player.render_tile(window*);
+	this->player.render_tile(*window);
 	this->window->display();
 }
 
