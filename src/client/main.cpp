@@ -29,11 +29,6 @@ int main(int argc,char* argv[])
 	}
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
-        sf::RenderWindow window(sf::VideoMode(500,500), "One Upon A Wei",sf::Style::Close);
-        //sf::Event ev;
-        TileMap map;
-        map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
-        //sf::View view(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
         Position pos(100,100,"Ouest");
         StateRender state(pos);
      auto tp = std::chrono::steady_clock::now();
@@ -51,13 +46,10 @@ int main(int argc,char* argv[])
             {
                 if(event.type == sf::Event::Closed)
               {
-                    window.close();
+                    state.close();
             }
 
-            window.clear();
-            window.draw(map);
-            state.player.render_tile(window);
-            window.display();
+            state.update()
 
 
           }
