@@ -10,7 +10,7 @@ LayerMenu :: LayerMenu(int scene){
 			break;
 		case 1:
 			//Rappel des stats:
-			this->tileMenu = loadElem("menuDeplacement.txt");
+			this->tileMenu = loadElem("res/menuDeplacement.txt");
 			break;
 		case 2:
 			break;
