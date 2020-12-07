@@ -53,3 +53,20 @@ sf::Vector2i TilePlayer::getPosition()
 {
 	return position;
 }
+
+void TilePlayer:: Orientation (std::string orientation){
+	if (orientation=="NORD"){
+		curAnimation=AnimationIndex::WalkingUp;
+		cout << "orientation nord" << endl;
+	}
+	else if (orientation=="OUEST"){
+		curAnimation=AnimationIndex::WalkingLeft;
+	}
+else if(orientation=="EST"){
+	curAnimation=AnimationIndex::WalkingRight;
+}
+else{
+	curAnimation=AnimationIndex::WalkingDown;
+}
+animations[int(curAnimation)].Applytosprite(sprite);
+}

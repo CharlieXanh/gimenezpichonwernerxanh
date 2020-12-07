@@ -32,6 +32,7 @@ void StateRender :: update(){
 	this->window->draw(map);
 	this->window->draw(*menu);
 	this->player.render_tile(*window);
+	this->ennemy.render_tile(*window);
 	this->window->display();
 }
 
@@ -40,5 +41,14 @@ void StateRender :: end(){
 }
 
 void StateRender::InitMap(){
+
+}
+
+void StateRender::StateRender_combat (state::Position const& position_j, state::Position const& position_ad)
+{
+	this->player.Orientation("EST");
+	this->ennemy.Orientation("OUEST");
+	this->player.update_pos(position_j);
+	this->ennemy.update_pos(position_ad);
 
 }
