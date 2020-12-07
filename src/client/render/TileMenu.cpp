@@ -14,13 +14,13 @@ TileMenu :: TileMenu(std::string images,std::string text_str,std::string fontStr
 
     if (!this->font.loadFromFile(fontStr))
     {
-        std::cout << "Error loading font menu\n";
+        std::cout << "Error loading font menu"<<std::endl;
         exit(-1);
     }
 
     if (!this->texture.loadFromFile(this->imgFile))
     {
-        std::cout << "Error loading image menu\n";
+        std::cout << "Error loading image menu\n"<<std::endl;
         exit(-1);
     }
 

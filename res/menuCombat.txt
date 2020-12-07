@@ -1,0 +1,9 @@
+res/button/r_button01.png
+vie :
+res/DS-DIGI.TTF
+-180,-180
+
+res/button/b_button01.png
+vie :
+res/DS-DIGI.TTF
+-180,180
