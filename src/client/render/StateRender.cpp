@@ -16,12 +16,14 @@ StateRender:: StateRender (state::Position const& position)
 		this->window = new sf::RenderWindow(sf::VideoMode(720,720), "One Upon A Wei",sf::Style::Close);
 		this->view = new  sf::View(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
 		this->menu = new LayerMenu(1);
+		this->menuCombat=new LayerMenu(2);
 	}
 
 
 void StateRender :: updatePosition(state::Position const& position){
 	this->player.update_pos(position);
 	this->menu->updatePosition(sf::Vector2f(position.getX(),position.getY()));
+	this->menuCombat->updatePosition(sf::Vector2f(position.getX(),position.getY()));
 }
 
 void StateRender :: update(){
@@ -30,10 +32,12 @@ void StateRender :: update(){
 	window->setView(*view);
 
 	this->window->draw(map);
-	this->window->draw(*menu);
+	//this->window->draw(*menu);
+	this->window->draw(*menuCombat);
 	this->player.render_tile(*window);
 	this->ennemy.render_tile(*window);
 	this->window->display();
+
 }
 
 void StateRender :: end(){
@@ -50,5 +54,6 @@ void StateRender::StateRender_combat (state::Position const& position_j, state::
 	this->ennemy.Orientation("OUEST");
 	this->player.update_pos(position_j);
 	this->ennemy.update_pos(position_ad);
+	this->menuCombat->updateCombat(20,20);
 
 }

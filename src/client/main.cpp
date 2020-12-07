@@ -34,7 +34,7 @@ int main(int argc,char* argv[])
         Position pos(200,200,"Nord");
 
 
-        
+
 
         StateRender state(pos);
     while (state.window->isOpen())
