@@ -66,7 +66,6 @@ void LayerMenu :: draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-
 void LayerMenu :: updatePosition(sf::Vector2f offset){
 	for(TileMenu* tMenu : this->tileMenu){
 		tMenu->setOffset(offset);
