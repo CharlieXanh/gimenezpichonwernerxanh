@@ -9,7 +9,7 @@ using namespace render;
 using namespace state;
 
 
-StateRender:: StateRender (state::Position const& position)
+StateRender:: StateRender (state::Position& position)
 	:player(position.getX(),position.getY())
 	{
 		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
@@ -19,7 +19,7 @@ StateRender:: StateRender (state::Position const& position)
 	}
 
 
-void StateRender :: updatePosition(state::Position const& position){
+void StateRender :: updatePosition(state::Position & position){
 	this->player.update_pos(position);
 	this->menu->updatePosition(sf::Vector2f(position.getX(),position.getY()));
 }
@@ -44,7 +44,7 @@ void StateRender::InitMap(){
 
 }
 
-void StateRender::StateRender_combat (state::Position const& position_j, state::Position const& position_ad)
+void StateRender::StateRender_combat (state::Position& position_j, state::Position & position_ad)
 {
 	this->player.Orientation("EST");
 	this->ennemy.Orientation("OUEST");

@@ -25,6 +25,7 @@ int main(int argc,char* argv[])
 
 	if(argc >= 2 && strcmp(argv[1],"State") == 0 ){
 		cout << "State" << endl;
+    Curseur curs{0,0};
 
 	}
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
@@ -34,7 +35,7 @@ int main(int argc,char* argv[])
         Position pos(200,200,"Nord");
 
 
-        
+
 
         StateRender state(pos);
     while (state.window->isOpen())

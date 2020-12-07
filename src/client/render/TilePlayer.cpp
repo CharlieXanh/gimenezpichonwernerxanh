@@ -43,7 +43,7 @@ void TilePlayer::render_tile(sf::RenderTarget& target)
 }
 
 
-void TilePlayer::update_pos (state::Position const& position)
+void TilePlayer::update_pos (state::Position& position)
 {
 	this->position = sf::Vector2i(position.getX(),position.getY());
 	this->sprite.setPosition(position.getX(),position.getY());

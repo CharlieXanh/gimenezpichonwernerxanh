@@ -6,8 +6,8 @@ using namespace engine;
 using namespace state;
 using namespace std;
 
-DeplacerCommande::DeplacerCommandeCommand(state::Joueur &Jouant,
-  state::Position &positionTarger) : Jouant(Jouant), positionTarget(positionTarger)
+DeplacerCommande::DeplacerCommande(state::Joueur &Jouant,
+  state::Position &positionCible) : Jouant(Jouant), positionCible(positionCible)
 {
     id = DEPLACER;
 }
