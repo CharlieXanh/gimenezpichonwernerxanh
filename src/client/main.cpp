@@ -29,13 +29,13 @@ int main(int argc,char* argv[])
 	}
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
-<<<<<<< HEAD
+
         Position pos_ennemy(250,200,"Nord");
         Position pos(200,200,"Nord");
 
-=======
-        Position pos(200,200,"Nord");
->>>>>>> dev
+
+        
+
         StateRender state(pos);
     while (state.window->isOpen())
     {
@@ -51,10 +51,10 @@ int main(int argc,char* argv[])
                     state.end();
             }
             state.updatePosition(pos);
-<<<<<<< HEAD
+
             state.StateRender_combat(pos,pos_ennemy);
-=======
->>>>>>> dev
+
+
             state.update();
 
           }
