@@ -17,7 +17,7 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     // draw the vertex array
     target.draw(this->m_vertices, states);
-
+    /*
     int tileNumber  = this->tiles[(int) ceil(this->cursorCoord.x/tileSize.x)*tileSize.x - 1][(int) ceil(this->cursorCoord.y/tileSize.y)*tileSize.y - 1];
     int tu = tileNumber %(m_tileset.getSize().x / tileSize.x);
     int tv = tileNumber /(m_tileset.getSize().y / tileSize.y);
@@ -30,6 +30,7 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     spriteLight.setPosition(sf::Vector2f((int) ceil((this->cursorCoord.x + this->viewCoord.x)/tileSize.x - 1),(int) ceil((this->cursorCoord.y+ this->viewCoord.y)/tileSize.y - 1)));
     spriteLight.setColor(sf::Color(255, 255, 255, 128));
     target.draw(spriteLight,states);
+    */
 }
 
 std::vector<std::vector <int > > TileMap :: load_map(std::string fileName){
@@ -105,4 +106,11 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize,std::stri
 void TileMap::updateCursor(sf::Vector2u cursor,sf::Vector2u view){
     this->cursorCoord = cursor;
     this->viewCoord = view;
+}
+
+sf::Vector2u TileMap:: mapSize(){
+  sf::Vector2u s;
+  s.x=tiles.size()*tileSize.x;
+  s.y=tiles[0].size()*tileSize.y;
+  return s;
 }

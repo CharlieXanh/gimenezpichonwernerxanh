@@ -20,10 +20,10 @@ StateRender:: StateRender (state::Position& position)
 	}
 
 
-void StateRender :: updatePosition(state::Position & position,sf::Vector2f positionEnnemi){
+void StateRender :: updatePosition(state::Position & position){
 	this->player.update_pos(position);
 	this->menu->updatePosition(sf::Vector2f(position.getX(),position.getY()));
-	this->menuCombat->updatePosition(sf::Vector2f(position.getX(),position.getY()),positionEnnemi);
+	this->menuCombat->updatePosition(sf::Vector2f(position.getX(),position.getY()));
 	this->map.updateCursor(sf::Vector2u(50,50),sf::Vector2u(position.getX(),position.getY()));
 }
 
@@ -39,12 +39,12 @@ void StateRender :: update(int type){
 	this->window->display();
 	}
 	else if(type==1){
-		view->setCenter(sf::Vector2f(320,160));
-		view->setSize(sf::Vector2f(640,320));
-		window->setView(*view);
 		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16),"res/Map/arene.csv");
+		view->setCenter(player.getPosition().x,player.getPosition().y);
+		//view->setSize(sf::Vector2f(map.mapSize().x,map.mapSize().y));
+		window->setView(*view);
 		this->window->draw(map);
-		this->window->draw(*menu);
+		this->window->draw(*menuCombat);
 		this->player.render_tile(*window);
 		this->window->display();
 	}
@@ -68,6 +68,6 @@ void StateRender::StateRender_combat (state::Position& position_j, state::Positi
 	this->ennemy.Orientation("OUEST");
 	this->player.update_pos(position_j);
 	this->ennemy.update_pos(position_ad);
-	this->menuCombat->updateCombat(20,20);
+	this->menuCombat->updateCombat(20,20,sf::Vector2f(position_ad.getX(),position_ad.getY()));
 
 }

@@ -31,9 +31,9 @@ int main(int argc,char* argv[])
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
 
-        Position pos_ennemy(10,30,"Nord");
-        Position pos(10,10,"Nord");
-        
+        Position pos_ennemy(100,160,"Nord");
+        Position pos(30,160,"Nord");
+
 
 
 
@@ -51,11 +51,11 @@ int main(int argc,char* argv[])
               {
                     state.end();
             }
-            state.updatePosition(pos,sf::Vector2f(100,0));
+            state.updatePosition(pos);
             state.StateRender_combat(pos,pos_ennemy);
+          cout <<   state.map.mapSize().x << " " << state.map.mapSize().y << endl;
 
-
-            state.update();
+            state.update(1);
 
           }
   }

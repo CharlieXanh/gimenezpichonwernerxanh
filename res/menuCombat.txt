@@ -11,14 +11,14 @@ res/DS-DIGI.TTF
 res/button/r_button04.png
 A
 res/DS-DIGI.TTF
--10,-110
+-10,110
 
 res/button/b_button07.png
 D
 res/DS-DIGI.TTF
-39,-110
+39,110
 
 res/button/g_button07.png
 M
 res/DS-DIGI.TTF
-88,-110
+88,110
