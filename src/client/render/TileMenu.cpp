@@ -62,6 +62,9 @@ void TileMenu :: changeSprite(){
     this->sprite.setTexture(this->texture);;
 }
 
+sf::Vector2f TileMenu :: getOffset(){
+    return this->sprite.getPosition();
+}
 
 void TileMenu :: setOffset(sf::Vector2f offset){
     this->sprite.setPosition(sf::Vector2f(this->position[0]+offset.x,this->position[1]+offset.y));

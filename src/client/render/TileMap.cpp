@@ -18,13 +18,13 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     // draw the vertex array
     target.draw(this->m_vertices, states);
 
-    int tileNumber  = this->tiles[(int) ceil((this->cursorCoord.x + this->viewCoord.x)/tileSize.x - 1)][(int) ceil((this->cursorCoord.y+ this->viewCoord.y)/tileSize.y - 1)];
+    int tileNumber  = this->tiles[(int) ceil(this->cursorCoord.x/tileSize.x)*tileSize.x - 1][(int) ceil(this->cursorCoord.y/tileSize.y)*tileSize.y - 1];
     int tu = tileNumber %(m_tileset.getSize().x / tileSize.x);
     int tv = tileNumber /(m_tileset.getSize().y / tileSize.y);
 
 
     sf::Texture light;
-    light.loadFromFile(this->tileset,sf::IntRect(tu * tileSize.x, tv * tileSize.y,tileSize.x,tileSize.y));
+    light.loadFromFile(this->tileset,sf::IntRect(tv * tileSize.y,tu * tileSize.x,tileSize.x,tileSize.y));
     sf::Sprite spriteLight;
     spriteLight.setTexture(light);
     spriteLight.setPosition(sf::Vector2f((int) ceil((this->cursorCoord.x + this->viewCoord.x)/tileSize.x - 1),(int) ceil((this->cursorCoord.y+ this->viewCoord.y)/tileSize.y - 1)));

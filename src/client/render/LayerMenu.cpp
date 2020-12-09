@@ -72,10 +72,11 @@ void LayerMenu :: updatePosition(sf::Vector2f offset){
 	}
 }
 
-void LayerMenu :: updateCombat(int ennemieLife,int playerLife){
+void LayerMenu :: updateCombat(int ennemieLife,int playerLife,sf::Vector2f positionEnnemi){
 	for(TileMenu* tMenu : this->tileMenu){
 		if(tMenu->text.getString().find("vie :") != std::string::npos && tMenu->imgFile=="res/button/r_button01.png"){
 			tMenu->text.setString("vie : " + std::to_string(ennemieLife));
+			tMenu->setOffset(tMenu->getOffset()+positionEnnemi);
 		}
 		else if(tMenu->text.getString().find("vie :") != std::string::npos && tMenu->imgFile=="res/button/b_button01.png"){
 			tMenu->text.setString("vie : " + std::to_string(playerLife));
