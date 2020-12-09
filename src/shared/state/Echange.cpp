@@ -1,5 +1,5 @@
-// #include "Echange.h"
-// #include "Item.h"
+#include "Echange.h"
+#include "Item.h"
 // #include <time.h>
 // #include <stdlib.h>
 // #include <string>

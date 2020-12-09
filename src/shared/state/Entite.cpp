@@ -30,8 +30,7 @@ void Entite ::setCaracteristiques( Caracteristiques caracteristiques){
 	this->caracteristiques = caracteristiques;
 }
 
-Position Entite :: getPosition() {
-
+Position& Entite :: getPosition() {
 	return this->position;
 }
 
