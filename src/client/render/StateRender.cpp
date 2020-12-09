@@ -25,6 +25,7 @@ void StateRender :: updatePosition(state::Position & position){
 	this->menu->updatePosition(sf::Vector2f(position.getX(),position.getY()));
 	this->map.updateCursor(sf::Vector2u(50,50),sf::Vector2u(position.getX(),position.getY()));
 	this->menuCombat->updatePosition(sf::Vector2f(position.getX(),position.getY()));
+	this->map.updateCursor(sf::Vector2u(50,50),sf::Vector2u(position.getX(),position.getY()));
 }
 
 void StateRender :: update(){
@@ -38,6 +39,7 @@ void StateRender :: update(){
 	this->player.render_tile(*window);
 	this->ennemy.render_tile(*window);
 	this->window->display();
+
 
 }
 

@@ -51,6 +51,7 @@ std::vector<std::vector <int > > TileMap :: load_map(std::string fileName){
         map.push_back(lineVector);
         lineVector.clear();
     }
+
     return map;
 }
 
