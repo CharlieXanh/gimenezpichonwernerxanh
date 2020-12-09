@@ -23,6 +23,7 @@ StateRender:: StateRender (state::Position& position)
 void StateRender :: updatePosition(state::Position & position){
 	this->player.update_pos(position);
 	this->menu->updatePosition(sf::Vector2f(position.getX(),position.getY()));
+	this->map.updateCursor(sf::Vector2u(50,50),sf::Vector2u(position.getX(),position.getY()));
 	this->menuCombat->updatePosition(sf::Vector2f(position.getX(),position.getY()));
 }
 

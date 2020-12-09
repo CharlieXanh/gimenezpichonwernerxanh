@@ -26,7 +26,7 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     light.loadFromFile(this->tileset,sf::IntRect(tu * tileSize.x, tv * tileSize.y,tileSize.x,tileSize.y));
     sf::Sprite spriteLight;
     spriteLight.setTexture(light);
-    spriteLight.setPosition(sf::Vector2f((int) ceil(this->cursorCoord.x/tileSize.x - 1),(int) ceil(this->cursorCoord.y/tileSize.y - 1)));
+    spriteLight.setPosition(sf::Vector2f((int) ceil((this->cursorCoord.x + this->viewCoord.x)/tileSize.x - 1),(int) ceil((this->cursorCoord.y+ this->viewCoord.y)/tileSize.y - 1)));
     spriteLight.setColor(sf::Color(255, 255, 255, 128)); 
     target.draw(spriteLight,states);
 }
@@ -79,16 +79,16 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
 
             // find its position in the tileset texture
             int tu = tileNumber %(m_tileset.getSize().x / tileSize.x);
-            int tv = tileNumber /(m_tileset.getSize().y / tileSize.y);
+            int tv = tileNumber /(m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
             sf::Vertex* quad = &m_vertices[(i + j * tiles.size()) * 4];
 
             // define its 4 corners
-            quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
-            quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y);
-            quad[2].position = sf::Vector2f((i + 1) * tileSize.x, (j + 1) * tileSize.y);
-            quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
+            quad[0].position = sf::Vector2f(j * tileSize.y, i * tileSize.x);
+            quad[1].position = sf::Vector2f((j + 1) * tileSize.y, i * tileSize.x);
+            quad[2].position = sf::Vector2f((j + 1) * tileSize.y, (i + 1) * tileSize.x);
+            quad[3].position = sf::Vector2f(j * tileSize.y, (i + 1) * tileSize.x);
 
             // define its 4 texture coordinates
             quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
