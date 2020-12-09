@@ -10,6 +10,9 @@ TileMenu :: TileMenu(std::string images,std::string text_str,std::string fontStr
     this->position[0] = position[0];
     this->position[1] = position[1];
 
+    this->offset[0] = 0;
+    this->offset[1] = 0;
+
     this->imgFile = images;
 
     if (!this->font.loadFromFile(fontStr))
@@ -63,10 +66,11 @@ void TileMenu :: changeSprite(){
 }
 
 sf::Vector2f TileMenu :: getOffset(){
-    return this->sprite.getPosition();
+    return this->sprite.offset;
 }
 
 void TileMenu :: setOffset(sf::Vector2f offset){
-    this->sprite.setPosition(sf::Vector2f(this->position[0]+offset.x,this->position[1]+offset.y));
+    this->offset = offset;
+    this->sprite.setPosition(sf::Vector2f(this->position[0]+this->offset.x,this->position[1]+this->offset.y));
     this->text.setPosition(sf::Vector2f(this->position[0]+offset.x+TEXT_OFFSET,this->position[1]+offset.y+TEXT_OFFSET));
 }
