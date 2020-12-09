@@ -12,7 +12,7 @@ using namespace state;
 StateRender:: StateRender (state::Position& position)
 	:player(position.getX(),position.getY())
 	{
-		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16));
+		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16),"res/Map/map.csv");
 		this->window = new sf::RenderWindow(sf::VideoMode(720,720), "One Upon A Wei",sf::Style::Close);
 		this->view = new  sf::View(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
 		this->menu = new LayerMenu(1);
@@ -23,23 +23,34 @@ StateRender:: StateRender (state::Position& position)
 void StateRender :: updatePosition(state::Position & position){
 	this->player.update_pos(position);
 	this->menu->updatePosition(sf::Vector2f(position.getX(),position.getY()));
-	this->map.updateCursor(sf::Vector2u(50,50),sf::Vector2u(position.getX(),position.getY()));
 	this->menuCombat->updatePosition(sf::Vector2f(position.getX(),position.getY()));
 	this->map.updateCursor(sf::Vector2u(50,50),sf::Vector2u(position.getX(),position.getY()));
 }
 
-void StateRender :: update(){
+void StateRender :: update(int type){
+
 	this->window->clear();
+	if(type==0){
 	view->setCenter(player.getPosition().x,player.getPosition().y);
 	window->setView(*view);
-
 	this->window->draw(map);
-	//this->window->draw(*menu);
-	this->window->draw(*menuCombat);
+	this->window->draw(*menu);
 	this->player.render_tile(*window);
-	this->ennemy.render_tile(*window);
 	this->window->display();
+	}
+	else if(type==1){
+		view->setCenter(sf::Vector2f(320,160));
+		view->setSize(sf::Vector2f(640,320));
+		window->setView(*view);
+		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16),"res/Map/arene.csv");
+		this->window->draw(map);
+		this->window->draw(*menu);
+		this->player.render_tile(*window);
+		this->window->display();
+	}
+	else{
 
+	}
 
 }
 

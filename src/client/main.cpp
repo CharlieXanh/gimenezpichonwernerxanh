@@ -52,7 +52,6 @@ int main(int argc,char* argv[])
                     state.end();
             }
             state.updatePosition(pos);
-
             state.StateRender_combat(pos,pos_ennemy);
 
 

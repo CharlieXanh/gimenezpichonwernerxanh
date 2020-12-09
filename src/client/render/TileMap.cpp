@@ -22,12 +22,13 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     int tu = tileNumber %(m_tileset.getSize().x / tileSize.x);
     int tv = tileNumber /(m_tileset.getSize().y / tileSize.y);
 
+
     sf::Texture light;
     light.loadFromFile(this->tileset,sf::IntRect(tu * tileSize.x, tv * tileSize.y,tileSize.x,tileSize.y));
     sf::Sprite spriteLight;
     spriteLight.setTexture(light);
     spriteLight.setPosition(sf::Vector2f((int) ceil((this->cursorCoord.x + this->viewCoord.x)/tileSize.x - 1),(int) ceil((this->cursorCoord.y+ this->viewCoord.y)/tileSize.y - 1)));
-    spriteLight.setColor(sf::Color(255, 255, 255, 128)); 
+    spriteLight.setColor(sf::Color(255, 255, 255, 128));
     target.draw(spriteLight,states);
 }
 
@@ -56,10 +57,10 @@ std::vector<std::vector <int > > TileMap :: load_map(std::string fileName){
 }
 
 
-bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
+bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize,std::string fileName)
 {
 
-    this->tiles = load_map("res/Map/map.csv");
+    this->tiles = load_map(fileName);
 
     // load the tileset texture
     if (!this->m_tileset.loadFromFile(tileset))
