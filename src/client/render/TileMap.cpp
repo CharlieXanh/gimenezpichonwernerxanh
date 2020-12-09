@@ -27,7 +27,7 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     sf::Sprite spriteLight;
     spriteLight.setTexture(light);
     spriteLight.setPosition(sf::Vector2f((int) ceil(this->cursorX/tileSize.x - 1),(int) ceil(this->cursorY/tileSize.y - 1)));
-    spriteLight.setColor(sf::Color(255, 255, 255, 128)); 
+    spriteLight.setColor(sf::Color(255, 255, 255, 128));
     target.draw(spriteLight,states);
 }
 
@@ -103,5 +103,5 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
 
 void TileMap::updateCursor(int x,int y){
     this->cursorX = x;
-    this->cursorY = Y;
+    this->cursorY = y;
 }

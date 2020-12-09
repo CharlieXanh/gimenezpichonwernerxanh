@@ -33,7 +33,7 @@ int main(int argc,char* argv[])
 
         Position pos_ennemy(10,30,"Nord");
         Position pos(10,10,"Nord");
-
+        
 
 
 
