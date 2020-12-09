@@ -18,15 +18,15 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     // draw the vertex array
     target.draw(this->m_vertices, states);
 
-    int tileNumber  = this->tiles[(int) ceil(this->cursorX/tileSize.x - 1)][(int) ceil(this->cursorY/tileSize.y - 1)];
+    int tileNumber  = this->tiles[(int) ceil((this->cursorCoord.x + this->viewCoord.x)/tileSize.x - 1)][(int) ceil((this->cursorCoord.y+ this->viewCoord.y)/tileSize.y - 1)];
     int tu = tileNumber %(m_tileset.getSize().x / tileSize.x);
     int tv = tileNumber /(m_tileset.getSize().y / tileSize.y);
 
     sf::Texture light;
-    light.loadFromImage(this->m_tileset,sf::IntRect(tu * tileSize.x, tv * tileSize.y,tileSize.x,tileSize.y));
+    light.loadFromFile(this->tileset,sf::IntRect(tu * tileSize.x, tv * tileSize.y,tileSize.x,tileSize.y));
     sf::Sprite spriteLight;
     spriteLight.setTexture(light);
-    spriteLight.setPosition(sf::Vector2f((int) ceil(this->cursorX/tileSize.x - 1),(int) ceil(this->cursorY/tileSize.y - 1)));
+    spriteLight.setPosition(sf::Vector2f((int) ceil(this->cursorCoord.x/tileSize.x - 1),(int) ceil(this->cursorCoord.y/tileSize.y - 1)));
     spriteLight.setColor(sf::Color(255, 255, 255, 128)); 
     target.draw(spriteLight,states);
 }
@@ -65,7 +65,7 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
         return false;
 
     this->tileSize = tileSize;
-
+    this->tileset = tileset;
     // resize the vertex array to fit the level size
     this->m_vertices.setPrimitiveType(sf::Quads);
     this->m_vertices.resize(tiles.size() * tiles[0].size()*4);
@@ -100,7 +100,7 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
     return true;
 }
 
-void TileMap::updateCursor(int x,int y){
-    this->cursorX = x;
-    this->cursorY = Y;
+void TileMap::updateCursor(sf::Vector2u cursor,sf::Vector2u view){
+    this->cursorCoord = cursor;
+    this->viewCoord = view;
 }
