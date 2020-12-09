@@ -27,7 +27,7 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     sf::Sprite spriteLight;
     spriteLight.setTexture(light);
     spriteLight.setPosition(sf::Vector2f((int) ceil(this->cursorCoord.x/tileSize.x - 1),(int) ceil(this->cursorCoord.y/tileSize.y - 1)));
-    spriteLight.setColor(sf::Color(255, 255, 255, 128)); 
+    spriteLight.setColor(sf::Color(255, 255, 255, 128));
     target.draw(spriteLight,states);
 }
 
@@ -80,7 +80,7 @@ bool TileMap :: load(const std::string& tileset, sf::Vector2u tileSize)
 
             // find its position in the tileset texture
             int tu = tileNumber %(m_tileset.getSize().x / tileSize.x);
-            int tv = tileNumber /(m_tileset.getSize().y / tileSize.y);
+            int tv = tileNumber /(m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
             sf::Vertex* quad = &m_vertices[(i + j * tiles.size()) * 4];
