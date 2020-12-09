@@ -51,11 +51,11 @@ int main(int argc,char* argv[])
               {
                     state.end();
             }
-            state.updatePosition(pos);
+            //state.updatePosition(pos);
             state.StateRender_combat(pos,pos_ennemy);
-          cout <<   state.map.mapSize().x << " " << state.map.mapSize().y << endl;
+          //cout <<   state.map.mapSize().x << " " << state.map.mapSize().y << endl;
 
-            state.update(1);
+            //state.update(1);
 
           }
   }
