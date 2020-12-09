@@ -31,9 +31,9 @@ int main(int argc,char* argv[])
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
 
-        Position pos_ennemy(10,30,"Nord");
-        Position pos(10,10,"Nord");
-        
+        Position pos_ennemy(250,200,"Nord");
+        Position pos(200,200,"Nord");
+
 
 
 
