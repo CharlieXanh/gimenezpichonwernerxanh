@@ -43,7 +43,7 @@ void TilePlayer::render_tile(sf::RenderTarget& target)
 }
 
 
-void TilePlayer::update_pos (state::Position const& position)
+void TilePlayer::update_pos (state::Position& position)
 {
 	this->position = sf::Vector2i(position.getX(),position.getY());
 	this->sprite.setPosition(position.getX(),position.getY());
@@ -52,4 +52,21 @@ void TilePlayer::update_pos (state::Position const& position)
 sf::Vector2i TilePlayer::getPosition()
 {
 	return position;
+}
+
+void TilePlayer:: Orientation (std::string orientation){
+	if (orientation=="NORD"){
+		curAnimation=AnimationIndex::WalkingUp;
+		cout << "orientation nord" << endl;
+	}
+	else if (orientation=="OUEST"){
+		curAnimation=AnimationIndex::WalkingLeft;
+	}
+else if(orientation=="EST"){
+	curAnimation=AnimationIndex::WalkingRight;
+}
+else{
+	curAnimation=AnimationIndex::WalkingDown;
+}
+animations[int(curAnimation)].Applytosprite(sprite);
 }

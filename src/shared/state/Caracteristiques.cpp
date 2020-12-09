@@ -3,13 +3,20 @@
 using namespace state;
 
 Caracteristiques :: Caracteristiques (int sante, int attaque, int defense,
-                    int initiative, int vitesse){
+                    int initiative, int vitesse) :
+                    sante(sante),
+                    attaque(attaque),
+                    defense(defense),
+                    initiative(initiative),
+                    vitesse(vitesse)
+{}
 
-    setSante(sante);
-    setAttaque(attaque);
-    setDefense(defense);
-    setInitiative(initiative);
-    setVitesse(vitesse);
+Caracteristiques::Caracteristiques(){
+  this->sante =0;
+  this->attaque = 0;
+  this->defense = 0;
+  this->initiative = 0;
+  this->vitesse = 0;
 }
 
 Caracteristiques ::   ~Caracteristiques(){}

@@ -2,26 +2,27 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+
 using namespace render;
+
 LayerMenu :: LayerMenu(int scene){
 
 	switch (scene){
-		case 0:
-			break;
 		case 1:
-			//Rappel des stats:
+			//Menu deplacement:
 			this->tileMenu = loadElem("res/menuDeplacement.txt");
 			break;
 		case 2:
+			this->tileMenu = loadElem("res/menuCombat.txt");
 			break;
 		case 3:
+			this->tileMenu = loadElem("res/menuEchange.txt");
 			break;
-		case 4:
+		default:
 			break;
 
 	}
 }
-
 
 std::vector<TileMenu*> LayerMenu :: loadElem(std::string fileName){
 
@@ -65,9 +66,20 @@ void LayerMenu :: draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-
 void LayerMenu :: updatePosition(sf::Vector2f offset){
 	for(TileMenu* tMenu : this->tileMenu){
 		tMenu->setOffset(offset);
+	}
+}
+
+void LayerMenu :: updateCombat(int ennemieLife,int playerLife,sf::Vector2f positionEnnemi){
+	for(TileMenu* tMenu : this->tileMenu){
+		if(tMenu->text.getString().find("vie :") != std::string::npos && tMenu->imgFile=="res/button/r_button01.png"){
+			tMenu->text.setString("vie : " + std::to_string(ennemieLife));
+			tMenu->setOffset(tMenu->getOffset()+positionEnnemi);
+		}
+		else if(tMenu->text.getString().find("vie :") != std::string::npos && tMenu->imgFile=="res/button/b_button01.png"){
+			tMenu->text.setString("vie : " + std::to_string(playerLife));
+		}
 	}
 }

@@ -55,6 +55,16 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
 
   //  Entite e {ca,p};
 
+    Curseur curs{2,2};
+    BOOST_CHECK_EQUAL(curs.getVisible(),false);
+    curs.setVisible(true);
+    BOOST_CHECK_EQUAL(curs.getVisible(),true);
+    BOOST_CHECK_EQUAL(curs.getLastPosition().getX(),2);
+    curs.deplacer(p); // p => {5,6} here
+    curs.deplacer(p);
+    BOOST_CHECK_EQUAL(curs.getLastPosition().getX(),5);
+
+
 
 
   //Joueur(TODO)
@@ -62,6 +72,7 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
   //  Joueur j{"Jack",e,10};
 
   }
+
 //
   //Item
   {

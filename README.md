@@ -35,6 +35,18 @@ $ ./bin/client hello
 $ cd build
 $ ./test/shared/test_shared_dummy
 ```
+## Affichage d'une fenêtre
+
+```sh
+$ ./bin/client render
+```
+
+## Affichage d'une sequence de tours
+
+```sh
+$ ./bin/client engine
+```
+>Pour lancer un tour, appuyez sur une touche.
 
 ## Historique des release
 * 1.final
