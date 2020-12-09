@@ -37,7 +37,8 @@ int main(int argc,char* argv[])
         Position pos_ennemy(100,160,"Nord");
         Position pos(30,160,"Nord");
 
-
+        StateRender state(pos);
+        
     while (state.window->isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
