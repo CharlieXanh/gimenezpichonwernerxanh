@@ -34,8 +34,8 @@ int main(int argc,char* argv[])
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
 
-        Position pos_ennemy(100,160,"Nord");
-        Position pos(30,160,"Nord");
+        Position pos_ennemy(400,240,"Nord");
+        Position pos(10,240,"Nord");
 
         StateRender state(pos);
 
@@ -53,10 +53,8 @@ int main(int argc,char* argv[])
                     state.end();
             }
             //state.updatePosition(pos);
-            state.StateRender_combat(pos,pos_ennemy);
-          //cout <<   state.map.mapSize().x << " " << state.map.mapSize().y << endl;
 
-            //state.update(1);
+          state.StateRender_combat(pos,pos_ennemy);
 
           }
     }
@@ -72,8 +70,8 @@ int main(int argc,char* argv[])
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs initialisée ---" << endl;
 
-    Position pos1(200,200,"Nord");
-    Position pos2(250,200,"Nord");
+    Position pos1(10,240,"Nord");
+    Position pos2(400,240,"Nord");
     ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
     ngine.getEtat().getJoueurs()[1]->setPosition(pos2);
 
@@ -88,7 +86,7 @@ int main(int argc,char* argv[])
     while (state.window->isOpen() )
     {
       sf::Event event;
-      state.update();
+      //state.update();
 
       while( state.window->pollEvent(event))
       {
@@ -184,7 +182,7 @@ int main(int argc,char* argv[])
 
 
           state.updatePosition(nextP1);
-          //state.StateRender_combat(nextP1,nextP2);
+          state.StateRender_combat(nextP1,nextP2);
           state.update();
         }
       }

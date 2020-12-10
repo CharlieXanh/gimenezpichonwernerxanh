@@ -39,6 +39,7 @@ void StateRender :: update(int type){
 	this->window->display();
 	}
 	else if(type==1){
+
 	}
 	else{
 
@@ -56,18 +57,20 @@ void StateRender::InitMap(){
 
 void StateRender::StateRender_combat (state::Position& position_j, state::Position & position_ad)
 {
+	this->window->clear();
 	this->player.Orientation("EST");
 	this->ennemy.Orientation("OUEST");
 	this->player.update_pos(position_j);
 	this->ennemy.update_pos(position_ad);
 	this->menuCombat->updateCombat(20,20,sf::Vector2f(position_ad.getX(),position_ad.getY()));
-	this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16),"res/Map/arene.csv");
-//	view->setCenter(sf::Vector2f(160,320));
-	//view->setSize(sf::Vector2f(300,300));
+	this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16),"res/Map/arene2.csv");
+	view->setCenter(map.mapSize().x/2,map.mapSize().y/2);
+	view->setSize(map.mapSize().x,map.mapSize().y+16);
 	window->setView(*view);
 	this->window->draw(map);
-	this->window->draw(*menuCombat);
 	this->player.render_tile(*window);
+	this->ennemy.render_tile(*window);
+	this->window->draw(*menuCombat);
 	this->window->display();
 
 }

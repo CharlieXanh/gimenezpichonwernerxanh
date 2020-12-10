@@ -111,6 +111,6 @@ void TileMap::updateCursor(sf::Vector2u cursor,sf::Vector2u view){
 sf::Vector2u TileMap:: mapSize(){
   sf::Vector2u s;
   s.x=tiles.size()*tileSize.x;
-  s.y=tiles[0].size()*tileSize.y;
+  s.y=tiles[0].size()*tileSize.x;
   return s;
 }
