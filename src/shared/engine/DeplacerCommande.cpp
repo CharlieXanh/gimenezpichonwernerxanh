@@ -15,22 +15,22 @@ DeplacerCommande::DeplacerCommande(state::Joueur &joueurCible,
 void DeplacerCommande::execute(state::Etat &etat)
 {
   cout << "Deplacement d'un joueur" << endl;
-  bool allowed = true;
+  bool allowed = false;
   if (joueurCible.getStatut() == SEL)
   {
       // if the character has moves to do
       cout << "Move chances left " << joueurCible.getDeplacements() << endl;
       if (joueurCible.getDeplacements() > 0)
       {
-          //TODO : Check deplacements autorisés
-          // for (auto &pos: joueurCible.deplacementsPossibles(etat))
-          // {
-          //     if (pos.egale(positionCible))
-          //     {
-          //         allowed = true;
-          //         break;
-          //     }
-          // }
+          //Check deplacements autorisés
+          for (auto &pos: joueurCible.deplacementsPossibles(etat))
+          {
+              if (pos.egale(positionCible))
+              {
+                  allowed = true;
+                  break;
+              }
+          }
           if (allowed)
           {
               // Moving

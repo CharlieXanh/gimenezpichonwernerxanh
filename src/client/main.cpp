@@ -67,6 +67,9 @@ int main(int argc,char* argv[])
     engine::Engine ngine;
     cout << "--- objet engine crée ---" << endl;
 
+    //ngine.getEtat().initializeMapCell();
+    //cout << "--- state map initialized ---" << endl;
+
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs initialisée ---" << endl;
 
@@ -133,15 +136,19 @@ int main(int argc,char* argv[])
              ngine.getEtat().getJoueurs()[0]->getPosition().getX() << " " <<
              ngine.getEtat().getJoueurs()[0]->getPosition().getY() << endl;
 
-            Position pos11{initialXP1, 25+initialYP1};
+            Position pos11{initialXP1, 1+initialYP1};
             unique_ptr<engine::Commande> ptr_dc1(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos11));
             ngine.ajoutCommande(move(ptr_dc1), priority++);
 
-            Position pos12{initialXP1, 25+pos11.getY()};
+            Position pos12{initialXP1, 1+pos11.getY()};
             unique_ptr<engine::Commande> ptr_dc2(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos12));
             ngine.ajoutCommande(move(ptr_dc2), priority++);
 
-            Position pos13{50+initialXP1, pos12.getY()};
+            unique_ptr<engine::Commande> ptr_atqc1(new engine::AttaquerCommande(*ngine.getEtat().getJoueurs()[0],
+                                                                              *ngine.getEtat().getJoueurs()[1]));
+            ngine.ajoutCommande(move(ptr_atqc1),priority++);
+
+            Position pos13{5+initialXP1, pos12.getY()};
             unique_ptr<engine::Commande> ptr_dc3(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos13));
             ngine.ajoutCommande(move(ptr_dc3), priority++);
 
@@ -163,6 +170,10 @@ int main(int argc,char* argv[])
             Position pos12{initialXP1,  pos11.getY() - 25};
             unique_ptr<engine::Commande> ptr_dc2(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos12));
             ngine.ajoutCommande(move(ptr_dc2), priority++);
+
+            unique_ptr<engine::Commande> ptr_atqc1(new engine::AttaquerCommande(*ngine.getEtat().getJoueurs()[1],
+                                                                               *ngine.getEtat().getJoueurs()[0]));
+            ngine.ajoutCommande(move(ptr_atqc1),priority++);
 
             Position pos13{initialXP1-50 ,  pos12.getY()};
             unique_ptr<engine::Commande> ptr_dc3(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos13));
