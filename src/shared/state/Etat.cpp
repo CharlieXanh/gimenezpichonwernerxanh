@@ -8,11 +8,15 @@
 using namespace std;
 using namespace state;
 
-Etat::Etat(std::string nMode) : curseur(10, 10)
+Etat::Etat(std::string nMode) : curseur(10, 10), ordre(joueurs)
 {
     this-> mode = nMode;
     cout << "Creation d'un objet ETAT en mode >>>" + mode + "<<<\n";
     actionActuelle = IDLE;
+    cout << "Creation d'un objet MAGASIN" << endl;
+    Magasin mag;
+    this -> magasin = mag;
+
 }
 
 // Etat :: Etat(std::vector<Joueur> joueurs, std::vector<Joueur> ennemis,Joueur jouant,
@@ -75,10 +79,16 @@ void Etat::initJoueurs(){
   if(mode == "engine")
   {
     std::unique_ptr<Joueur> ptrJ1(new Joueur("Raph", 20));
+    ptrJ1->getCaracteristiques().setSante(100);
+    ptrJ1->getCaracteristiques().setAttaque(10);
+    ptrJ1->getCaracteristiques().setDefense(5);
     joueurs.push_back(move(ptrJ1));
 
-    std::unique_ptr<Joueur> ptrJ222(new Joueur("Leo", 17));
-    joueurs.push_back(move(ptrJ222));
+    std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo", 17));
+    ptrJ2->getCaracteristiques().setSante(100);
+    ptrJ2->getCaracteristiques().setAttaque(10);
+    ptrJ2->getCaracteristiques().setDefense(5);
+    joueurs.push_back(move(ptrJ2));
   }
   else
   {
@@ -108,7 +118,9 @@ int Etat::getJouant()
 void Etat::setJouant(int joueurSuivant){
   this->jouant = joueurSuivant;
 }
-
+std::vector<std::vector<std::unique_ptr<MapCell>>>& Etat::getMap(){
+  return this->map;
+}
 void Etat::transitionEtat(Etat etat){
 }
 

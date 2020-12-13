@@ -22,7 +22,7 @@ Entite::Entite()
 
 Entite :: ~Entite(){}
 
-Caracteristiques Entite ::  getCaracteristiques() {
+Caracteristiques& Entite ::  getCaracteristiques() {
 	return this->caracteristiques;
 }
 
