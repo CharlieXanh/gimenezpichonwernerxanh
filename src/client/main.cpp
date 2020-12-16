@@ -12,12 +12,15 @@ void testSFML() {
 #include <string.h>
 #include "render.h"
 #include "engine.h"
+#include "ai.h"
 #include <chrono>
 #include <unistd.h>
 
 using namespace std;
 using namespace state;
 using namespace render;
+using namespace ai;
+
 int main(int argc,char* argv[])
 {
     //Exemple exemple;
@@ -67,8 +70,8 @@ int main(int argc,char* argv[])
     engine::Engine ngine;
     cout << "--- objet engine crée ---" << endl;
 
-    //ngine.getEtat().initializeMapCell();
-    //cout << "--- state map initialized ---" << endl;
+    ngine.getEtat().initializeMapCell();
+    cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs initialisée ---" << endl;
@@ -198,5 +201,19 @@ int main(int argc,char* argv[])
         }
       }
     }
-  }
+  }//end engine
+
+  if(argc >= 2 && strcmp(argv[1],"random_ai") == 0 )
+  {
+    engine::Engine ngine{"engine"};
+
+    //ngine.getEtat().initializeMapCell();
+
+    ngine.getEtat().initJoueurs();
+
+    RandomAI rai2;
+    rai2.setNumeroJoueur(2);
+
+    //todo : behavior
+  }//end random_ai
 }

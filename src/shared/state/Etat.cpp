@@ -5,6 +5,9 @@
 #include <memory>
 #include <algorithm>
 #include <vector>
+#include "SpaceMapCell.h"
+#include "ObstacleMapCell.h"
+#include <map>
 
 #include "SpaceMapCell.h"
 #include "ObstacleMapCell.h"
@@ -24,7 +27,7 @@ Etat::Etat(std::string nMode) : curseur(10, 10), ordre(*this)
     initializeMapCell("res/arene.csv");
 }
 
-std::vector<std::vector <int > > Etat:: load_map(std::string fileName){
+std::vector<std::vector <int > > load_map(std::string fileName){
 
     std::ifstream infile(fileName);
     std::vector<std::vector <int> > map;
