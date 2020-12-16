@@ -91,7 +91,7 @@ void Etat::initializeMapCell(std::string mapResource)
         cout << endl;
         map.push_back(move(newline));
     }
-    
+
     cout << "--- Map created succesfully ---" << endl;
 
     return;
@@ -122,6 +122,12 @@ std::vector<std::unique_ptr<Joueur>> &Etat::getJoueurs()
 {
     vector<unique_ptr<Joueur>> &refCharacters = joueurs;
     return refCharacters;
+}
+
+std::vector<std::unique_ptr<Joueur>> &Etat::getEnnemis()
+{
+    vector<unique_ptr<Joueur>> &ref = ennemis;
+    return ref;
 }
 
 int Etat::getNbrJoueurs(){
@@ -171,6 +177,23 @@ void Etat::initJoueurs(){
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
     joueurs.push_back(move(ptrJ2));
+  }
+  else if(mode == "random_ai")
+  {
+    std::unique_ptr<Joueur> ptrJ1(new Joueur("Raph_joueur", 20));
+    ptrJ1->getCaracteristiques().setSante(100);
+    ptrJ1->getCaracteristiques().setAttaque(10);
+    ptrJ1->getCaracteristiques().setDefense(5);
+    ptrJ1->getCaracteristiques().setVitesse(8);
+    joueurs.push_back(move(ptrJ1));
+
+    std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo_ai", 17));
+    ptrJ2->getCaracteristiques().setSante(100);
+    ptrJ2->getCaracteristiques().setAttaque(10);
+    ptrJ2->getCaracteristiques().setDefense(5);
+    ptrJ2->getCaracteristiques().setVitesse(5);
+
+    ennemis.push_back(move(ptrJ2));
   }
   else
   {
