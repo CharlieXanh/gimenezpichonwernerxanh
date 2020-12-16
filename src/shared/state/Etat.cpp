@@ -8,7 +8,6 @@
 #include "SpaceMapCell.h"
 #include "ObstacleMapCell.h"
 #include <map>
-
 using namespace std;
 using namespace state;
 
@@ -54,7 +53,7 @@ std::vector<std::vector <int > > Etat:: load_map(std::string fileName){
 }
 
 
-void Etat::initializeMapCell(std::string mapResource)
+void Etat::initializeMapCell(std::string mapRessource)
 {
     // Iteration helpers
     unsigned int k = 0;
@@ -66,22 +65,6 @@ void Etat::initializeMapCell(std::string mapResource)
     std::map<int, ObstacleMapCellID> mapp_obstacles;
 
     mapp_spaces[118] = SAND;
-    mapp_spaces[119] = SAND;
-    mapp_spaces[120] = SAND;
-    mapp_spaces[141] = SAND;
-    mapp_spaces[142] = SAND;
-    mapp_spaces[143] = SAND;
-    mapp_spaces[164] = SAND;
-    mapp_spaces[165] = SAND;
-    mapp_spaces[166] = SAND;
-    mapp_spaces[520] = SAND;
-    mapp_spaces[566] = SAND;
-    mapp_spaces[39] = CONCRETE;
-    mapp_spaces[40] = CONCRETE;
-    mapp_spaces[43] = CONCRETE;
-    mapp_spaces[44] = CONCRETE;
-    mapp_spaces[31] = CONCRETE; // actually is wood
-    mapp_spaces[54] = CONCRETE; // actually is wood
     mapp_spaces[55] = CONCRETE; // actually is wood
     mapp_spaces[77] = CONCRETE; // actually is wood
 
@@ -89,7 +72,7 @@ void Etat::initializeMapCell(std::string mapResource)
     mapp_obstacles[497] = WATER;
 
 
-    std::vector<std::vector <int > > map_tile = load_map(mapResource);
+    std::vector<std::vector <int > > map_tile = load_map(mapRessource);
     cout << "--- Loading and building map_tile array succesfully ---" << endl;
 
     std::vector<unique_ptr<MapCell>> primitive;
