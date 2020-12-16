@@ -1,6 +1,7 @@
 #include "Joueur.h"
 #include "Etat.h"
 #include <vector>
+#include <iostream> //debug
 
 using namespace state;
 using namespace std;
@@ -33,25 +34,34 @@ std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
   std::vector<Position> canGoList;
   std::vector<Position> validNears;
 
-  for (auto &nearPosition : position.getPositionsAlentour())
+  cout << "Début calcul déplacements possibles" << endl;
+
+  for (auto &nearPosition : position.getPositionsAlentour()){
       // if within map
-      if (nearPosition.getY() >= 0 && nearPosition.getX() >= 0
+      /*if (nearPosition.getY() >= 0 && nearPosition.getX() >= 0
       && (unsigned int)nearPosition.getX() <= etat.getMap()[0].size()
-      && (unsigned int)nearPosition.getY() <= etat.getMap().size())
+      && (unsigned int)nearPosition.getY() <= etat.getMap().size())*/
           validNears.push_back(move(nearPosition));
+
+  cout << "Position alentour obtenues : " << nearPosition.getX() << " " << nearPosition.getY() << endl;
+  }
 
   for (auto &validNear : validNears)
       for (auto &line : etat.getMap())
       {
           // optimize here to continue if its not near
+          cout << "Lines" << endl;
           if (abs(line[0]->getPosition().getX() - validNear.getX()) >= 2)
               continue;
           for (auto &mapcell : line)
           {
+            cout << "macells" << endl;
               if (abs(mapcell->getPosition().getY() - validNear.getY()) >= 2)
                   continue;
-              if (mapcell->getPosition().egale(validNear) && mapcell->isSpace() && mapcell->isOccupied(etat) == -1)
+              if (mapcell->getPosition().egale(validNear) && mapcell->isSpace() && mapcell->isOccupied(etat) == -1){
                   canGoList.push_back(move(mapcell->getPosition()));
+                  cout << "fill cangolist" << endl;
+                }
           }
       }
   return canGoList;

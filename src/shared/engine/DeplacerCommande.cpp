@@ -23,10 +23,12 @@ void DeplacerCommande::execute(state::Etat &etat)
       if (joueurCible.getDeplacements() > 0)
       {
           //Check deplacements autorisés
+          cout << "calcul deplacements cibles Possibles" << endl;
           for (auto &pos: joueurCible.deplacementsPossibles(etat))
           {
               if (pos.egale(positionCible))
               {
+                  cout << "position cible autorisé" << endl;
                   allowed = true;
                   break;
               }

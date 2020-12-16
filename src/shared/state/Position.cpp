@@ -1,4 +1,5 @@
 #include "Position.h"
+#include <iostream>
 
 using namespace state;
 using namespace std;
@@ -59,6 +60,7 @@ int Position::distance(Position& autre){
 std::vector<Position> Position::getPositionsAlentour(){
 	// 4 positions, near
 	// here we doesnt validate if he is within the map.
+	cout << "get position alentour" << endl;
 	std::vector<Position> result;
 	Position north{this->getX(), this->getY() + 1};
 	Position south{this->getX(), this->getY() - 1};
