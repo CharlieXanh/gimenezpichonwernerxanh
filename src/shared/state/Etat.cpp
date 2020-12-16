@@ -5,6 +5,10 @@
 #include <memory>
 #include <vector>
 
+#include "SpaceMapCell.h"
+#include "ObstacleMapCell.h"
+#include <map>
+
 using namespace std;
 using namespace state;
 
