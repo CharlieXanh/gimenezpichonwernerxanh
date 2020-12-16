@@ -1,29 +1,34 @@
 #include "Ordre.h"
+#include "Etat.h"
+#include <iostream>
+#include <unistd.h>
 
 using namespace state;
+using namespace std;
 
-Ordre::    Ordre (std::vector<std::unique_ptr<Joueur>>& joueurs)
-: joueurs(joueurs)
+Ordre::    Ordre (state::Etat& etat)
+: joueurs(etat.getJoueurs())
 {}
 
 Ordre::    ~Ordre (){}
 
-Joueur& Ordre::JoueurSuivant (){
-  Joueur def{"Default",0};
-  return def;
+int Ordre::JoueurSuivant (state::Etat& etat){
+  int index = etat.getTour() % etat.getNbrJoueurs();
+  return index+1;
 }
 
 bool Ordre::supprJoueur (Joueur& joueur){
-  //this->joueurs.remove(joueur);
+//  this->joueurs.remove(joueur);
   return true;
 }
 
 void Ordre::AjoutJoueur (Joueur& joueur){
-  //this->joueurs.push_back(joueur);
-
+//  this->joueurs.push_back(joueur);
 }
 
-std::vector<std::string> Ordre::getOrdre (){
-  std::vector<std::string> order;
-  return order;
+void Ordre::printOrdre (state::Etat& etat){
+  cout << " Joueur "<< etat.getTour() % etat.getNbrJoueurs() << endl;
+  for(int i = 0; i < etat.getNbrJoueurs() ; i++){
+    cout << " -> Joueur "<< etat.getTour() % etat.getNbrJoueurs()+i << endl;
+  }
 }
