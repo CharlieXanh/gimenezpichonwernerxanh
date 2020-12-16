@@ -44,12 +44,6 @@ std::vector<std::vector <int > > Etat:: load_map(std::string fileName){
         lineVector.clear();
     }
 
-    std::map<int, SpaceMapCellID> mapp_spaces;
-    std::map<int, ObstacleMapCellID> mapp_obstacles;
-    std::vector<unique_ptr<MapCell>> primitive;
-
-
-
     return map;
 }
 
@@ -62,60 +56,30 @@ void Etat::initializeMapCell(std::string mapResource)
     // mapping (this will be dependent on the choosed resource)
     // dictionary to signalize the type of each tileset by his id
     // (tile id defined by the position of the tile in de resource, we dont define it)
-    std::map<int, SpaceMapCellID> mapp_spaces;
-    std::map<int, ObstacleMapCellID> mapp_obstacles;
-
-    mapp_spaces[118] = SAND;
-    mapp_spaces[119] = SAND;
-    mapp_spaces[120] = SAND;
-    mapp_spaces[141] = SAND;
-    mapp_spaces[142] = SAND;
-    mapp_spaces[143] = SAND;
-    mapp_spaces[164] = SAND;
-    mapp_spaces[165] = SAND;
-    mapp_spaces[166] = SAND;
-    mapp_spaces[520] = SAND;
-    mapp_spaces[566] = SAND;
-    mapp_spaces[39] = CONCRETE;
-    mapp_spaces[40] = CONCRETE;
-    mapp_spaces[43] = CONCRETE;
-    mapp_spaces[44] = CONCRETE;
-    mapp_spaces[31] = CONCRETE; // actually is wood
-    mapp_spaces[54] = CONCRETE; // actually is wood
-    mapp_spaces[55] = CONCRETE; // actually is wood
-    mapp_spaces[77] = CONCRETE; // actually is wood
-
-    mapp_obstacles[496] = WATER;
-    mapp_obstacles[497] = WATER;
-
 
     std::vector<std::vector <int > > map_tile = load_map(mapResource);
     cout << "--- Loading and building map_tile array succesfully ---" << endl;
+
+    std::vector<int> const mapp_spaces { 0, 2, 3, 5, 7 };
 
     std::vector<unique_ptr<MapCell>> primitive;
 
     for (unsigned int i = 0;i<map_tile.size();i++)
     {
         std::vector<std::unique_ptr<MapCell>> newline;
-        for (unsigned int j = 0; j < map_tile.size(); j++)
+        for (unsigned int j = 0; j < map_tile[i].size(); j++)
         {
-            cout << map_tile[k] << ",";
-            if (map_tile[k])
+            if (map_tile[i][j])
             {
-                if (mapp_spaces.find(map_tile[k]) != mapp_spaces.end())
+                if (mapp_spaces.find(map_tile[i][j]]) != mapp_spaces.end())
                 {
-                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(mapp_spaces[map_tile[k]], j, i, map_tile[k]));
+                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]]));
                     newline.push_back(move(spc));
-                }
-                else if (mapp_obstacles.find(map_tile[k]) != mapp_obstacles.end())
-                {
-                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(mapp_obstacles[map_tile[k]], j, i, map_tile[k]));
-                    newline.push_back(move(obs));
                 }
                 else
                 {
-                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(mapp_spaces[map_tile[118]], j, i, map_tile[118]));
-                    newline.push_back(move(spc));
+                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]]));
+                    newline.push_back(move(obs));
                 }
             }
             k++;
@@ -123,7 +87,9 @@ void Etat::initializeMapCell(std::string mapResource)
         cout << endl;
         map.push_back(move(newline));
     }
+    
     cout << "--- Map created succesfully ---" << endl;
+
     return;
 }
 
