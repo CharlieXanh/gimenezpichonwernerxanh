@@ -4,7 +4,7 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
-## Release 1.final
+## Release 2.final
 
 ## Get Started
 
@@ -48,9 +48,29 @@ $ ./bin/client engine
 ```
 >Pour lancer un tour, appuyez sur une touche.
 
+## Affichage d'un joueur qui est deplace par l'IA
+```sh
+$ ./bin/client random_ai
+```
+
 ## Historique des release
+* 2.final
+    * Creation du diagramme de l'IA simple
+    * Implémentation d'une IA simple basée sur l'aléatoire
+    * Rapport 2.final
+* 2.2
+    * Creation du diagramme du moteur de jeu
+    * Implementation du moteur de jeu
+    * Rapport 2.2
+* 2.1
+    * Creation de diagramme de rendu
+    * Implementation du rendu
+    * Rapport 2.1
 * 1.final
     * Creation du diagramme d'etat
     * Implementation des premiers tests unitaires
+    * Premiers tests de code coverage
+    * Rapport 1.final
 * 1.1
     * Implementation d'un message de retour
+    * Rapport 1.1
