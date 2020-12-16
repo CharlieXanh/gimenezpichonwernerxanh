@@ -8,7 +8,7 @@
 using namespace std;
 using namespace state;
 
-Etat::Etat(std::string nMode) : curseur(10, 10), ordre(joueurs)
+Etat::Etat(std::string nMode) : curseur(10, 10), ordre(*this)
 {
     this-> mode = nMode;
     cout << "Creation d'un objet ETAT en mode >>>" + mode + "<<<\n";
@@ -148,6 +148,10 @@ std::vector<std::unique_ptr<Joueur>> &Etat::getJoueurs()
 {
     vector<unique_ptr<Joueur>> &refCharacters = joueurs;
     return refCharacters;
+}
+
+int Etat::getNbrJoueurs(){
+  return this->nbrJoueurs;
 }
 
 int Etat::getTour()
