@@ -74,12 +74,12 @@ void Etat::initializeMapCell(std::string mapResource)
             {
                 if (std::find(mapp_spaces.begin(),mapp_spaces.end(),map_tile[i][j]) != mapp_spaces.end())
                 {
-                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]]));
+                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]));
                     newline.push_back(move(spc));
                 }
                 else
                 {
-                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]]));
+                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]));
                     newline.push_back(move(obs));
                 }
             }
