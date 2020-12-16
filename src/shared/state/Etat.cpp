@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <memory>
+#include <algorithm>
 #include <vector>
 
 #include "SpaceMapCell.h"
@@ -70,7 +71,7 @@ void Etat::initializeMapCell(std::string mapRessource)
         {
             if (map_tile[i][j])
             {
-                if (mapp_spaces.find(map_tile[i][j]]) != mapp_spaces.end())
+                if (std::find(mapp_spaces.begin(),mapp_spaces.end(),map_tile[i][j]) != mapp_spaces.end())
                 {
                     std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]]));
                     newline.push_back(move(spc));
