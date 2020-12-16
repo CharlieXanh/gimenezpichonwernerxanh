@@ -57,6 +57,25 @@ std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
   return canGoList;
 }
 
+std::vector<int> Joueur::ciblesPossibles(Etat& etat){
+  vector<int> possibleIndexes;
+  for(unsigned int i = 0; i < etat.getJoueurs().size(); i++){
+      Joueur& charac = *etat.getJoueurs()[i];
+      if(charac.getNom() != this->getNom() && charac.getStatut() != MORT){
+          // check distances
+          int maxDistance = 2; //test value
+          if(position.distance(charac.getPosition()) <= maxDistance){
+              possibleIndexes.push_back(i);
+          }
+      }
+  }
+  return possibleIndexes;
+}
+
+int Joueur::getJoueurIndex(){
+  return joueurIndex;
+}
+
 JoueurStatutID Joueur::getStatut() const{
   return this->statut;
 }
