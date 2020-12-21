@@ -13,9 +13,9 @@ using namespace std;
 
 void RandomAI::run(engine::Engine &engine)
 {
-    int randomCharSelected = selectPersonnage(engine.getEtat());
+    //int randomCharSelected = selectPersonnage(engine.getEtat());
     // always select someone
-    Joueur &selectedChar = *engine.getEtat().getJoueurs()[randomCharSelected];
+    Joueur &selectedChar = *engine.getEtat().getEnnemis()[numeroEnnemi];
     //unique_ptr<Commande> selectCommand(new SelectCharacterCommand(selectedChar));
     //engine.ajoutCommande(move(selectCommand));
     selectedChar.setStatut(SEL);
@@ -95,30 +95,30 @@ void RandomAI::run(engine::Engine &engine)
     }
 }
 
-int RandomAI::selectPersonnage (state::Etat& etat){
-    std::vector<int> posibleIndex;
+// int RandomAI::selectPersonnage (state::Etat& etat){
+//     std::vector<int> posibleIndex;
+//
+//     for(unsigned int i = 0; i < etat.getJoueurs().size(); i++){
+//         Joueur &charac = *etat.getJoueurs()[i];
+//         if(charac.getJoueurIndex() == numeroJoueur && charac.getStatut() != MORT)
+//             posibleIndex.push_back(i);
+//     }
+//
+//     int randomNumber = rand() % posibleIndex.size();
+//     cout << "[";
+//     for(auto &index : posibleIndex){
+//         cout << index << ", ";
+//     }
+//     cout << "]" << endl;
+//     return posibleIndex[randomNumber];
+// }
 
-    for(unsigned int i = 0; i < etat.getJoueurs().size(); i++){
-        Joueur &charac = *etat.getJoueurs()[i];
-        if(charac.getJoueurIndex() == numeroJoueur && charac.getStatut() != MORT)
-            posibleIndex.push_back(i);
-    }
-
-    int randomNumber = rand() % posibleIndex.size();
-    cout << "[";
-    for(auto &index : posibleIndex){
-        cout << index << ", ";
-    }
-    cout << "]" << endl;
-    return posibleIndex[randomNumber];
+int RandomAI::getNumeroEnnemi (){
+    return numeroEnnemi;
 }
 
-int RandomAI::getNumeroJoueur (){
-    return numeroJoueur;
-}
-
-void RandomAI::setNumeroJoueur (int pn){
+void RandomAI::setNumeroEnnemi (int pn){
     if(pn == 1 || pn == 2){
-        numeroJoueur = pn;
+        numeroEnnemi = pn;
     }
 }
