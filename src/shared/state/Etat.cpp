@@ -57,7 +57,7 @@ void Etat::initializeMapCell(std::string mapRessource)
     // dictionary to signalize the type of each tileset by his id
     // (tile id defined by the position of the tile in de resource, we dont define it)
 
-    std::vector<std::vector <int > > map_tile = load_map(mapResource);
+    std::vector<std::vector <int > > map_tile = load_map(mapRessource);
     cout << "--- Loading and building map_tile array succesfully ---" << endl;
 
     std::vector<int> const mapp_spaces { 0, 2, 3, 5, 7 };
@@ -73,12 +73,12 @@ void Etat::initializeMapCell(std::string mapRessource)
             {
                 if (std::find(mapp_spaces.begin(),mapp_spaces.end(),map_tile[i][j]) != mapp_spaces.end())
                 {
-                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]]));
+                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]));
                     newline.push_back(move(spc));
                 }
                 else
                 {
-                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]]));
+                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]));
                     newline.push_back(move(obs));
                 }
             }
@@ -87,7 +87,7 @@ void Etat::initializeMapCell(std::string mapRessource)
         cout << endl;
         map.push_back(move(newline));
     }
-    
+
     cout << "--- Map created succesfully ---" << endl;
 
     return;
