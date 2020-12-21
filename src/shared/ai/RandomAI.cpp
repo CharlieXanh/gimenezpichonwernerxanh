@@ -15,7 +15,7 @@ void RandomAI::run(engine::Engine &engine)
 {
     //int randomCharSelected = selectPersonnage(engine.getEtat());
     // always select someone
-    Joueur &selectedChar = *engine.getEtat().getEnnemis()[numeroEnnemi];
+    Joueur &selectedChar = *engine.getEtat().getJoueurs()[numeroEnnemi];
     //unique_ptr<Commande> selectCommand(new SelectCharacterCommand(selectedChar));
     //engine.ajoutCommande(move(selectCommand));
     selectedChar.setStatut(SEL);
