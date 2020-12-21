@@ -19,16 +19,16 @@ void DeplacerCommande::execute(state::Etat &etat)
   if (joueurCible.getStatut() == SEL)
   {
       // if the character has moves to do
-      cout << "Move chances left " << joueurCible.getDeplacements() << endl;
+      cout << "Chances de déplacements restantes : " << joueurCible.getDeplacements() << endl;
       if (joueurCible.getDeplacements() > 0)
       {
           //Check deplacements autorisés
-          cout << "calcul deplacements cibles Possibles" << endl;
+          //cout << "calcul deplacements cibles Possibles" << endl;
           for (auto &pos: joueurCible.deplacementsPossibles(etat))
           {
               if (pos.egale(positionCible))
               {
-                  cout << "position cible autorisé" << endl;
+                  //cout << "position cible autorisé" << endl;
                   allowed = true;
                   break;
               }
@@ -41,14 +41,14 @@ void DeplacerCommande::execute(state::Etat &etat)
               joueurCible.setDeplacements(joueurCible.getDeplacements() - 1);
               // TODO refresh to the base move quantity for each character if the are not death.
 
-              cout << "The character " << joueurCible.getNom() << " has been moved to [" << positionCible.getX() << ", " << positionCible.getY() << "]" << endl;
-              cout << "Decreasing by 1 moving chances, now the character has " << joueurCible.getDeplacements() << " move chances left" << endl;
+              cout << "Le joueur " << joueurCible.getNom() << " a été déplacé en [" << positionCible.getX() << ", " << positionCible.getY() << "]" << endl;
+              cout << "Chance de déplacement décrémentée, le joueur en a " << joueurCible.getDeplacements() << " restantes" << endl;
           }
           else
-              cout << "The character " << joueurCible.getNom() << " can't move to that position" << endl;
+              cout << "Le joueur " << joueurCible.getNom() << " ne peut pas se déplacer à cette position" << endl;
       }
       else
-          cout << "Can't move anymore" << endl;
+          cout << "Plus de déplacement possible" << endl;
   }
   cout << "\n";
 }

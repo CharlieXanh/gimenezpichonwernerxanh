@@ -70,14 +70,14 @@ int main(int argc,char* argv[])
     engine::Engine ngine;
     cout << "--- objet engine crée ---" << endl;
 
-    ngine.getEtat().initializeMapCell("res/arene.csv");
+    ngine.getEtat().initializeMapCell("res/Map/arene.csv");
     cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs initialisée ---" << endl;
 
-    Position pos1(10,240,"Nord");
-    Position pos2(400,240,"Nord");
+    Position pos1(10,15,"Nord");
+    Position pos2(4,15,"Nord");
     ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
     ngine.getEtat().getJoueurs()[1]->setPosition(pos2);
 
@@ -139,12 +139,12 @@ int main(int argc,char* argv[])
              ngine.getEtat().getJoueurs()[0]->getPosition().getX() << " " <<
              ngine.getEtat().getJoueurs()[0]->getPosition().getY() << endl;
 
-            Position pos11{initialXP1, 1+initialYP1};
-            cout << "trying to move to : "<< pos11.getX() <<" "<< pos11.getY() <<endl;
+            Position pos11{initialXP1, ++initialYP1};
+            //cout << "trying to move to : "<< pos11.getX() <<" "<< pos11.getY() <<endl;
             unique_ptr<engine::Commande> ptr_dc1(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos11));
             ngine.ajoutCommande(move(ptr_dc1), priority++);
 
-            Position pos12{initialXP1, 1+pos11.getY()};
+            Position pos12{initialXP1, ++initialYP1};
             unique_ptr<engine::Commande> ptr_dc2(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos12));
             ngine.ajoutCommande(move(ptr_dc2), priority++);
 
@@ -152,7 +152,7 @@ int main(int argc,char* argv[])
                                                                               *ngine.getEtat().getJoueurs()[1]));
             ngine.ajoutCommande(move(ptr_atqc1),priority++);
 
-            Position pos13{5+initialXP1, pos12.getY()};
+            Position pos13{++initialXP1, initialYP1};
             unique_ptr<engine::Commande> ptr_dc3(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos13));
             ngine.ajoutCommande(move(ptr_dc3), priority++);
 
@@ -167,11 +167,11 @@ int main(int argc,char* argv[])
              ngine.getEtat().getJoueurs()[0]->getPosition().getX() << " " <<
              ngine.getEtat().getJoueurs()[0]->getPosition().getY() << endl;
 
-            Position pos11{initialXP1, initialYP1 - 25};
+            Position pos11{initialXP1, --initialYP1};
             unique_ptr<engine::Commande> ptr_dc1(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos11));
             ngine.ajoutCommande(move(ptr_dc1), priority++);
 
-            Position pos12{initialXP1,  pos11.getY() - 25};
+            Position pos12{initialXP1,  --initialYP1};
             unique_ptr<engine::Commande> ptr_dc2(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos12));
             ngine.ajoutCommande(move(ptr_dc2), priority++);
 
@@ -179,7 +179,7 @@ int main(int argc,char* argv[])
                                                                                *ngine.getEtat().getJoueurs()[0]));
             ngine.ajoutCommande(move(ptr_atqc1),priority++);
 
-            Position pos13{initialXP1-50 ,  pos12.getY()};
+            Position pos13{--initialXP1 ,  initialYP1};
             unique_ptr<engine::Commande> ptr_dc3(new engine::DeplacerCommande(*ngine.getEtat().getJoueurs()[0],pos13));
             ngine.ajoutCommande(move(ptr_dc3), priority++);
 
@@ -210,14 +210,14 @@ int main(int argc,char* argv[])
     engine::Engine ngine("random_ai");
     cout << "--- objet engine créé ---" << endl;
 
-    ngine.getEtat().initializeMapCell("res/arene.csv");
+    ngine.getEtat().initializeMapCell("res/Map/arene.csv");
     cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs & ennemis initialisés ---" << endl;
 
-    Position pos1(10,240,"Nord");
-    Position pos2(60,240,"Nord");
+    Position pos1(10,15,"Nord");
+    Position pos2(10,4,"Nord");
     ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
     ngine.getEtat().getEnnemis()[0]->setPosition(pos2);
 
@@ -235,7 +235,7 @@ int main(int argc,char* argv[])
     while (state.window->isOpen() )
     {
       sf::Event event;
-      //state.update();
+      state.update();
 
       while( state.window->pollEvent(event))
       {
@@ -247,8 +247,9 @@ int main(int argc,char* argv[])
           state.window->close();
         else if (event.type == sf::Event::KeyPressed)
         {
+          
           rai1.run(ngine);
-          //ngine.update();
+          ngine.update();
 
           waitkey = true;
 

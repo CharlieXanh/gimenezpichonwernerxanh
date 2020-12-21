@@ -1,5 +1,6 @@
 #include "Joueur.h"
 #include "Etat.h"
+#include "SpaceMapCell.h"
 #include <vector>
 #include <iostream> //debug
 
@@ -34,33 +35,38 @@ std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
   std::vector<Position> canGoList;
   std::vector<Position> validNears;
 
-  cout << "Début calcul déplacements possibles" << endl;
+  //cout << "Début calcul déplacements possibles" << endl;
 
   for (auto &nearPosition : position.getPositionsAlentour()){
       // if within map
-      /*if (nearPosition.getY() >= 0 && nearPosition.getX() >= 0
-      && (unsigned int)nearPosition.getX() <= etat.getMap()[0].size()
-      && (unsigned int)nearPosition.getY() <= etat.getMap().size())*/
-          validNears.push_back(move(nearPosition));
+      //cout << "etat getMap size = " << etat.getMap().size() << endl;
 
-  cout << "Position alentour obtenues : " << nearPosition.getX() << " " << nearPosition.getY() << endl;
+      if (nearPosition.getY() >= 0 && nearPosition.getX() >= 0
+      && (unsigned int)nearPosition.getX() <= etat.getMap()[0].size()
+      && (unsigned int)nearPosition.getY() <= etat.getMap().size()) {
+
+          validNears.push_back(move(nearPosition));
+          //cout << "Position alentour obtenues : " << nearPosition.getX() << " " << nearPosition.getY() << endl;
+      }
   }
 
   for (auto &validNear : validNears)
       for (auto &line : etat.getMap())
       {
           // optimize here to continue if its not near
-          cout << "Lines" << endl;
-          if (abs(line[0]->getPosition().getX() - validNear.getX()) >= 2)
+          // cout << "Lines" << endl;
+          if (abs(line[0]->getPosition().getY() - validNear.getY()) >= 2)
               continue;
           for (auto &mapcell : line)
           {
-            cout << "macells" << endl;
-              if (abs(mapcell->getPosition().getY() - validNear.getY()) >= 2)
+          //  cout << "mapcells at "<< mapcell->getPosition().getX() << " " <<
+          //  mapcell->getPosition().getY() <<" isSpace :" << mapcell->isSpace() << endl;
+            if (abs(mapcell->getPosition().getX() - validNear.getX()) >= 2)
                   continue;
+
               if (mapcell->getPosition().egale(validNear) && mapcell->isSpace() && mapcell->isOccupied(etat) == -1){
                   canGoList.push_back(move(mapcell->getPosition()));
-                  cout << "fill cangolist" << endl;
+                  //cout << "fill cangolist" << endl;
                 }
           }
       }
