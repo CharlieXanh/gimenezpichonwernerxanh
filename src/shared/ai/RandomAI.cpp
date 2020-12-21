@@ -37,7 +37,6 @@ void RandomAI::run(engine::Engine &engine)
                 unique_ptr<Commande> atkCmd(new AttaquerCommande(selectedChar, targetToAttack));
                 engine.ajoutCommande(move(atkCmd));
                 engine.update();
-
                 unique_ptr<Commande> finTurnCmd(new TerminerTourCommande());
                 engine.ajoutCommande(move(finTurnCmd));
                 engine.update();
@@ -118,7 +117,5 @@ int RandomAI::getNumeroEnnemi (){
 }
 
 void RandomAI::setNumeroEnnemi (int pn){
-    if(pn == 1 || pn == 2){
-        numeroEnnemi = pn;
-    }
+    numeroEnnemi = pn;
 }

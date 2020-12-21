@@ -77,7 +77,7 @@ void Etat::initializeMapCell(std::string mapRessource)
                 if (std::find(mapp_spaces.begin(),mapp_spaces.end(),map_tile[i][j]) != mapp_spaces.end())
                 {
                     std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]));
-                    newline.push_back(move(spc));
+                    newline.push_back(move(spc)); 
                 }
                 else
                 {

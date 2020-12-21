@@ -30,5 +30,5 @@ void ObstacleMapCell::setTypeID (ObstacleMapCellID newTypeID){
 }
 
 bool ObstacleMapCell::isSpace (){
-    return false;
+    return true;
 }
