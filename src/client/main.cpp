@@ -1,7 +1,7 @@
 #include <iostream>
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
-
+#include <time.h>
 void testSFML() {
     sf::Texture texture;
 }
@@ -262,6 +262,43 @@ int main(int argc,char* argv[])
           state.StateRender_combat(nextP1,nextP2);
           state.update();
         }
+      }
+    }
+
+    if(argc>= 2 && strcmp(argv[1],"aetoile") == 0 ){
+
+      int SIZE_X = 30;
+      int SIZE_Y = 60;
+      //Create map
+      srand(time(NULL));
+      std::vector<std::vector<int>> mapp;
+      int value;
+      for(int i=0;i<SIZE_X;i++){
+        std::vector<int> line{}; 
+        for(int j=0;j<SIZE_Y;j++){
+          value = rand()%10;
+          if(value>=8)
+            line.push_back(1);
+          else
+            line.push_back(0);
+        }
+        mapp.push_back(line);
+      }
+
+      //Create a start and a end noeud 
+      sf::Vector2u* start = new sf::Vector2u(rand()%SIZE_X,rand()%SIZE_Y);
+      sf::Vector2u* end  = new sf::Vector2u(rand()%SIZE_X,rand()%SIZE_Y);
+
+      mapp[end->x][end->y] = 0;
+      mapp[start->x][start->y] = 0;
+
+      Aetoile* chemin = new Aetoile(mapp,*start,*end);
+
+      chemin->computePath(true);
+      std::vector<sf::Vector2u > path = chemin->getPath();
+
+      for(auto x : path){
+        std::cout << x.x << " " << x.y << std::endl;
       }
     }
 
