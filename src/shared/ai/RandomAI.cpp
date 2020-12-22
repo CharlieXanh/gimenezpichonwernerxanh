@@ -1,4 +1,4 @@
-#include "ai.h"
+#include "../ai.h"
 #include "engine.h"
 #include "state.h"
 #include <iostream>

@@ -1,5 +1,7 @@
-#include "Aetoile.h"
-
+#include "../ai.h"
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
 
 Aetoile :: Aetoile(std::vector<std::vector<int>> mapp,sf::Vector2u start,sf::Vector2u end){
 

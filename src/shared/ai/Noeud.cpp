@@ -1,5 +1,12 @@
-#include "Noeud.h"
-Noeud :: Noeud (int x,int y,Noeud* parent,Noeud* end){
+#include "../ai.h"
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+
+
+
+
+Noeud :: Noeud (int x=0,int y=0,Noeud* parent,Noeud* end){
 	this->position[0] = x;
 	this->position[1] = y;
 	this->parent = parent;
