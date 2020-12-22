@@ -1,4 +1,11 @@
+#include "ai.h"
 #include "noeud.h"
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+
+
+
 
 Noeud :: Noeud (int x,int y,Noeud* parent,Noeud* end){
 	this->position[0] = x;
