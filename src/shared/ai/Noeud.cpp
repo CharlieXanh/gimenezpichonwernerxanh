@@ -1,11 +1,16 @@
 #include "ai.h"
-#include "noeud.h"
+#include "Noeud.h"
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
+#include <map>
+#include <cmath>
+#include <algorithm>
+#include <vector>
 
 
-
+using namespace ai;
+using namespace std;
 
 Noeud :: Noeud (int x,int y,Noeud* parent,Noeud* end){
 	this->position[0] = x;
@@ -38,7 +43,7 @@ bool Noeud :: inside(std::vector<Noeud*> liste){
 	return false;
 }
 
-int* Noeud::getPosition(){
+std::vector<int> Noeud::getPosition(){
 	return this->position;
 }
 
