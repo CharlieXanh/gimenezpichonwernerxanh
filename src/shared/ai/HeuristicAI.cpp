@@ -94,12 +94,14 @@ void HeuristicAI::run(engine::Engine &engine)
     }
 }
 
-std::vector<std::vector<int>> HeuristicAI::computePath(std::vector<int> start,std::vector<int> end,std::vector<std::vector<int>> mapp,bool print=false){
+std::vector<std::vector<int>> HeuristicAI::computePath(std::vector<int> start, std::vector<int> end, std::vector<std::vector<int>> mapp, bool print = false){
     int i,index;
     Noeud* currentNoeud;
 
-    endNoeud = new Noeud(end[0],end[1],NULL,NULL);
-    startNoeud = new Noeud(start[0],start[1],NULL,endNoeud);
+    Noeud* endNoeud = new Noeud(end[0],end[1],NULL,NULL);
+    Noeud* startNoeud = new Noeud(start[0],start[1],NULL,endNoeud);
+
+     std::vector<std::vector<int>> path;
 
     std::vector<Noeud*> listeFerme;
     std::vector<Noeud*> listeOuverte;
@@ -176,5 +178,3 @@ int HeuristicAI::getNumeroEnnemi (){
 void HeuristicAI::setNumeroEnnemi (int pn){
     numeroEnnemi = pn;
 }
-
-//computePath :
