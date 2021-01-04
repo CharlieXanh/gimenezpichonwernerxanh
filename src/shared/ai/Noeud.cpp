@@ -1,14 +1,20 @@
-#include "../ai.h"
+#include "ai.h"
+#include "Noeud.h"
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
+#include <map>
+#include <cmath>
+#include <algorithm>
+#include <vector>
 
 
+using namespace ai;
+using namespace std;
 
-
-Noeud :: Noeud (int x=0,int y=0,Noeud* parent,Noeud* end){
-	this->position[0] = x;
-	this->position[1] = y;
+Noeud :: Noeud (int x,int y,Noeud* parent,Noeud* end){
+	this->x = x;
+	this->y = y;
 	this->parent = parent;
 	//If the noeud is not the end
 	if(end)
@@ -19,7 +25,7 @@ Noeud :: Noeud (int x=0,int y=0,Noeud* parent,Noeud* end){
 
 void Noeud :: computeScore(Noeud* end){
 	std::map<std::string,int> score;
-	score["end"] = sqrt(pow(end->position[0]-this->position[0] ,2) + pow(end->position[1]-this->position[1],2));
+	score["end"] = sqrt(pow(end->x-this->x ,2) + pow(end->y-this->y,2));
 	if(this->parent!=NULL)
 		score["sum"] = score["end"] + this->parent->score["sum"];
 	else
@@ -30,23 +36,23 @@ void Noeud :: computeScore(Noeud* end){
 
 bool Noeud :: inside(std::vector<Noeud*> liste){
 	for(auto x : liste){
-		if(this->position[0] == x->getX() && this->position[1]== x->getY()){
+		if(this->x == x->getX() && this->y== x->getY()){
 			return true;
 		}
 	}
 	return false;
 }
 
-int* Noeud::getPosition(){
+std::vector<int> Noeud::getPosition(){
 	return this->position;
 }
 
 int Noeud :: getX(){
-	return this->position[0];
+	return this->x;
 }
 
 int Noeud :: getY(){
-	return this->position[1];
+	return this->y;
 }
 
 std::map<std::string , int> Noeud :: getScore(){
@@ -58,7 +64,7 @@ std::vector<Noeud*> Noeud :: voisins(std::vector<std::vector<int>> map,std::vect
 	for(int i = -1;i<2;i++){
 		for(int j = -1;j<2;j++){
 
-			Noeud* newNoeud = new Noeud(this->position[0]+i,this->position[1]+j,this,end);
+			Noeud* newNoeud = new Noeud(this->x+i,this->y+j,this,end);
 
 			if((i!=0 || j!=0) && newNoeud->getX()>=0 && newNoeud->getX()<map.size() && newNoeud->getY()>=0 \
 			&& newNoeud->getY()<map[0].size() &&  map[newNoeud->getX()][newNoeud->getY()]!=1 && !newNoeud->inside(listeFerme)){
