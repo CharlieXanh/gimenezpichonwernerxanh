@@ -33,8 +33,8 @@ void TilePlayer::initSprite()
 	// Set the texture to the Sprite
 	sprite.setTexture(texture);
 	sprite.setTextureRect({64,64, 64, 64});
-	sprite.scale(0.8,0.8);
-	sprite.setPosition(position.x, position.y);
+	sprite.scale(0.25,0.25);
+	sprite.setPosition(position.x*16, position.y*16);
 }
 
 void TilePlayer::render_tile(sf::RenderTarget& target)
@@ -45,8 +45,8 @@ void TilePlayer::render_tile(sf::RenderTarget& target)
 
 void TilePlayer::update_pos (state::Position& position)
 {
-	this->position = sf::Vector2i(position.getX(),position.getY());
-	this->sprite.setPosition(position.getX(),position.getY());
+	this->position = sf::Vector2i(position.getX()*16,position.getY()*16);
+	this->sprite.setPosition(position.getX()*16,position.getY()*16);
 }
 
 sf::Vector2i TilePlayer::getPosition()
