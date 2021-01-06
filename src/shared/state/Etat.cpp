@@ -23,12 +23,13 @@ Etat::Etat(std::string nMode) : curseur(10, 10), ordre(*this)
     cout << "Creation d'un objet MAGASIN" << endl;
     Magasin mag;
     this -> magasin = mag;
-    initializeMapCell("res/arene.csv");
+    initializeMapCell("res/Map/arene.csv");
 }
 
 std::vector<std::vector <int > > load_map(std::string fileName){
 
     std::ifstream infile(fileName);
+
     std::vector<std::vector <int> > map;
     std::vector<int> lineVector;
     std::string sum="";
@@ -46,15 +47,11 @@ std::vector<std::vector <int > > load_map(std::string fileName){
         map.push_back(lineVector);
         lineVector.clear();
     }
-
     return map;
 }
 
-
-void Etat::initializeMapCell(std::string mapRessource)
+void Etat::initializeMapCell(std::string mapResource)
 {
-    // Iteration helpers
-    unsigned int k = 0;
 
     // mapping (this will be dependent on the choosed resource)
     // dictionary to signalize the type of each tileset by his id
@@ -85,15 +82,29 @@ void Etat::initializeMapCell(std::string mapRessource)
                     newline.push_back(move(obs));
                 }
             }
-            k++;
         }
-        cout << endl;
         map.push_back(move(newline));
     }
 
     cout << "--- Map created succesfully ---" << endl;
 
     return;
+}
+
+std::vector<std::vector<int>> loadMapCell(){
+
+    std::vector<int> wall={0,2};
+    std::vector<std::vector<int>> mapWall;
+    for(auto lineMapp : map){
+        std::vector<int> line;
+        for(auto elem : lineMapp){
+            if(std::find(wall.begin(),wall.end(),elem->typeID)!=wall.end()){
+                line.push_back(1);
+            }else{line.push_back(0);}
+        }
+        mapWall.push_back(line);
+    }
+    return mapWall;
 }
 
 // Etat :: Etat(std::vector<Joueur> joueurs, std::vector<Joueur> ennemis,Joueur jouant,
