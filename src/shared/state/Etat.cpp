@@ -57,7 +57,7 @@ void Etat::initializeMapCell(std::string mapResource)
     // dictionary to signalize the type of each tileset by his id
     // (tile id defined by the position of the tile in de resource, we dont define it)
 
-    std::vector<std::vector <int > > map_tile = load_map(mapRessource);
+    std::vector<std::vector <int > > map_tile = load_map(mapResource);
     cout << "--- Loading and building map_tile array succesfully ---" << endl;
 
     std::vector<int> const mapp_spaces { 0, 2, 3, 5, 7 };
@@ -74,7 +74,7 @@ void Etat::initializeMapCell(std::string mapResource)
                 if (std::find(mapp_spaces.begin(),mapp_spaces.end(),map_tile[i][j]) != mapp_spaces.end())
                 {
                     std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]));
-                    newline.push_back(move(spc)); 
+                    newline.push_back(move(spc));
                 }
                 else
                 {
@@ -95,10 +95,11 @@ std::vector<std::vector<int>> loadMapCell(){
 
     std::vector<int> wall={0,2};
     std::vector<std::vector<int>> mapWall;
-    for(auto lineMapp : map){
+    std::vector<std::vector<int>> mapp = load_map("res/Map/arene.csv");
+    for(int j=0;j<mapp.size();j++){
         std::vector<int> line;
-        for(auto elem : lineMapp){
-            if(std::find(wall.begin(),wall.end(),elem->typeID)!=wall.end()){
+        for(int i=0;i<mapp[j].size(); i++){
+            if(std::find(wall.begin(),wall.end(),mapp[j][i])!=wall.end()){
                 line.push_back(1);
             }else{line.push_back(0);}
         }
