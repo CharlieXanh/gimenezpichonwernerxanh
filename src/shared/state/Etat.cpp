@@ -209,17 +209,20 @@ void Etat::initJoueurs(){
   else
   {
     std::unique_ptr<Joueur> ptrJ1(new Joueur("Raph", 20));
-
+    ptrJ1->setJoueurIndex(0);
     ptrJ1->getCaracteristiques().setSante(100);
     ptrJ1->getCaracteristiques().setAttaque(10);
     ptrJ1->getCaracteristiques().setDefense(5);
+    ptrJ1->setDeplacements(3);
     ptrJ1->getPosition().placer(5,10);
     joueurs.push_back(move(ptrJ1));
 
     std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo", 17));
+    ptrJ2->setJoueurIndex(0);
     ptrJ2->getCaracteristiques().setSante(100);
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
+    ptrJ2->setDeplacements(3);
     ptrJ2->getPosition().placer(5,5);
     joueurs.push_back(move(ptrJ2));
   }

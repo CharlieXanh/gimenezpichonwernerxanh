@@ -23,8 +23,8 @@ bool Surface::loadCharacters(state::Etat &state, sf::Texture &textureTileset, sf
 
 
             // on en déduit sa position dans la texture du tileset
-            int tu = tileNumber % (texture.getSize().x / tileSize.x);
-            int tv = tileNumber / (texture.getSize().x / tileSize.x);
+            int tu = 1 ;// tileNumber % (texture.getSize().x / tileSize.x);
+            int tv = 2 ;//tileNumber / (texture.getSize().x / tileSize.x);
 
             // on récupère un pointeur vers le quad à définir dans le tableau de vertex
            sf::Vertex *quad = &quads[i * 4];

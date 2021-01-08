@@ -31,6 +31,10 @@ void Joueur::setDeplacements(int restant){
   this->deplacements = restant;
 }
 
+void Joueur::setJoueurIndex(int newIndex){
+  this->joueurIndex = newIndex;
+}
+
 std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
   std::vector<Position> canGoList;
   std::vector<Position> validNears;
