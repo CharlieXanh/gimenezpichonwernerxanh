@@ -36,34 +36,30 @@ int main(int argc,char* argv[])
 	}
   if(argc >= 2 && strcmp(argv[1],"render") == 0 )
   {
-
-        Position pos_ennemy(400,240,"Nord");
-        Position pos(10,240,"Nord");
-
-        StateRender state(pos);
-
-    while (state.window->isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
+        cout << "--- Render ---" << endl;
 
 
+        Etat state{"render"};
+        state.initializeMapCell();
+        state.initJoueurs();
+        sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "Once upon a wei");
+        StateLayer layer(state, window);
+        layer.initSurfaces(state);
 
-            while (state.window->pollEvent(event))
+        while (window.isOpen())
+        {
+            sf::Event event;
+            while (window.pollEvent(event))
             {
-                if(event.type == sf::Event::Closed)
-              {
-                    state.end();
+                if (event.type == sf::Event::Closed)
+                    window.close();
             }
-            //state.updatePosition(pos);
-
-          state.StateRender_combat(pos,pos_ennemy);
-
-          }
-    }
-    return 0;
+            // render
+            layer.draw(window);
+        }
+        return 0;
   }
-
+/*
   if(argc >= 2 && strcmp(argv[1],"engine") == 0 )
   {
     cout << "--- Engine du jeu ---" << endl;
@@ -266,5 +262,5 @@ int main(int argc,char* argv[])
     }
 
 
-  }//end random_ai
+  }//end random_ai */
 }
