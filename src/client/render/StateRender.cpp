@@ -13,7 +13,7 @@ StateRender:: StateRender (state::Position& position)
 	:player(position.getX(),position.getY())
 	{
 		this->map.load("res/tilemap_packed.png",sf::Vector2u(16,16),"res/Map/map.csv");
-		this->window = new sf::RenderWindow(sf::VideoMode(720,720), "One Upon A Wei",sf::Style::Close);
+		this->window = new sf::RenderWindow(sf::VideoMode(720,720), "Once Upon A Wei",sf::Style::Close);
 		this->view = new  sf::View(sf::Vector2f(0.f, 10.f), sf::Vector2f(360.f, 360.f));
 		this->menu = new LayerMenu(1);
 		this->menuCombat=new LayerMenu(2);

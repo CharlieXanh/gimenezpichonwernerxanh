@@ -24,45 +24,27 @@ void HeuristicAI::run(engine::Engine &engine)
     if (selectedChar.ciblesPossibles(engine.getEtat()).size() > 0)
     {
         // can attack
-        cout << "first if can attack ? true " << endl;
-        int moves = selectedChar.getDeplacements();
-        while (selectedChar.ciblesPossibles(engine.getEtat()).size() > 0 && moves > 0)
-        {
+        cout << "[IA heu] peut attaquer" << endl;
+
+          //todo select player with lowest def or health
             int random = selectedChar.ciblesPossibles(engine.getEtat())[(rand() % (selectedChar.ciblesPossibles(engine.getEtat()).size()))];
             Joueur &targetToAttack = *engine.getEtat().getJoueurs()[random];
-            // choose to attack or to move (0 move, 1 attack)
-            if ((rand() % 2))
-            {
+
                 // attack
                 unique_ptr<Commande> atkCmd(new AttaquerCommande(selectedChar, targetToAttack));
                 engine.ajoutCommande(move(atkCmd));
-                engine.update();
-                unique_ptr<Commande> finTurnCmd(new TerminerTourCommande());
-                engine.ajoutCommande(move(finTurnCmd));
+
                 engine.update();
                 return;
-            }
-            else
-            {
-                // move
-                int randomMove = (rand() % selectedChar.deplacementsPossibles(engine.getEtat()).size());
-                Position &p = selectedChar.deplacementsPossibles(engine.getEtat())[randomMove];
-                unique_ptr<Commande> mvCmd(new DeplacerCommande(selectedChar, p));
-                engine.ajoutCommande(move(mvCmd));
-                engine.update();
-                moves--;
-            }
-        }
-        unique_ptr<Commande> finTurnCmd(new TerminerTourCommande());
-        engine.ajoutCommande(move(finTurnCmd));
-        engine.update();
     }
     else
     {
+
+        cout << "[IA heu] se déplace vers un joueur" << endl;
         int moves = selectedChar.getDeplacements();
         while ( moves > 0)
         {
-            // can NOT attack, JUST MOVE.
+
             int randomMove = (rand() % selectedChar.deplacementsPossibles(engine.getEtat()).size());
             Position p{selectedChar.deplacementsPossibles(engine.getEtat())[randomMove].getX(), selectedChar.deplacementsPossibles(engine.getEtat())[randomMove].getY()};
             unique_ptr<Commande> mvCmd(new DeplacerCommande(selectedChar, p));

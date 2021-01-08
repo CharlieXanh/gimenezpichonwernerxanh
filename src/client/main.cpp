@@ -217,7 +217,7 @@ int main(int argc,char* argv[])
     cout <<"--- joueurs & ennemis initialisés ---" << endl;
 
     Position pos1(10,15,"Nord");
-    Position pos2(10,4,"Nord");
+    Position pos2(10,16,"Nord");
     ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
     ngine.getEtat().getEnnemis()[0]->setPosition(pos2);
 
@@ -247,7 +247,7 @@ int main(int argc,char* argv[])
           state.window->close();
         else if (event.type == sf::Event::KeyPressed)
         {
-          
+
           rai1.run(ngine);
           ngine.update();
 
@@ -259,7 +259,7 @@ int main(int argc,char* argv[])
 
 
           state.updatePosition(nextP1);
-          state.StateRender_combat(nextP1,nextP2);
+          //state.StateRender_combat(nextP1,nextP2);
           state.update();
         }
       }
