@@ -92,6 +92,11 @@ void StateLayer::initSurfaces(state::Etat &state)
     characters.loadCharacters(state, tilesets[1]->getTexture(), sf::Vector2u(tilesets[1]->getCellWidth(), tilesets[1]->getCellHeight()), state.getJoueurs().size(), 1);
     std::unique_ptr<Surface> ptrsurfChar1(new Surface(characters));
 
+    Surface ennemis;
+    ennemis.loadCharacters(state, tilesets[1]->getTexture(), sf::Vector2u(tilesets[1]->getCellWidth(), tilesets[1]->getCellHeight()), state.getEnnemis().size(), 1);
+    std::unique_ptr<Surface> ptrsurfEnn1(new Surface(ennemis));
+
+
     Surface cursor;
     cursor.loadCursor(state, tilesets[2]->getTexture(), sf::Vector2u(tilesets[2]->getCellWidth(),tilesets[2]->getCellHeight()));
     std::unique_ptr<Surface> ptrSurfCursor(new Surface(cursor));
@@ -106,6 +111,7 @@ void StateLayer::initSurfaces(state::Etat &state)
 
     surface.push_back(move(ptrsurfMap));
     surface.push_back(move(ptrsurfChar1));
+    surface.push_back(move(ptrsurfEnn1));
     surface.push_back(move(ptrSurfCursor));
 }
 
@@ -167,8 +173,11 @@ void StateLayer::draw(sf::RenderWindow &window)
     // draw characters
     window.draw(*surface[1]);
 
-    // draw cursor
+    // draw ennemis
     window.draw(*surface[2]);
+
+    // draw cursor
+    window.draw(*surface[3]);
     printText();
 
     for(auto& d : drawables){
@@ -190,18 +199,18 @@ bool StateLayer::printText()
         player1.setFillColor(sf::Color::Green);
     texts.push(player1);
 
-    // sf::Text player2;
-    // player2.setPosition(window.getSize().x - 240.f, (window.getSize().y / 2));
-    // player2.setFont(font);
-    // player2.setString("Joueur 2");
-    // if(currentState.getJouant() == 2)
-    //     player2.setFillColor(sf::Color::Green);
-    // texts.push(player2);
+    sf::Text player2;
+    player2.setPosition(window.getSize().x - 240.f, (window.getSize().y / 2));
+    player2.setFont(font);
+    player2.setString("Ennemis :");
+    if(currentState.getJouant() == 2)
+        player2.setFillColor(sf::Color::Green);
+    texts.push(player2);
 
     float playerOneBasePos = player1.getPosition().y + 50.f;
-    //float playerTwoBasePos = player2.getPosition().y + 32.f;
+    float playerTwoBasePos = player2.getPosition().y + 50.f;
 
-//TODO : get ENNEMIS
+
     for (auto &charac : currentState.getJoueurs())
     {
         // if (charac->getJoueurIndex() == 0)
@@ -259,10 +268,67 @@ bool StateLayer::printText()
         }
     }
 
+    for (auto &charac : currentState.getEnnemis())
+    {
+        // if (charac->getJoueurIndex() == 0)
+        // {
+            sf::Text textStats;
+            textStats.setPosition(window.getSize().x - 240.f, playerTwoBasePos);
+            textStats.setFont(font);
+            std::string str = charac->getNom() + "\n";
+            str += "Health: " + std::to_string((charac->getCaracteristiques().getSante() <= 0) ? 0 : charac->getCaracteristiques().getSante()) + "\n";
+            str += "Moves: " + std::to_string(charac->getDeplacements()) + "\n";
+          //  str += "Attack dist.: " + std::to_string(charac->getCharacterAttackDistance());
+            textStats.setString(str);
+
+            if(charac->getStatut() == SEL)
+                textStats.setFillColor(sf::Color::Green);
+
+            else if(charac->getStatut() == MORT)
+                textStats.setFillColor(sf::Color::Red);
+
+            textStats.setCharacterSize(15); // in pixels, not points!
+
+            playerTwoBasePos += 75.f;
+            texts.push(textStats);
+        // }
+        // else
+        // {
+        //     sf::Text textStats;
+        //     textStats.setPosition(window.getSize().x - 240.f, playerTwoBasePos);
+        //     textStats.setFont(font);
+        //     std::string str = charac->getNom() + "\n";
+        //     str += "Health: " + std::to_string((charac->getCaracteristiques().getSante() <= 0) ? 0 : charac->getCaracteristiques().getSante()) + "\n";
+        //     str += "Moves: " + std::to_string(charac->getDeplacements()) + "\n";
+        //   //  str += "Attack dist.: " + std::to_string(charac->getCharacterAttackDistance());
+        //     textStats.setString(str);
+        //
+        //     if(charac->getStatut() == SEL)
+        //         textStats.setFillColor(sf::Color::Green);
+        //
+        //     else if(charac->getStatut() == MORT)
+        //         textStats.setFillColor(sf::Color::Red);
+        //
+        //     textStats.setCharacterSize(15); // in pixels, not points!
+        //     playerTwoBasePos += 100.f;
+        //     texts.push(textStats);
+        // }
+        if(charac->getStatut() == SEL){
+            sf::Text selectedChar;
+            selectedChar.setPosition(window.getSize().y / 2.f + 6.f*32.f, window.getSize().y-32.f);
+            selectedChar.setFont(font);
+            string str = "Selected " + charac->getNom() + " (P" + std::to_string(charac->getJoueurIndex()) + ")";
+            selectedChar.setString(str);
+            selectedChar.setCharacterSize(18);
+            selectedChar.setFillColor(sf::Color::Green);
+            texts.push(selectedChar);
+        }
+    }
+
     sf::Text controls;
     controls.setPosition(16.f, window.getSize().y-32.f);
     controls.setFont(font);
-    controls.setString("Select: ENTER   -   Move: M   -   Attack: A   -   Skip: S");
+    controls.setString("Commandes : à definir");
     controls.setCharacterSize(18);
     controls.setFillColor(sf::Color::White);
     texts.push(controls);

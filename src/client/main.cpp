@@ -59,53 +59,72 @@ int main(int argc,char* argv[])
         }
         return 0;
   }
-/*
+
   if(argc >= 2 && strcmp(argv[1],"engine") == 0 )
   {
+
     cout << "--- Engine du jeu ---" << endl;
     engine::Engine ngine;
     cout << "--- objet engine crée ---" << endl;
 
-    ngine.getEtat().initializeMapCell("res/Map/arene.csv");
+    ngine.getEtat().initializeMapCell();
     cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs initialisée ---" << endl;
 
-    Position pos1(10,15,"Nord");
-    Position pos2(4,15,"Nord");
-    ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
-    ngine.getEtat().getJoueurs()[1]->setPosition(pos2);
+    //-----------------------------
+    sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+    //sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32, ngine.getEtat().getMap().size() * 32 + 32, 32), "map");
+    StateLayer layer(ngine.getEtat(), window);
 
-    StateRender state(pos1);
-    state.StateRender_combat(pos1,pos2);
+    layer.initSurfaces(ngine.getEtat());
+    cout << "--- fenêtre du jeu initialisée ---" << endl;
+
+    StateLayer stateLayer(ngine.getEtat(), window);
+    cout << "--- state layer initialisée avec l'état et la fenêtre ---" << endl;
+
+    stateLayer.initSurfaces(ngine.getEtat());
+    cout << "--- Surfaces du state layer initialisées ---" << endl;
+
+    // Registering observer
+    StateLayer *ptr_stateLayer = &stateLayer;
+    ngine.getEtat().registerObserver(ptr_stateLayer);
+
+
 
     cout << "--- joueur " << ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
     cout << "--- joueur " << ngine.getEtat().getJoueurs()[1]->getNom() << " positioné ---" << endl;
 
     int turns2go = 4;
     bool waitkey=true;
-    while (state.window->isOpen() )
+    bool once = true;
+    while (window.isOpen() )
     {
       sf::Event event;
       //state.update();
-
-      while( state.window->pollEvent(event))
+      if (once)
+      {
+          stateLayer.draw(window);
+          once = false;
+      }
+      while( window.pollEvent(event))
       {
         if(waitkey){
+
           cout << "Appuyer sur une touche pour lancer un tour" << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
-          state.window->close();
+          window.close();
         else if (event.type == sf::Event::KeyPressed)
         {
 
           cout << "Key pressed !" << endl;
           cout << endl
-               << "#########################################" << endl;
+               << "|||||||||||||||||||||||||||||||||||||||||" << endl;
           cout << "turn number: " << (5-turns2go) << endl;
-          cout << "#########################################" << endl
+          cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
                << endl;
 
           ngine.getEtat().getJoueurs()[0]->setDeplacements(3);
@@ -127,7 +146,7 @@ int main(int argc,char* argv[])
             sleep(2);
             cout << "No more turns left" << endl;
             cout << "ENGINE SHOW finished, closing window" << endl;
-            state.window->close();
+            window.close();
           }
           else if( (turns2go%2) == 1){
 
@@ -187,14 +206,6 @@ int main(int argc,char* argv[])
             turns2go--;
             waitkey = true;
           }
-
-          Position nextP1 = ngine.getEtat().getJoueurs()[0]->getPosition();
-          Position nextP2 = ngine.getEtat().getJoueurs()[1]->getPosition();
-
-
-          state.updatePosition(nextP1);
-          state.StateRender_combat(nextP1,nextP2);
-          state.update();
         }
       }
     }
@@ -206,57 +217,64 @@ int main(int argc,char* argv[])
     engine::Engine ngine("random_ai");
     cout << "--- objet engine créé ---" << endl;
 
-    ngine.getEtat().initializeMapCell("res/Map/arene.csv");
+    ngine.getEtat().initializeMapCell();
     cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
     cout <<"--- joueurs & ennemis initialisés ---" << endl;
 
-    Position pos1(10,15,"Nord");
-    Position pos2(10,16,"Nord");
-    ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
-    ngine.getEtat().getEnnemis()[0]->setPosition(pos2);
+    //-----------------------------
+    sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+    //sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32, ngine.getEtat().getMap().size() * 32 + 32, 32), "map");
+    StateLayer layer(ngine.getEtat(), window);
 
-    StateRender state(pos1);
-    state.StateRender_combat(pos1,pos2);
+    layer.initSurfaces(ngine.getEtat());
+    cout << "--- fenêtre du jeu initialisée ---" << endl;
+
+    StateLayer stateLayer(ngine.getEtat(), window);
+    cout << "--- state layer initialisée avec l'état et la fenêtre ---" << endl;
+
+    stateLayer.initSurfaces(ngine.getEtat());
+    cout << "--- Surfaces du state layer initialisées ---" << endl;
+
+    // Registering observer
+    StateLayer *ptr_stateLayer = &stateLayer;
+    ngine.getEtat().registerObserver(ptr_stateLayer);
+
+    RandomAI rai;
+
+    rai.setNumeroEnnemi(1);
 
     cout << "--- joueur " << ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
-    cout << "--- joueur " << ngine.getEtat().getEnnemis()[0]->getNom() << " positioné ---" << endl;
+    cout << "--- joueur " << ngine.getEtat().getJoueurs()[1]->getNom() << " positioné ---" << endl;
 
+    int turns2go = 4;
     bool waitkey=true;
-
-    RandomAI rai1;
-    rai1.setNumeroEnnemi(0);
-
-    while (state.window->isOpen() )
+    bool once = true;
+    while (window.isOpen() )
     {
       sf::Event event;
-      state.update();
-
-      while( state.window->pollEvent(event))
+      //state.update();
+      if (once)
+      {
+          stateLayer.draw(window);
+          once = false;
+      }
+      while( window.pollEvent(event))
       {
         if(waitkey){
+
           cout << "Appuyer sur une touche pour lancer un tour" << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
-          state.window->close();
+          window.close();
         else if (event.type == sf::Event::KeyPressed)
         {
 
-          rai1.run(ngine);
+          rai.run(ngine);
           ngine.update();
-
           waitkey = true;
-
-
-          Position nextP1 = ngine.getEtat().getJoueurs()[0]->getPosition();
-          Position nextP2 = ngine.getEtat().getEnnemis()[0]->getPosition();
-
-
-          state.updatePosition(nextP1);
-          //state.StateRender_combat(nextP1,nextP2);
-          state.update();
         }
       }
     }
