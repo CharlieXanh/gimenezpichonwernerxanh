@@ -13,12 +13,11 @@ using namespace std;
 
 void HeuristicAI::run(engine::Engine &engine)
 {
-    //int randomCharSelected = selectPersonnage(engine.getEtat());
     // always select someone
-    Joueur &selectedChar = *engine.getEtat().getEnnemis()[numeroEnnemi];
-    //unique_ptr<Commande> selectCommand(new SelectCharacterCommand(selectedChar));
-    //engine.ajoutCommande(move(selectCommand));
-    selectedChar.setStatut(SEL);
+    Joueur &selectedChar = *engine.getEtat().getJoueurs()[numeroEnnemi];
+    int maxMoves = selectedChar.getDeplacements();
+
+    //selectedChar.setStatut(SEL);
 
     // can attack?
     if (selectedChar.ciblesPossibles(engine.getEtat()).size() > 0)
@@ -44,10 +43,33 @@ void HeuristicAI::run(engine::Engine &engine)
         int moves = selectedChar.getDeplacements();
         while ( moves > 0)
         {
+            //start, end, mapp, print(bool)
+            int distance= 1000;
+            Position ptarget = selectedChar.getPosition();
+            for(auto& cible : engine.getEtat().getJoueurs()){
+              if(cible->getJoueurIndex() != selectedChar.getJoueurIndex()){
+                cout << "distance :" << selectedChar.getPosition().distance(cible->getPosition()) << endl;
+                if( distance > selectedChar.getPosition().distance(cible->getPosition())){
+                  distance = selectedChar.getPosition().distance(cible->getPosition());
+                  ptarget = cible->getPosition();
+                }
+              }
 
-            int randomMove = (rand() % selectedChar.deplacementsPossibles(engine.getEtat()).size());
-            Position p{selectedChar.deplacementsPossibles(engine.getEtat())[randomMove].getX(), selectedChar.deplacementsPossibles(engine.getEtat())[randomMove].getY()};
-            unique_ptr<Commande> mvCmd(new DeplacerCommande(selectedChar, p));
+            }
+
+            cout << "[IA heu] calcul de la trajectoire" << endl;
+            cout << " --- Depart : " << selectedChar.getPosition().getX()<< " " <<
+                                        selectedChar.getPosition().getY()<< endl;
+            cout << " --- Cible : " << ptarget.getX()<< " " <<
+                                             ptarget.getY()<< endl;
+            std::vector<Position> path = computePath(selectedChar.getPosition(), ptarget, engine.getEtat().loadMapCell(), true);
+
+
+            cout << " --- Destination : " << path[1].getX()<< " " <<
+                                             path[1].getY()<< endl;
+
+
+            unique_ptr<Commande> mvCmd(new DeplacerCommande(selectedChar, path[1]));
             engine.ajoutCommande(move(mvCmd));
             engine.update();
             moves--;
@@ -76,14 +98,15 @@ void HeuristicAI::run(engine::Engine &engine)
     }
 }
 
-std::vector<std::vector<int>> HeuristicAI::computePath(std::vector<int> start, std::vector<int> end, std::vector<std::vector<int>> mapp, bool print = false){
+std::vector<state::Position> HeuristicAI::computePath (state::Position &start, state::Position &end, std::vector<std::vector<int>> mapp, bool print){
+
     int i,index;
     Noeud* currentNoeud;
+    cout << end.getX() << " " << end.getY() << endl;
+    Noeud* endNoeud = new Noeud(end.getX(),end.getY(),NULL,NULL);
+    Noeud* startNoeud = new Noeud(start.getX(),start.getY(),NULL,endNoeud);
 
-    Noeud* endNoeud = new Noeud(end[0],end[1],NULL,NULL);
-    Noeud* startNoeud = new Noeud(start[0],start[1],NULL,endNoeud);
-
-     std::vector<std::vector<int>> path;
+    std::vector<state::Position> path;
 
     std::vector<Noeud*> listeFerme;
     std::vector<Noeud*> listeOuverte;
@@ -108,20 +131,22 @@ std::vector<std::vector<int>> HeuristicAI::computePath(std::vector<int> start, s
         listeOuverte = currentNoeud->voisins(mapp,listeFerme,listeOuverte,endNoeud);
         listeOuverte.erase(listeOuverte.begin()+index);
 
-    }while(listeOuverte.size()>0 && !endNoeud->inside(listeOuverte));
+    }while( listeOuverte.size() > 0 && !endNoeud->inside(listeOuverte) );
+
 
     if(print){
+        cout << "Dimension X,Y Map : [" << mapp[0].size() <<"," << mapp.size() <<"]" << endl;
         std::cout<<"Start : "<<startNoeud->getX()<< " " << startNoeud->getY()<<std::endl;
         std::cout<<"End : "<<endNoeud->getX()<< " " << endNoeud->getY()<<std::endl;
         std::cout << "Path :" << std::endl;
 
-        //Print map
+        //Print map  mapp[y][x]
         bool pass;
         for(int  i = 0;i<mapp.size();i++){
             for(int j=0;j<mapp[i].size();j++){
                 pass = true;
                 for(auto x : listeFerme){
-                    if(x->getX()==i && x->getY()==j){
+                    if(x->getX()==j && x->getY()==i){
                         std::cout<< "\033[1;35m" << mapp[i][j] << "\033[0m" <<" ";
                         pass = false;
                     }
@@ -139,11 +164,13 @@ std::vector<std::vector<int>> HeuristicAI::computePath(std::vector<int> start, s
         }
     }
     if(endNoeud->inside(listeOuverte)){
+        cout << "end noeud est dans liste ouverte" << endl;
         endNoeud->parent = currentNoeud;
         Noeud* cheminNoeud = endNoeud;
         while(cheminNoeud!=NULL){
-            std::vector<int> add = {cheminNoeud->getX(),cheminNoeud->getY()};
-            path.insert(path.begin(), add );
+            cout << "cheminnoeud xy :"<< cheminNoeud->getX() << " "<< cheminNoeud->getY()<<endl;
+            state::Position add{cheminNoeud->getX(),cheminNoeud->getY(),"NORD"};
+            path.insert(path.begin(),add);
             cheminNoeud = cheminNoeud->parent;
         }
         return path;
