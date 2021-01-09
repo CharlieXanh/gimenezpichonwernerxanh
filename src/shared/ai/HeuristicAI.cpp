@@ -15,8 +15,11 @@ void HeuristicAI::run(engine::Engine &engine)
 {
     // always select someone
     Joueur &selectedChar = *engine.getEtat().getJoueurs()[numeroEnnemi];
+    selectedChar.setDeplacements(3);
     int maxMoves = selectedChar.getDeplacements();
 
+    std::vector<Position> path;
+    bool cPath = true;
     //selectedChar.setStatut(SEL);
 
     // can attack?
@@ -40,36 +43,38 @@ void HeuristicAI::run(engine::Engine &engine)
     {
 
         cout << "[IA heu] se déplace vers un joueur" << endl;
+
         int moves = selectedChar.getDeplacements();
         while ( moves > 0)
         {
-            //start, end, mapp, print(bool)
-            int distance= 1000;
-            Position ptarget = selectedChar.getPosition();
-            for(auto& cible : engine.getEtat().getJoueurs()){
-              if(cible->getJoueurIndex() != selectedChar.getJoueurIndex()){
-                cout << "distance :" << selectedChar.getPosition().distance(cible->getPosition()) << endl;
-                if( distance > selectedChar.getPosition().distance(cible->getPosition())){
-                  distance = selectedChar.getPosition().distance(cible->getPosition());
-                  ptarget = cible->getPosition();
+            if (cPath == true){
+              int distance= 1000;
+              Position ptarget = selectedChar.getPosition();
+              for(auto& cible : engine.getEtat().getJoueurs()){
+                if(cible->getJoueurIndex() != selectedChar.getJoueurIndex()){
+                          if( distance > selectedChar.getPosition().distance(cible->getPosition())){
+                    distance = selectedChar.getPosition().distance(cible->getPosition());
+                    ptarget = cible->getPosition();
+                  }
                 }
+
               }
+
+              cout << "[IA heu] calcul de la trajectoire" << endl;
+              cout << " --- Depart : " << selectedChar.getPosition().getX()<< " " <<
+                                          selectedChar.getPosition().getY()<< endl;
+              cout << " --- Cible : " << ptarget.getX()<< " " <<
+                                               ptarget.getY()<< endl;
+              path = computePath(selectedChar.getPosition(), ptarget, engine.getEtat().loadMapCell(), false);
+              cPath = false;
 
             }
 
-            cout << "[IA heu] calcul de la trajectoire" << endl;
-            cout << " --- Depart : " << selectedChar.getPosition().getX()<< " " <<
-                                        selectedChar.getPosition().getY()<< endl;
-            cout << " --- Cible : " << ptarget.getX()<< " " <<
-                                             ptarget.getY()<< endl;
-            std::vector<Position> path = computePath(selectedChar.getPosition(), ptarget, engine.getEtat().loadMapCell(), true);
+            cout << " --- Destination : " << path[(maxMoves - moves)+1].getX()<< " " <<
+                                             path[(maxMoves - moves)+1].getY()<< endl;
 
 
-            cout << " --- Destination : " << path[1].getX()<< " " <<
-                                             path[1].getY()<< endl;
-
-
-            unique_ptr<Commande> mvCmd(new DeplacerCommande(selectedChar, path[1]));
+            unique_ptr<Commande> mvCmd(new DeplacerCommande(selectedChar, path[(maxMoves - moves)+1]));
             engine.ajoutCommande(move(mvCmd));
             engine.update();
             moves--;

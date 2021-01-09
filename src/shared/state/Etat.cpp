@@ -203,7 +203,7 @@ void Etat::initJoueurs(){
     ptrJ1->getCaracteristiques().setSante(100);
     ptrJ1->getCaracteristiques().setAttaque(10);
     ptrJ1->getCaracteristiques().setDefense(5);
-    ptrJ1->setDeplacements(1);
+    ptrJ1->setDeplacements(3);
     ptrJ1->getPosition().placer(16,17);
     ptrJ1->getCaracteristiques().setVitesse(8);
     joueurs.push_back(move(ptrJ1));
@@ -213,7 +213,7 @@ void Etat::initJoueurs(){
     ptrJ2->getCaracteristiques().setSante(100);
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
-    ptrJ2->setDeplacements(1);
+    ptrJ2->setDeplacements(3);
     ptrJ2->getPosition().placer(4,3);
     ptrJ2->getCaracteristiques().setVitesse(5);
 
