@@ -64,11 +64,10 @@ void HeuristicAI::run(engine::Engine &engine)
               cout << " --- Depart : " << selectedChar.getPosition().getX()<< " " <<
                                           selectedChar.getPosition().getY()<< endl;
               cout << " --- Cible : " << ptarget.getX()<< " " <<
-                                               ptarget.getY()<< endl;
+                                         ptarget.getY()<< endl;
               path = computePath(selectedChar.getPosition(), ptarget, engine.getEtat().loadMapCell(), false);
               cPath = false;
-
-            }
+              }
 
             cout << " --- Destination : " << path[(maxMoves - moves)+1].getX()<< " " <<
                                              path[(maxMoves - moves)+1].getY()<< endl;
@@ -78,7 +77,7 @@ void HeuristicAI::run(engine::Engine &engine)
             engine.ajoutCommande(move(mvCmd));
             engine.update();
             moves--;
-            cout << " move executed " << endl;
+            cout << "[IA heu] Déplacement effectué " << endl;
 
             // now i was deplaced, can attack?
             if (selectedChar.ciblesPossibles(engine.getEtat()).size())
@@ -169,11 +168,11 @@ std::vector<state::Position> HeuristicAI::computePath (state::Position &start, s
         }
     }
     if(endNoeud->inside(listeOuverte)){
-        cout << "end noeud est dans liste ouverte" << endl;
+        //cout << "end noeud est dans liste ouverte" << endl;
         endNoeud->parent = currentNoeud;
         Noeud* cheminNoeud = endNoeud;
         while(cheminNoeud!=NULL){
-            cout << "cheminnoeud xy :"<< cheminNoeud->getX() << " "<< cheminNoeud->getY()<<endl;
+            //cout << "cheminnoeud xy :"<< cheminNoeud->getX() << " "<< cheminNoeud->getY()<<endl;
             state::Position add{cheminNoeud->getX(),cheminNoeud->getY(),"NORD"};
             path.insert(path.begin(),add);
             cheminNoeud = cheminNoeud->parent;
