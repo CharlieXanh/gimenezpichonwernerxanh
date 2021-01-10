@@ -2,10 +2,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../../src/shared/state/Etat.h"
-#include "../../src/shared/state/Combat.h"
-#include "../../src/shared/state/Echange.h"
-#include "../../src/shared/state/Deplacement.h"
-
 
 
 
@@ -106,22 +102,6 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
     BOOST_CHECK_EQUAL(item.getBonus().getSante(),8);
 
   }
-
-  //Obstacle
-  {
-     Position p {1,2,"NORTH"};
-     Obstacle obs {3,7,p};
-     std::vector<int> tab {1,2};
-     BOOST_CHECK_EQUAL(obs.getTaille()[0],3);
-
-  }
-
-  //Zone
-  {
-    Position p {1,2,"NORTH"};
-    Zone zon {5,6,p,"class"};
-  }
-
 
   // {
   //   Exemple ex {};

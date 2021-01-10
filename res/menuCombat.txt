@@ -1,24 +1,24 @@
 res/button/r_button01.png
 vie :
 res/DS-DIGI.TTF
--95,-90
+290,120
 
 res/button/b_button01.png
 vie :
 res/DS-DIGI.TTF
--95,-90
+0,120
 
 res/button/r_button04.png
 A
 res/DS-DIGI.TTF
--10,110
+30,300
 
 res/button/b_button07.png
 D
 res/DS-DIGI.TTF
-39,110
+79,300
 
 res/button/g_button07.png
 M
 res/DS-DIGI.TTF
-88,110
+128,300

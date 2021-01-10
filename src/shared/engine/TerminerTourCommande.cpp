@@ -11,11 +11,21 @@ TerminerTourCommande::TerminerTourCommande (){
 }
 
 void TerminerTourCommande::execute (state::Etat& state){
-    state.setJouant(0);
-    // at this point, the turn's owner has changed.
+    int jouantid = state.getJouant();
+    int nbrJoueurs = state.getNbrJoueurs();
+
+    //joueur précendent n'est plus selectionné
+    auto &joueurprec = state.getJoueurs()[jouantid];
+    joueurprec->setStatut(ATT);
+
+    //Changer le joueur jouant
+    state.setJouant((jouantid +1 )% nbrJoueurs);
+
+
     state.setActionActuelle(IDLE);
-    //state.getCurseur().setTileCode(2);
+    state.getCurseur().setTileCode(2);
     bool curseurPositionAssigned = false;
+
     // other things?
     auto &joueur = state.getJoueurs()[state.getJouant()];
         if(joueur->getStatut() != MORT){
@@ -25,7 +35,7 @@ void TerminerTourCommande::execute (state::Etat& state){
                     state.getCurseur().setPosition(joueur->getPosition());
                     curseurPositionAssigned = true;
                 }
-                joueur->setStatut(DISP);
+                joueur->setStatut(SEL);
             }
             // if it's not your turn, then your alive characters will wait.
             else

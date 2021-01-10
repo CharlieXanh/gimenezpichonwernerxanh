@@ -8,6 +8,7 @@ Entite :: Entite(Caracteristiques& caracteristiques, Position& position,
 	 this->caracteristiques = caracteristiques;
 	 this->position = position;
 	 this->nom = nom;
+	 //this->tileCode ;
 }
 
 Entite::Entite()
@@ -22,7 +23,7 @@ Entite::Entite()
 
 Entite :: ~Entite(){}
 
-Caracteristiques Entite ::  getCaracteristiques() {
+Caracteristiques& Entite ::  getCaracteristiques() {
 	return this->caracteristiques;
 }
 
@@ -44,4 +45,12 @@ std::string Entite :: getNom() {
 
 void Entite ::setNom(std::string nom){
 	this->nom = nom;
+}
+
+void Entite ::setTileCode(int p_tileCode){
+	this->tileCode = p_tileCode;
+}
+
+int Entite ::getTileCode(){
+	return this->tileCode;
 }
