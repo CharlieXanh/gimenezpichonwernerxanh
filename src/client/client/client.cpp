@@ -1,4 +1,4 @@
-#include "client.h"
+/*#include "client.h"
 #include "render.h"
 #include "engine.h"
 #include "ai.h"
@@ -79,4 +79,4 @@ void client::run() {
     th.join();
 }
 client::~client() {
-}
+}*/
