@@ -18,7 +18,8 @@ void RandomAI::run(engine::Engine &engine)
     Joueur &selectedChar = *engine.getEtat().getJoueurs()[numeroEnnemi];
     //unique_ptr<Commande> selectCommand(new SelectCharacterCommand(selectedChar));
     //engine.ajoutCommande(move(selectCommand));
-    selectedChar.setStatut(SEL);
+    //selectedChar.setStatut(SEL);
+    selectedChar.setDeplacements(3);
 
     // can attack?
     if (selectedChar.ciblesPossibles(engine.getEtat()).size() > 0)
@@ -26,7 +27,7 @@ void RandomAI::run(engine::Engine &engine)
         // can attack
         cout << "first if can attack ? true " << endl;
         int moves = selectedChar.getDeplacements();
-        while (selectedChar.ciblesPossibles(engine.getEtat()).size() > 0 && moves > 0)
+        while (selectedChar.ciblesPossibles(engine.getEtat()).size() > 0)
         {
             int random = selectedChar.ciblesPossibles(engine.getEtat())[(rand() % (selectedChar.ciblesPossibles(engine.getEtat()).size()))];
             Joueur &targetToAttack = *engine.getEtat().getJoueurs()[random];
@@ -37,9 +38,9 @@ void RandomAI::run(engine::Engine &engine)
                 unique_ptr<Commande> atkCmd(new AttaquerCommande(selectedChar, targetToAttack));
                 engine.ajoutCommande(move(atkCmd));
                 engine.update();
-                unique_ptr<Commande> finTurnCmd(new TerminerTourCommande());
-                engine.ajoutCommande(move(finTurnCmd));
-                engine.update();
+                // unique_ptr<Commande> finTurnCmd(new TerminerTourCommande());
+                // engine.ajoutCommande(move(finTurnCmd));
+                // engine.update();
                 return;
             }
             else
@@ -56,6 +57,7 @@ void RandomAI::run(engine::Engine &engine)
         unique_ptr<Commande> finTurnCmd(new TerminerTourCommande());
         engine.ajoutCommande(move(finTurnCmd));
         engine.update();
+
     }
     else
     {
