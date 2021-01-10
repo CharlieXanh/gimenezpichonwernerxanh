@@ -271,9 +271,15 @@ int main(int argc,char* argv[])
           window.close();
         else if (event.type == sf::Event::KeyPressed)
         {
+          cout << "Key pressed !" << endl;
+          cout << endl
+               << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+          cout << "turn number: " << ngine.getEtat().getTour() << endl;
+          cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+               << endl;
 
           rai.run(ngine);
-          ngine.update();
+          //ngine.update();
           waitkey = true;
         }
       }
@@ -342,14 +348,21 @@ int main(int argc,char* argv[])
           window.close();
         else if (event.type == sf::Event::KeyPressed)
         {
+          cout << "Key pressed !" << endl;
+          cout << endl
+               << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+          cout << "turn number: " << ngine.getEtat().getTour() << endl;
+          cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+               << endl;
 
           if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi())
             hai.run(ngine);
           else{
             unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
             ngine.ajoutCommande(move(finTurnCmd));
+            ngine.update();
           }
-          ngine.update();
+
           waitkey = true;
         }
       }
