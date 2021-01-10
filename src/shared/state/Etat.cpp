@@ -23,6 +23,7 @@ Etat::Etat(std::string nMode) : curseur(10, 10), ordre(*this)
     cout << "Creation d'un objet MAGASIN" << endl;
     Magasin mag;
     this -> magasin = mag;
+    this-> jouant = 0;
     initializeMapCell("res/Map/arene.csv");
 }
 
@@ -91,9 +92,9 @@ void Etat::initializeMapCell(std::string mapResource)
     return;
 }
 
-std::vector<std::vector<int>> loadMapCell(){
+std::vector<std::vector<int>> Etat::loadMapCell(){
 
-    std::vector<int> wall={0,2};
+    std::vector<int> wall={35,36,37,38,48,49,50,55,56,57,58,64,66,71,72,74,80,81,82,86,87,88,89,90};
     std::vector<std::vector<int>> mapWall;
     std::vector<std::vector<int>> mapp = load_map("res/Map/arene.csv");
     for(int j=0;j<mapp.size();j++){
@@ -203,7 +204,7 @@ void Etat::initJoueurs(){
     ptrJ1->getCaracteristiques().setAttaque(10);
     ptrJ1->getCaracteristiques().setDefense(5);
     ptrJ1->setDeplacements(3);
-    ptrJ1->getPosition().placer(5,10);
+    ptrJ1->getPosition().placer(16,17);
     ptrJ1->getCaracteristiques().setVitesse(8);
     joueurs.push_back(move(ptrJ1));
 
@@ -213,7 +214,7 @@ void Etat::initJoueurs(){
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
     ptrJ2->setDeplacements(3);
-    ptrJ2->getPosition().placer(5,5);
+    ptrJ2->getPosition().placer(4,3);
     ptrJ2->getCaracteristiques().setVitesse(5);
 
     joueurs.push_back(move(ptrJ2));
@@ -239,8 +240,8 @@ void Etat::initJoueurs(){
     joueurs.push_back(move(ptrJ2));
   }
 
-curseur.setPosition(joueurs[0]->getPosition());
-cout << "Joueurs initialisés" << endl;
+  curseur.setPosition(joueurs[0]->getPosition());
+  cout << "Joueurs initialisés" << endl;
 
 }
 

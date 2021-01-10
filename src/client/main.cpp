@@ -281,4 +281,80 @@ int main(int argc,char* argv[])
 
 
   }//end random_ai */
+
+  if(argc >= 2 && strcmp(argv[1],"heuristic_ai") == 0 )
+  {
+    cout << "--- Heuristic_ai ---" << endl;
+    engine::Engine ngine("random_ai");
+    cout << "--- objet engine créé ---" << endl;
+
+    ngine.getEtat().initializeMapCell();
+    cout << "--- state map initialized ---" << endl;
+
+    ngine.getEtat().initJoueurs();
+    cout <<"--- joueurs & ennemis initialisés ---" << endl;
+
+    //-----------------------------
+    sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+    //sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32, ngine.getEtat().getMap().size() * 32 + 32, 32), "map");
+    StateLayer layer(ngine.getEtat(), window);
+
+    layer.initSurfaces(ngine.getEtat());
+    cout << "--- fenêtre du jeu initialisée ---" << endl;
+
+    StateLayer stateLayer(ngine.getEtat(), window);
+    cout << "--- state layer initialisée avec l'état et la fenêtre ---" << endl;
+
+    stateLayer.initSurfaces(ngine.getEtat());
+    cout << "--- Surfaces du state layer initialisées ---" << endl;
+
+    // Registering observer
+    StateLayer *ptr_stateLayer = &stateLayer;
+    ngine.getEtat().registerObserver(ptr_stateLayer);
+
+    HeuristicAI hai;
+
+    hai.setNumeroEnnemi(1);
+
+    cout << "--- joueur " << ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
+    cout << "--- joueur " << ngine.getEtat().getJoueurs()[1]->getNom() << " positioné ---" << endl;
+
+    int turns2go = 4;
+    bool waitkey=true;
+    bool once = true;
+    while (window.isOpen() )
+    {
+      sf::Event event;
+      //state.update();
+      if (once)
+      {
+          stateLayer.draw(window);
+          once = false;
+      }
+      while( window.pollEvent(event))
+      {
+        if(waitkey){
+
+          cout << "Appuyer sur une touche pour lancer un tour" << endl;
+          waitkey = false;
+        }
+        if(event.type ==sf::Event::Closed)
+          window.close();
+        else if (event.type == sf::Event::KeyPressed)
+        {
+
+          if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi())
+            hai.run(ngine);
+          else{
+            unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
+            ngine.ajoutCommande(move(finTurnCmd));
+          }
+          ngine.update();
+          waitkey = true;
+        }
+      }
+    }
+
+
+  }//end heuristic_ai
 }

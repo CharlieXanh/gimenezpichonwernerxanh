@@ -13,9 +13,10 @@ using namespace ai;
 using namespace std;
 
 Noeud :: Noeud (int x,int y,Noeud* parent,Noeud* end){
-	this->position[0] = x;
-	this->position[1] = y;
+	this->position.push_back(x);
+	this->position.push_back(y);
 	this->parent = parent;
+
 	//If the noeud is not the end
 	if(end)
 		this->computeScore(end);
@@ -66,8 +67,8 @@ std::vector<Noeud*> Noeud :: voisins(std::vector<std::vector<int>> map,std::vect
 
 			Noeud* newNoeud = new Noeud(this->position[0]+i,this->position[1]+j,this,end);
 
-			if((i!=0 || j!=0) && newNoeud->getX()>=0 && newNoeud->getX()<map.size() && newNoeud->getY()>=0 \
-			&& newNoeud->getY()<map[0].size() &&  map[newNoeud->getX()][newNoeud->getY()]!=1 && !newNoeud->inside(listeFerme)){
+			if((abs(i+j)==1) && newNoeud->getX()>=0 && newNoeud->getX()<map[0].size() && newNoeud->getY()>=0
+			&& newNoeud->getY()<map.size() &&  map[newNoeud->getY()][newNoeud->getX()]!=1 && !newNoeud->inside(listeFerme)){
 
 				if(newNoeud->inside(listeOuverte)){
 					for(auto x : listeOuverte){
