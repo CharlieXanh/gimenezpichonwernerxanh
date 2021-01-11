@@ -146,17 +146,17 @@ std::vector<state::Position> HeuristicAI::computePath (state::Position &start, s
 
         //Print map  mapp[y][x]
         bool pass;
-        for(int  i = 0;i<mapp.size();i++){
-            for(int j=0;j<mapp[i].size();j++){
+        for(unsigned int  i = 0;i<mapp.size();i++){
+            for(unsigned int j=0;j<mapp[i].size();j++){
                 pass = true;
                 for(auto x : listeFerme){
-                    if(x->getX()==j && x->getY()==i){
+                    if(x->getX()==(int)j && x->getY()==(int)i){
                         std::cout<< "\033[1;35m" << mapp[i][j] << "\033[0m" <<" ";
                         pass = false;
                     }
                 }
                 if(pass){
-                    if((i==startNoeud->getX() && j==startNoeud->getY())  || (i==endNoeud->getX() && j==endNoeud->getY()))
+                    if(((int)i==startNoeud->getX() && (int)j==startNoeud->getY())  || ((int)i==endNoeud->getX() && (int)j==endNoeud->getY()))
                         std::cout<< "\033[1;35m" << mapp[i][j] << "\033[0m" <<" ";
                     else if (mapp[i][j]==1)
                         std::cout<< "\033[1;31m" << mapp[i][j] << "\033[0m" <<" ";

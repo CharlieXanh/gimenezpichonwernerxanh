@@ -97,11 +97,11 @@ std::vector<std::vector<int>> Etat::loadMapCell(){
     std::vector<int> wall={35,36,37,38,48,49,50,55,56,57,58,64,66,71,72,74,80,81,82,86,87,88,89,90};
     std::vector<std::vector<int>> mapWall;
     std::vector<std::vector<int>> mapp = load_map("res/Map/arene.csv");
-    for(int j=0;j<mapp.size();j++){
+    for(unsigned int j=0;j<mapp.size();j++){
         std::vector<int> line;
-        for(int i=0;i<mapp[j].size(); i++){
+        for(unsigned int i=0;i<mapp[j].size(); i++){
             if(std::find(wall.begin(),wall.end(),mapp[j][i])!=wall.end()){
-                line.push_back(1);
+                line.push_back((int)1);
             }else{line.push_back(0);}
         }
         mapWall.push_back(line);
