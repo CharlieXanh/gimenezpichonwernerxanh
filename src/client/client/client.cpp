@@ -1,4 +1,6 @@
-/*#include "client.h"
+#include <iostream>
+#include <unistd.h>
+#include "Client.h"
 #include "render.h"
 #include "engine.h"
 #include "ai.h"
@@ -6,7 +8,11 @@
 
 using namespace std;
 using namespace std::chrono;
-
+using namespace state;
+using namespace engine;
+using namespace ai;
+using namespace render;
+using namespace client;
 bool threadBool = true;
 
 void threadEngine(Engine *ptr){
@@ -16,7 +22,7 @@ void threadEngine(Engine *ptr){
   }
 }
 
-client::client(std::string type) : this->ngine(type) 
+Client::Client(std::string type) : ngine(type)
 {
 
 	this->ngine.getEtat().initializeMapCell("res/Map/arene.csv");
@@ -30,53 +36,74 @@ client::client(std::string type) : this->ngine(type)
   this->positions = {pos1,pos2};
   this->ngine.getEtat().getJoueurs()[0]->setPosition(pos1);
   this->ngine.getEtat().getEnnemis()[0]->setPosition(pos2);
-    
-  this->rai1.setNumeroEnnemi(0);
-
 }
 
-void client::run() {
+void Client::run() {
 
-	StateRender stateRender(positions[0]);
-  stateRender.StateRender_combat(positions[0],positions[1]);
+	sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+    	//sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32, ngine.getEtat().getMap().size() * 32 + 32, 32), "map");
+    	StateLayer layer(this->ngine.getEtat(), window);
 
-  cout << "--- joueur " << this->ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
-  cout << "--- joueur " << this->ngine.getEtat().getEnnemis()[0]->getNom() << " positioné ---" << endl;
 
-	while (stateRender.window->isOpen() )
+	layer.initSurfaces(this->ngine.getEtat());
+	cout<<"=== fenetre du jeu initialisée ==="<<endl;
+
+	StateLayer stateLayer(this->ngine.getEtat(),window);
+	cout<<"=== state layer initialisée avec l'état et la fenetre"<<endl;
+
+	stateLayer.initSurfaces(ngine.getEtat());
+	cout<<"== Surfaces du state layer initialisées ==="<<endl;
+
+	StateLayer *ptr_stateLayer = &stateLayer;
+	ngine.getEtat().registerObserver(ptr_stateLayer);
+
+	RandomAI rai;
+
+	rai.setNumeroEnnemi(1);
+
+
+  	cout << "--- joueur " << this->ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
+ 	cout << "--- joueur " << this->ngine.getEtat().getEnnemis()[0]->getNom() << " positioné ---" << endl;
+	std::thread th(threadEngine, &ngine);
+	int turns2go = 4;
+    	bool waitkey=true;
+    	bool once = true;
+	while (window.isOpen() )
     {
-      std::thread th(threadEngine, &ngine);
       sf::Event event;
 
-      while( stateRender.window->pollEvent(event))
+	if (once)
+      	{
+          stateLayer.draw(window);
+          once = false;
+      	}
+
+      while(window.pollEvent(event))
       {
         if(waitkey){
           cout << "Appuyer sur une touche pour lancer un tour" << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
-          stateRender.window->close();
+          window.close();
         else if (event.type == sf::Event::KeyPressed)
         {
-          
-          rai1.run(this->ngine);
-          this->ngine.update();
 
+          cout << "Key pressed !" << endl;
+          cout << endl
+               << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+          cout << "turn number: " << ngine.getEtat().getTour() << endl;
+          cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+               << endl;
+
+          rai.run(ngine);
+          //ngine.update();
           waitkey = true;
-
-
-          Position nextP1 = this->ngine.getEtat().getJoueurs()[0]->getPosition();
-          Position nextP2 = this->ngine.getEtat().getEnnemis()[0]->getPosition();
-
-
-          stateRender.updatePosition(nextP1);
-          stateRender.StateRender_combat(nextP1,nextP2);
-          stateRender.update();
         }
       }
     }
     threadBool = false;
     th.join();
 }
-client::~client() {
-}*/
+Client::~Client() {
+}
