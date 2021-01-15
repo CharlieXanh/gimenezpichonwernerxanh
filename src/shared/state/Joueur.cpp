@@ -108,4 +108,16 @@ int Joueur::getMonnaie() const{
   return this->monnaie;
 }
 
+void Joueur::setMonnaie(int monnaie){
+  this->monnaie = monnaie;
+}
+
+int Joueur::getDeplacementsBase() const{
+  return this->deplacementsBase;
+}
+
+void Joueur::setDeplacementsBase(int deplacementsBase){
+  this->deplacementsBase = deplacementsBase;
+}
+
 Joueur :: ~Joueur(){}
