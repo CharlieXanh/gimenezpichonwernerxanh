@@ -13,6 +13,7 @@ void testSFML() {
 #include "render.h"
 #include "engine.h"
 #include "ai.h"
+#include "client.h"
 #include <chrono>
 #include <unistd.h>
 
@@ -20,7 +21,7 @@ using namespace std;
 using namespace state;
 using namespace render;
 using namespace ai;
-
+using namespace client;
 int main(int argc,char* argv[])
 {
     //Exemple exemple;
@@ -370,4 +371,18 @@ int main(int argc,char* argv[])
 
 
   }//end heuristic_ai
+	if(argc >= 2 && strcmp(argv[1],"thread") == 0 ){
+		//sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "Once upon a wei");
+		cout << "=== Thread client ==="<<endl;
+		engine::Engine ngine("random_ai");
+		sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+
+		Client client(&window,&ngine);
+		cout << "--- Client chargé ---"<<endl;
+		client.run();
+		while(client.threadBool){}
+
+	}
+
+
 }
