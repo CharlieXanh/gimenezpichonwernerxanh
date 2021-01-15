@@ -3,9 +3,11 @@
 
 #include "../../src/shared/state/Etat.h"
 
-
+#include "../../src/shared/engine/Engine.h"
 
 using namespace ::state;
+
+using namespace ::engine;
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
@@ -111,3 +113,12 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
   // }
 }
 /* vim: set sw=2 sts=2 et : */
+
+BOOST_AUTO_TEST_CASE(TestEngineNamespace)
+{
+  //engine
+  {
+    Engine ngine {"engine"};
+    BOOST_CHECK_EQUAL(ngine.getEtat().getMode(),"engine");
+  }
+}
