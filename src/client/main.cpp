@@ -372,7 +372,7 @@ int main(int argc,char* argv[])
 
   }//end heuristic_ai
 	if(argc >= 2 && strcmp(argv[1],"thread") == 0 ){
-		//sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "Once upon a wei");
+
 		cout << "=== Thread client ==="<<endl;
 		engine::Engine ngine("random_ai");
 		sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
@@ -380,8 +380,8 @@ int main(int argc,char* argv[])
 		Client client(&window,&ngine);
 		cout << "--- Client chargé ---"<<endl;
 		client.run();
-		while(client.threadBool){}
-
+		while(window.isOpen()){}
+		cout<<"=== End thread ==="<<endl;
 	}
 
 
