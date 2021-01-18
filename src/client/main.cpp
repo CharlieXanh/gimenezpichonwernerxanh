@@ -2,6 +2,7 @@
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <time.h>
+#include <SFML/Network.hpp>
 void testSFML() {
     sf::Texture texture;
 }
@@ -405,18 +406,33 @@ int main(int argc,char* argv[])
 
 
   }//end heuristic_ai
-	if(argc >= 2 && strcmp(argv[1],"thread") == 0 ){
+	if(argc >= 2 && strcmp(argv[1],"local") == 0 ){
+    sf::IpAddress ip=sf::IpAddress::getLocalAddress();
+    sf::TcpSocket socket;
+    char connectionType;
+    std ::string text ="Connected to:";
+    char buffer[2000];
+    std::size_t received;
+    std::cout <<"Enter (s) for server , Enter (c) for client" <<std::endl;
+    cin>> connectionType;
+    if(connectionType=='s')
+    {
+      sf::TcpListener listener;
+      listener.listen(2000);
+      listener.accept(socket);
+      text+="Server";
+      socket.send(text.c_str(),text.length()+1);
+    }
+    else if(connectionType=='c')
+    {
+      socket.connect(ip,2000);
+      text+="Client";
+    }
+    socket.send(text.c_str(),text.length()+1);
+    socket.receive(buffer,sizeof(buffer),received);
+    std::cout << buffer<<std::endl;
 
-		cout << "=== Thread client ==="<<endl;
-		engine::Engine ngine("random_ai");
-		sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
 
-		Client client(&window,&ngine);
-		cout << "--- Client chargé ---"<<endl;
-		client.run();
-		while(window.isOpen()){}
-		cout<<"=== End thread ==="<<endl;
-	}
-
-
+  }
+  return 0;
 }
