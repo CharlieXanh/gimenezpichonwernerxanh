@@ -7,7 +7,7 @@
 using namespace state;
 using namespace std;
 
- Joueur :: Joueur (std::string nom, int monnaie)
+Joueur :: Joueur (std::string nom, int monnaie)
 {
 	this->nom = nom;
 	this->monnaie = monnaie;
@@ -18,6 +18,11 @@ using namespace std;
 
   this->caracteristiques.setSante(100);
  }
+
+Joueur :: Joueur ()
+{
+  this->nom = "";
+}
 
 void Joueur :: ajoueMonnaie(int monnaie){
 	this->monnaie+=monnaie;
