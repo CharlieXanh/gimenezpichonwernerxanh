@@ -14,6 +14,9 @@ using namespace ai;
 using namespace render;
 using namespace client;
 
+bool engineUpdate = false;
+bool threadBool = true;
+
 Client::Client(sf::RenderWindow* window,Engine* ngine)
 {
   this->window = window;
@@ -24,20 +27,21 @@ Client::Client(sf::RenderWindow* window,Engine* ngine)
 
   this->ngine->getEtat().initJoueurs();
   cout <<"--- joueurs initialisée ---" << endl;
-  this->threadBool = true;
 }
 
-void threadEngine(Engine *ptr,bool threadBool){
+void threadEngine(Engine *ptr){
 	while(threadBool)
 	{
 		usleep(1000);
-		ptr->update();
+		if(engineUpdate){
+			ptr->update();
+			engineUpdate = false;
+		}
 	}
 }
 void Client::run() {
 
-	//sf::RenderWindow window(sf::VideoMode(ngine->getEtat().getMap()[0].size() * 32 + 256, ngine->getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
-    	//sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32, ngine.getEtat().getMap().size() * 32 + 32, 32), "map");
+
     	StateLayer layer(this->ngine->getEtat(),*(this->window));
 
 
@@ -60,14 +64,14 @@ void Client::run() {
 
   	cout << "--- joueur " << this->ngine->getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
  	//cout << "--- joueur " << this->ngine->getEtat().getEnnemis()[0]->getNom() << " positioné ---" << endl;
-	std::thread th(threadEngine, this->ngine,this->threadBool);
+	std::thread th(threadEngine, this->ngine);
 	int turns2go = 4;
     	bool waitkey=true;
     	bool once = true;
 	while (this->window->isOpen())
     {
       sf::Event event;
-
+	usleep(1000);
 	if (once)
       	{
           stateLayer.draw(*window);
@@ -98,7 +102,8 @@ void Client::run() {
           else{
             unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
             this->ngine->ajoutCommande(move(finTurnCmd));
-            this->ngine->update();
+            engineUpdate = true;
+		//this->ngine->update();
           }
 
           //ai.run(*ngine);
