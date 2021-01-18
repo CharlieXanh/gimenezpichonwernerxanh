@@ -242,8 +242,8 @@ int main(int argc,char* argv[])
     StateLayer *ptr_stateLayer = &stateLayer;
     ngine.getEtat().registerObserver(ptr_stateLayer);
 
+    KeyListener kl{ngine};
     RandomAI rai;
-
     rai.setNumeroEnnemi(1);
 
     cout << "--- joueur " << ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
@@ -265,12 +265,20 @@ int main(int argc,char* argv[])
       {
         if(waitkey){
 
-          cout << "Appuyer sur une touche pour lancer un tour" << endl;
+          cout << "Selectionnez une commande" << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
           window.close();
-        else if (event.type == sf::Event::KeyPressed)
+        else if(ngine.getEtat().getJouant() == rai.getNumeroEnnemi()){
+     cout<< "RAI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
+     cout << "turn number: " << ngine.getEtat().getTour() << endl;
+     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+          << endl;
+            rai.run(ngine);
+        }
+
+        else if (event.type == sf::Event::KeyPressed || event.type ==  sf::Event::MouseButtonPressed)
         {
           cout << "Key pressed !" << endl;
           cout << endl
@@ -279,9 +287,20 @@ int main(int argc,char* argv[])
           cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
                << endl;
 
-          rai.run(ngine);
-          //ngine.update();
-          waitkey = true;
+
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+                kl.triggerAction(ngine, MOVE,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                kl.triggerAction(ngine, ATTAQUER,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (event.mouseButton.button == sf::Mouse::Right)
+                kl.triggerAction(ngine, SELECT,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
+             unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
+             ngine.ajoutCommande(move(finTurnCmd));
+             ngine.update();
+            }
+            waitkey = true;
         }
       }
     }
@@ -299,6 +318,7 @@ int main(int argc,char* argv[])
     cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
+    ngine.getEtat().getJoueurs()[0]->setStatut(SEL);
     cout <<"--- joueurs & ennemis initialisés ---" << endl;
 
     //-----------------------------
@@ -319,6 +339,7 @@ int main(int argc,char* argv[])
     StateLayer *ptr_stateLayer = &stateLayer;
     ngine.getEtat().registerObserver(ptr_stateLayer);
 
+    KeyListener kl{ngine};
     HeuristicAI hai;
 
     hai.setNumeroEnnemi(1);
@@ -342,12 +363,20 @@ int main(int argc,char* argv[])
       {
         if(waitkey){
 
-          cout << "Appuyer sur une touche pour lancer un tour" << endl;
+          cout << "Selectionnez une commande\n"  << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
           window.close();
-        else if (event.type == sf::Event::KeyPressed)
+        else if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi()){
+     cout<< "AI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
+     cout << "turn number: " << ngine.getEtat().getTour() << endl;
+     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+          << endl;
+            hai.run(ngine);
+        }
+
+        else if (event.type == sf::Event::KeyPressed || event.type ==  sf::Event::MouseButtonPressed)
         {
           cout << "Key pressed !" << endl;
           cout << endl
@@ -356,15 +385,20 @@ int main(int argc,char* argv[])
           cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
                << endl;
 
-          if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi())
-            hai.run(ngine);
-          else{
-            unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
-            ngine.ajoutCommande(move(finTurnCmd));
-            ngine.update();
-          }
 
-          waitkey = true;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+                kl.triggerAction(ngine, MOVE,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                kl.triggerAction(ngine, ATTAQUER,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (event.mouseButton.button == sf::Mouse::Right)
+                kl.triggerAction(ngine, SELECT,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
+             unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
+             ngine.ajoutCommande(move(finTurnCmd));
+             ngine.update();
+            }
+            waitkey = true;
         }
       }
     }

@@ -61,7 +61,7 @@ void Etat::initializeMapCell(std::string mapResource)
     std::vector<std::vector <int > > map_tile = load_map(mapResource);
     cout << "--- Loading and building map_tile array succesfully ---" << endl;
 
-    std::vector<int> const mapp_spaces { 0, 2, 3, 5, 7 };
+    std::vector<int> const mapp_obstacles {35,36,37,38,48,49,50,55,56,57,58,64,66,71,72,74,80,81,82,86,87,88,89,90};
 
     std::vector<unique_ptr<MapCell>> primitive;
 
@@ -72,15 +72,16 @@ void Etat::initializeMapCell(std::string mapResource)
         {
             if (map_tile[i][j])
             {
-                if (std::find(mapp_spaces.begin(),mapp_spaces.end(),map_tile[i][j]) != mapp_spaces.end())
+                if (std::find(mapp_obstacles .begin(),mapp_obstacles .end(),map_tile[i][j]) != mapp_obstacles .end())
                 {
-                    std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]));
-                    newline.push_back(move(spc));
+                  std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]));
+                  newline.push_back(move(obs));
+
                 }
                 else
                 {
-                    std::unique_ptr<ObstacleMapCell> obs(new ObstacleMapCell(WALL, j, i, map_tile[i][j]));
-                    newline.push_back(move(obs));
+                  std::unique_ptr<SpaceMapCell> spc(new SpaceMapCell(FLOOR, j, i, map_tile[i][j]));
+                  newline.push_back(move(spc));
                 }
             }
         }

@@ -71,9 +71,9 @@ void Engine::update()
 {
     if (!etatActuel.getTerminerJeu())
     {
-        cout << "Adding passive commands ..." << endl;
+      //  cout << "Adding passive commands ..." << endl;
         addPassiveCommandes();
-        cout << "Executing commands from turn " << etatActuel.getTour() << endl;
+      //  cout << "Executing commands from turn " << etatActuel.getTour() << endl;
         //default event
         StateEvent stateEvent(ALLCHANGED);
         bool endTurn = false;

@@ -258,7 +258,7 @@ bool StateLayer::printText()
         // }
         if(charac->getStatut() == SEL){
             sf::Text selectedChar;
-            selectedChar.setPosition(window.getSize().y / 2.f + 6.f*32.f, window.getSize().y-32.f);
+            selectedChar.setPosition(window.getSize().y / 2.f + 16.f*32.f, window.getSize().y-32.f);
             selectedChar.setFont(font);
             string str = "Selected " + charac->getNom() + " (P" + std::to_string(charac->getJoueurIndex()) + ")";
             selectedChar.setString(str);
@@ -315,7 +315,7 @@ bool StateLayer::printText()
         // }
         if(charac->getStatut() == SEL){
             sf::Text selectedChar;
-            selectedChar.setPosition(window.getSize().y / 2.f + 6.f*32.f, window.getSize().y-32.f);
+            selectedChar.setPosition(window.getSize().y / 2.f + 16.f*32.f, window.getSize().y-32.f);
             selectedChar.setFont(font);
             string str = "Selected " + charac->getNom() + " (P" + std::to_string(charac->getJoueurIndex()) + ")";
             selectedChar.setString(str);
@@ -328,7 +328,7 @@ bool StateLayer::printText()
     sf::Text controls;
     controls.setPosition(16.f, window.getSize().y-32.f);
     controls.setFont(font);
-    controls.setString("Commandes : à definir");
+    controls.setString("Commandes : M : Mouvement | A : Attaquer | F : Terminer le tour | Clic Droit : Selectionner une case");
     controls.setCharacterSize(18);
     controls.setFillColor(sf::Color::White);
     texts.push(controls);

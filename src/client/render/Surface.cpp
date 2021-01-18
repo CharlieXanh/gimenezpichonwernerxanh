@@ -133,7 +133,7 @@ bool Surface::loadTextures(state::Etat &state, sf::Texture &textureTileset, sf::
                         {
                             if (allowedPos.getX() == tilePosX && allowedPos.getY() == tilePosY)
                             {
-                                Color c = Color(30, 144, 255);
+                                Color c = Color(30, 188, 255);
                                 quad[0].color = c;
                                 quad[1].color = c;
                                 quad[2].color = c;
@@ -142,42 +142,28 @@ bool Surface::loadTextures(state::Etat &state, sf::Texture &textureTileset, sf::
                         }
                     }
                 }
-                for (auto &charac : state.getJoueurs())
-                {
-                    if (charac->getStatut() == SEL && charac->getDeplacements() > 0)
-                    {
-                        // this tilemap exists in his allowed moves?
-                        int tilePosX = state.getMap()[i][j]->getPosition().getX();
-                        int tilePosY = state.getMap()[i][j]->getPosition().getY();
-                        for (auto &allowedPos : charac->deplacementsPossibles(state))
-                        {
-                            if (allowedPos.getX() == tilePosX && allowedPos.getY() == tilePosY)
-                            {
-                                Color c = Color(30, 144, 255);
-                                quad[0].color = c;
-                                quad[1].color = c;
-                                quad[2].color = c;
-                                quad[3].color = c;
-                            }
-                        }
-                    }
-                  }
             }
-            else if (state.getActionActuelle() == IDLE){
-                int tilePosX = state.getMap()[i][j]->getPosition().getX();
-                int tilePosY = state.getMap()[i][j]->getPosition().getY();
-                Position target{tilePosX, tilePosY};
-                for (auto &line : state.getMap()){
-                    for ( auto &cell : line){
-                        if (cell->isSpace() && cell->getPosition().egale(target))
-                            {
-                                // quad[0].color = sf::Color::Green;
-                                // quad[1].color = sf::Color::Green;
-                                // quad[2].color = sf::Color::Green;
-                                // quad[3].color = sf::Color::Green;
-                            }
-                    }
-                }
+            else if (state.getActionActuelle() == COMBAT){
+              for (auto &charac : state.getJoueurs())
+              {
+                  if (charac->getStatut() == SEL)
+                  {
+                      // this tilemap exists in his allowed moves?
+                      int tilePosX = state.getMap()[i][j]->getPosition().getX();
+                      int tilePosY = state.getMap()[i][j]->getPosition().getY();
+                      for (auto &allowedPos : charac->deplacementsPossibles(state))
+                      {
+                          if (allowedPos.getX() == tilePosX && allowedPos.getY() == tilePosY)
+                          {
+                              Color c = Color(255, 100, 30);
+                              quad[0].color = c;
+                              quad[1].color = c;
+                              quad[2].color = c;
+                              quad[3].color = c;
+                          }
+                      }
+                  }
+              }
             }
         }
     }
