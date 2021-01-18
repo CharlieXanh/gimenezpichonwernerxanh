@@ -3,12 +3,7 @@
 using namespace state;
 
 Caracteristiques :: Caracteristiques (int sante, int attaque, int defense,
-                    int initiative, int vitesse) :
-                    sante(sante),
-                    attaque(attaque),
-                    defense(defense),
-                    initiative(initiative),
-                    vitesse(vitesse)
+                    int initiative, int vitesse) :sante(sante),attaque(attaque),defense(defense),initiative(initiative),vitesse(vitesse)
 {}
 
 Caracteristiques::Caracteristiques(){
@@ -53,8 +48,7 @@ int Caracteristiques ::  getSante() const{
     this->vitesse = vitesse;
   }
 
-void Caracteristiques :: addBonus(int sante, int attaque, int defense,
-                    int initiative, int vitesse){
+void Caracteristiques :: addBonus(int sante, int attaque, int defense, int initiative, int vitesse){
   setSante(this->sante+sante);
   setAttaque(this->attaque+attaque);
   setDefense(this->defense+defense);

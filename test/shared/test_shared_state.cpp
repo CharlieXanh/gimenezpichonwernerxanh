@@ -122,5 +122,6 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
     bob.setJoueurIndex(1);
   //!!!!!!!!!!!!!!!!DESTRUCTORS!!!!!!!!!!!!!!!!
 
+    Etat etat("engine");
   }
 }
