@@ -369,11 +369,11 @@ int main(int argc,char* argv[])
         }
         if(event.type ==sf::Event::Closed)
           window.close();
-        else if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi()){
-     cout<< "AI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
-     cout << "turn number: " << ngine.getEtat().getTour() << endl;
-     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
-          << endl;
+        else if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi()){          
+            cout << "AI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
+            cout << "turn number: " << ngine.getEtat().getTour() << endl;
+            cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+                 << endl;
             hai.run(ngine);
         }
 
@@ -418,7 +418,7 @@ int main(int argc,char* argv[])
 		while(window.isOpen()){}
 		cout<<"=== End thread ==="<<endl;
 	}//end thread
-  
+
 	if(argc >= 2 && strcmp(argv[1],"local") == 0 ){
     sf::IpAddress ip=sf::IpAddress::getLocalAddress();
     sf::TcpSocket socket;

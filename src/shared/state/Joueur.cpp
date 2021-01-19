@@ -40,6 +40,27 @@ void Joueur::setJoueurIndex(int newIndex){
   this->joueurIndex = newIndex;
 }
 
+
+
+std::vector<Position> Joueur::deplacementsMaxPossibles(state::Etat& etat){
+	std::vector<Position> result;
+	std::vector<Position> canGoList;
+	std::vector<Position> validNears;
+	Position pcible{0,0,"NORD"};
+
+	for(int y = 0; y <= (this->deplacements*2) ; y ++){
+		for(int x = 0; x <= (this->deplacements*2) ; x ++){
+			pcible.setX(this->getPosition().getX() - this->deplacements + x);
+			pcible.setY(this->getPosition().getY() - this->deplacements + y);
+
+			if( this->getPosition().distance(pcible) <= this->deplacements){
+				result.push_back(move(pcible));
+			}
+		}
+	}
+	return result;
+}
+
 std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
   std::vector<Position> canGoList;
   std::vector<Position> validNears;
@@ -48,14 +69,13 @@ std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
 
   for (auto &nearPosition : position.getPositionsAlentour()){
       // if within map
-      //cout << "etat getMap size = " << etat.getMap().size() << endl;
+
 
       if (nearPosition.getY() >= 0 && nearPosition.getX() >= 0
       && (unsigned int)nearPosition.getX() <= etat.getMap()[0].size()
       && (unsigned int)nearPosition.getY() <= etat.getMap().size()) {
-
           validNears.push_back(move(nearPosition));
-          //cout << "Position alentour obtenues : " << nearPosition.getX() << " " << nearPosition.getY() << endl;
+
       }
   }
 

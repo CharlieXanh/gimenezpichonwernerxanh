@@ -26,7 +26,7 @@ void VictoireCommande::execute(state::Etat &state)
         {
             if (personnage->getStatut() != MORT)
             {
-                cout << "un joueur est en vie" << endl;
+                //  cout << "un joueur est en vie" << endl;
                 groupeJoueursVivant = true;
                 break;
             }
@@ -41,7 +41,7 @@ void VictoireCommande::execute(state::Etat &state)
         {
             if (personnage->getStatut() != MORT)
             {
-                cout << "un ennemi est en vie" << endl;
+                //  cout << "un ennemi est en vie" << endl;
                 groupeEnnemisVivant = true;
                 break;
             }
@@ -59,7 +59,7 @@ void VictoireCommande::execute(state::Etat &state)
     switch(groupeVainqueur) {
         case 0 :
             //pas de gagnant ce tour
-            cout << "pas de gagnant" << endl;
+            //cout << "pas de gagnant" << endl;
             break;
         case 1 :
             //Joueurs gagnent

@@ -102,9 +102,8 @@ void Engine::update()
             // TODO: Execute only the player active's commands.
             commandesActuelles[i]->execute(etatActuel);
             etatActuel.notifyObservers(stateEvent, etatActuel);
-            if(etatActuel.getMode() == "engine"){
-                usleep(200 * 1000);
-            }
+            usleep(150 * 1000);
+
         }
         // clean using iterator
         map<int, std::unique_ptr<Commande>>::iterator iterator;

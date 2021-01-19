@@ -129,7 +129,7 @@ bool Surface::loadTextures(state::Etat &state, sf::Texture &textureTileset, sf::
                         // this tilemap exists in his allowed moves?
                         int tilePosX = state.getMap()[i][j]->getPosition().getX();
                         int tilePosY = state.getMap()[i][j]->getPosition().getY();
-                        for (auto &allowedPos : charac->deplacementsPossibles(state))
+                        for (auto &allowedPos : charac->deplacementsMaxPossibles(state))
                         {
                             if (allowedPos.getX() == tilePosX && allowedPos.getY() == tilePosY)
                             {
