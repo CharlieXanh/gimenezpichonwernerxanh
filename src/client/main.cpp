@@ -406,6 +406,19 @@ int main(int argc,char* argv[])
 
 
   }//end heuristic_ai
+  if(argc >= 2 && strcmp(argv[1],"thread") == 0 ){
+
+		cout << "=== Thread client ==="<<endl;
+		engine::Engine ngine("random_ai");
+		sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+
+		Client client(&window,&ngine);
+		cout << "--- Client chargé ---"<<endl;
+		client.run();
+		while(window.isOpen()){}
+		cout<<"=== End thread ==="<<endl;
+	}//end thread
+  
 	if(argc >= 2 && strcmp(argv[1],"local") == 0 ){
     sf::IpAddress ip=sf::IpAddress::getLocalAddress();
     sf::TcpSocket socket;
