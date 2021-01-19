@@ -105,11 +105,13 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
     jack.setDeplacementsBase(6);
     jack.setDeplacements(5);
     jack.setJoueurIndex(2);
+    jack.setEstEnnemi(false);
     BOOST_CHECK_EQUAL(jack.getStatut(),CIBLE);
     BOOST_CHECK_EQUAL(jack.getMonnaie(),15);
     BOOST_CHECK_EQUAL(jack.getDeplacementsBase(),6);
     BOOST_CHECK_EQUAL(jack.getDeplacements(),5);
     BOOST_CHECK_EQUAL(jack.getJoueurIndex(),2);
+    BOOST_CHECK_EQUAL(jack.getEstEnnemi(),false);
 
     jack.ajoueMonnaie(10);
 
@@ -122,6 +124,6 @@ BOOST_AUTO_TEST_CASE(TestStateNamespace)
     bob.setJoueurIndex(1);
   //!!!!!!!!!!!!!!!!DESTRUCTORS!!!!!!!!!!!!!!!!
 
-    
+
   }
 }

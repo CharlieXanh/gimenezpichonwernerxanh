@@ -207,6 +207,7 @@ void Etat::initJoueurs(){
     ptrJ1->setDeplacements(3);
     ptrJ1->getPosition().placer(16,17);
     ptrJ1->getCaracteristiques().setVitesse(8);
+    ptrJ1->setEstEnnemi(false);
     joueurs.push_back(move(ptrJ1));
 
     std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo_ai", 17));
@@ -217,7 +218,7 @@ void Etat::initJoueurs(){
     ptrJ2->setDeplacements(3);
     ptrJ2->getPosition().placer(4,3);
     ptrJ2->getCaracteristiques().setVitesse(5);
-
+    ptrJ2->setEstEnnemi(true);
     joueurs.push_back(move(ptrJ2));
   }
   else

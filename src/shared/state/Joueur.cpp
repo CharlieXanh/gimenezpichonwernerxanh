@@ -88,7 +88,7 @@ std::vector<int> Joueur::ciblesPossibles(Etat& etat){
       Joueur& charac = *etat.getJoueurs()[i];
       if(charac.getNom() != this->getNom() && charac.getStatut() != MORT){
           // check distances
-          int maxDistance = 2; //test value
+          int maxDistance = 1; //test value
           if(position.distance(charac.getPosition()) <= maxDistance){
               possibleIndexes.push_back(i);
           }
@@ -123,6 +123,14 @@ int Joueur::getDeplacementsBase() const{
 
 void Joueur::setDeplacementsBase(int deplacementsBase){
   this->deplacementsBase = deplacementsBase;
+}
+
+bool Joueur::getEstEnnemi() {
+	return this->estEnnemi;
+}
+
+void Joueur::setEstEnnemi(bool estEnnemi) {
+	this->estEnnemi = estEnnemi;
 }
 
 Joueur :: ~Joueur(){}
