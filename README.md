@@ -44,7 +44,7 @@ $ ./remake.sh
 
 ## Commandes de jeu
 
-Lors du tour d'un joueur, il est possible d'effectuer différentes actions en appuyant sur la touche correspondantes. Après appui, il faut sélectionner la case à l'aide du <kbd>Clic droit</kbd>:
+Lors du tour d'un joueur, il est possible d'effectuer différentes actions en appuyant sur la touche correspondante. Après appui, il faut sélectionner la case à l'aide du <kbd>Clic droit</kbd>:
 
 <kbd>M</kbd> - permet de déplacer le joueur dans la zone de déplacement bleue.
 
