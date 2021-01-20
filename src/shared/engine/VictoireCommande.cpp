@@ -64,11 +64,13 @@ void VictoireCommande::execute(state::Etat &state)
         case 1 :
             //Joueurs gagnent
             cout << endl << "ATENTION!!! LES JOUEURS ONT GAGNE " << endl;
+            state.setJouant(NULL);
             state.setTerminerJeu(true);
             break;
         case 2 :
             //Ennemis gagnent
             cout << endl << "ATENTION!!! LES ENNEMIS ONT GAGNE " << endl;
+            state.setJouant(NULL);
             state.setTerminerJeu(true);
             break;
     }

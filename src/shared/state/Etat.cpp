@@ -181,7 +181,7 @@ void Etat::initJoueurs(){
   {
     std::unique_ptr<Joueur> ptrJ1(new Joueur("Raph", 20));
     ptrJ1->setJoueurIndex(0);
-    ptrJ1->getCaracteristiques().setSante(100);
+    ptrJ1->getCaracteristiques().setSante(40);
     ptrJ1->getCaracteristiques().setAttaque(10);
     ptrJ1->getCaracteristiques().setDefense(5);
     ptrJ1->setDeplacements(3);
@@ -190,7 +190,7 @@ void Etat::initJoueurs(){
 
     std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo", 17));
     ptrJ2->setJoueurIndex(0);
-    ptrJ2->getCaracteristiques().setSante(100);
+    ptrJ2->getCaracteristiques().setSante(40);
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
     ptrJ2->setDeplacements(3);
@@ -201,7 +201,7 @@ void Etat::initJoueurs(){
   {
     std::unique_ptr<Joueur> ptrJ1(new Joueur("Raph_joueur", 20));
     ptrJ1->setJoueurIndex(0);
-    ptrJ1->getCaracteristiques().setSante(100);
+    ptrJ1->getCaracteristiques().setSante(40);
     ptrJ1->getCaracteristiques().setAttaque(10);
     ptrJ1->getCaracteristiques().setDefense(5);
     ptrJ1->setDeplacements(3);
@@ -212,7 +212,7 @@ void Etat::initJoueurs(){
 
     std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo_ai", 17));
     ptrJ2->setJoueurIndex(1);
-    ptrJ2->getCaracteristiques().setSante(100);
+    ptrJ2->getCaracteristiques().setSante(40);
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
     ptrJ2->setDeplacements(3);
@@ -225,7 +225,7 @@ void Etat::initJoueurs(){
   {
     std::unique_ptr<Joueur> ptrJ1(new Joueur("Raph", 20));
     ptrJ1->setJoueurIndex(0);
-    ptrJ1->getCaracteristiques().setSante(100);
+    ptrJ1->getCaracteristiques().setSante(40);
     ptrJ1->getCaracteristiques().setAttaque(10);
     ptrJ1->getCaracteristiques().setDefense(5);
     ptrJ1->setDeplacements(3);
@@ -234,7 +234,7 @@ void Etat::initJoueurs(){
 
     std::unique_ptr<Joueur> ptrJ2(new Joueur("Leo", 17));
     ptrJ2->setJoueurIndex(0);
-    ptrJ2->getCaracteristiques().setSante(100);
+    ptrJ2->getCaracteristiques().setSante(40);
     ptrJ2->getCaracteristiques().setAttaque(10);
     ptrJ2->getCaracteristiques().setDefense(5);
     ptrJ2->setDeplacements(3);

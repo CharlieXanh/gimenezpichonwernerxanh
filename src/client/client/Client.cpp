@@ -42,11 +42,11 @@ void threadEngine(Engine *ptr){
 void Client::run() {
 
 
-    	StateLayer layer(this->ngine->getEtat(),*(this->window));
-
-
-	layer.initSurfaces(this->ngine->getEtat());
-	cout<<"=== fenetre du jeu initialisée ==="<<endl;
+  // StateLayer layer(this->ngine->getEtat(),*(this->window));
+  //
+  //
+	// layer.initSurfaces(this->ngine->getEtat());
+	// cout<<"=== fenetre du jeu initialisée ==="<<endl;
 
 	StateLayer stateLayer(this->ngine->getEtat(),*(this->window));
 	cout<<"=== state layer initialisée avec l'état et la fenetre"<<endl;

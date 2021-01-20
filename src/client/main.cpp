@@ -369,7 +369,7 @@ int main(int argc,char* argv[])
         }
         if(event.type ==sf::Event::Closed)
           window.close();
-        else if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi()){          
+        else if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi()){
             cout << "AI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
             cout << "turn number: " << ngine.getEtat().getTour() << endl;
             cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
@@ -377,7 +377,7 @@ int main(int argc,char* argv[])
             hai.run(ngine);
         }
 
-        else if (event.type == sf::Event::KeyPressed || event.type ==  sf::Event::MouseButtonPressed)
+        else if ((event.type == sf::Event::KeyPressed || event.type ==  sf::Event::MouseButtonPressed) && !ngine.getEtat().getTerminerJeu())
         {
           cout << "Key pressed !" << endl;
           cout << endl

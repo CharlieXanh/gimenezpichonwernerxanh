@@ -114,6 +114,7 @@ void Engine::update()
     }
     else
     {
+        etatActuel.setJouant(500); // no more playing player 
         cout << "The game is ended, we have a winner" << endl;
     }
 }
