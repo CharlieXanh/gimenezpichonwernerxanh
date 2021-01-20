@@ -23,7 +23,7 @@ $ ./install-dep.sh
 Vous pouvez lancer le fichier .sh prévu à cet effet :
 ```sh
 $ cd gimenezpichonwernerxanh
-$ ./reset_build
+$ ./reset_build.sh
 ```
 Ce fichier permet de creer le dossier /build et effectue les commandes necessaires pour la compilation du projet.
 
@@ -42,7 +42,14 @@ $ cd gimenezpichonwernerxanh
 $ ./remake.sh
 ```
 
+## Commandes de jeu
+
+[M](#){.btn .btn-default} - Pour pouvoir se déplacer
+
+
+
 ## Affichage d'un message
+
 ```sh
 $ ./bin/client hello
 ```
