@@ -67,8 +67,8 @@ std::vector<Noeud*> Noeud :: voisins(std::vector<std::vector<int>> map,std::vect
 
 			Noeud* newNoeud = new Noeud(this->position[0]+i,this->position[1]+j,this,end);
 
-			if((abs(i+j)==1) && newNoeud->getX()>=0 && newNoeud->getX()<map[0].size() && newNoeud->getY()>=0
-			&& newNoeud->getY()<map.size() &&  map[newNoeud->getY()][newNoeud->getX()]!=1 && !newNoeud->inside(listeFerme)){
+			if((abs(i+j)==1) && (unsigned int) newNoeud->getX()>=0 && (unsigned int)newNoeud->getX()<map[0].size() && newNoeud->getY()>=0
+			&& (unsigned int)newNoeud->getY()<map.size() &&  map[newNoeud->getY()][newNoeud->getX()]!=1 && !newNoeud->inside(listeFerme)){
 
 				if(newNoeud->inside(listeOuverte)){
 					for(auto x : listeOuverte){
