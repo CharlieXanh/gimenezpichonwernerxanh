@@ -44,8 +44,8 @@ $ ./remake.sh
 
 ## Commandes de jeu
 
-```html
-<img src="https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/512x512/shadow/keyboard_key_m.png" alt="m-key" width="200"/>
+```
+<kbd>Ctrl</kbd>
 ```
 
 ## Affichage d'un message
