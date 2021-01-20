@@ -44,9 +44,9 @@ $ ./remake.sh
 
 ## Commandes de jeu
 
-[M](#){.btn .btn-default} - Pour pouvoir se déplacer
-
-
+```html
+<img src="https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/512x512/shadow/keyboard_key_m.png" alt="m-key" width="200"/>
+```
 
 ## Affichage d'un message
 
