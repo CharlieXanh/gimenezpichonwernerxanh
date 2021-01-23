@@ -7,7 +7,7 @@
 using namespace state;
 using namespace std;
 
- Joueur :: Joueur (std::string nom, int monnaie)
+Joueur :: Joueur (std::string nom, int monnaie)
 {
 	this->nom = nom;
 	this->monnaie = monnaie;
@@ -18,6 +18,11 @@ using namespace std;
 
   this->caracteristiques.setSante(100);
  }
+
+Joueur :: Joueur ()
+{
+  this->nom = "";
+}
 
 void Joueur :: ajoueMonnaie(int monnaie){
 	this->monnaie+=monnaie;
@@ -35,6 +40,27 @@ void Joueur::setJoueurIndex(int newIndex){
   this->joueurIndex = newIndex;
 }
 
+
+
+std::vector<Position> Joueur::deplacementsMaxPossibles(state::Etat& etat){
+	std::vector<Position> result;
+	std::vector<Position> canGoList;
+	std::vector<Position> validNears;
+	Position pcible{0,0,"NORD"};
+
+	for(int y = 0; y <= (this->deplacements*2) ; y ++){
+		for(int x = 0; x <= (this->deplacements*2) ; x ++){
+			pcible.setX(this->getPosition().getX() - this->deplacements + x);
+			pcible.setY(this->getPosition().getY() - this->deplacements + y);
+
+			if( this->getPosition().distance(pcible) <= this->deplacements){
+				result.push_back(move(pcible));
+			}
+		}
+	}
+	return result;
+}
+
 std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
   std::vector<Position> canGoList;
   std::vector<Position> validNears;
@@ -43,14 +69,13 @@ std::vector<Position> Joueur::deplacementsPossibles(state::Etat& etat){
 
   for (auto &nearPosition : position.getPositionsAlentour()){
       // if within map
-      //cout << "etat getMap size = " << etat.getMap().size() << endl;
+
 
       if (nearPosition.getY() >= 0 && nearPosition.getX() >= 0
       && (unsigned int)nearPosition.getX() <= etat.getMap()[0].size()
       && (unsigned int)nearPosition.getY() <= etat.getMap().size()) {
-
           validNears.push_back(move(nearPosition));
-          //cout << "Position alentour obtenues : " << nearPosition.getX() << " " << nearPosition.getY() << endl;
+
       }
   }
 
@@ -83,7 +108,7 @@ std::vector<int> Joueur::ciblesPossibles(Etat& etat){
       Joueur& charac = *etat.getJoueurs()[i];
       if(charac.getNom() != this->getNom() && charac.getStatut() != MORT){
           // check distances
-          int maxDistance = 2; //test value
+          int maxDistance = 1; //test value
           if(position.distance(charac.getPosition()) <= maxDistance){
               possibleIndexes.push_back(i);
           }
@@ -106,6 +131,26 @@ void Joueur::setStatut(JoueurStatutID statut){
 
 int Joueur::getMonnaie() const{
   return this->monnaie;
+}
+
+void Joueur::setMonnaie(int monnaie){
+  this->monnaie = monnaie;
+}
+
+int Joueur::getDeplacementsBase() const{
+  return this->deplacementsBase;
+}
+
+void Joueur::setDeplacementsBase(int deplacementsBase){
+  this->deplacementsBase = deplacementsBase;
+}
+
+bool Joueur::getEstEnnemi() {
+	return this->estEnnemi;
+}
+
+void Joueur::setEstEnnemi(bool estEnnemi) {
+	this->estEnnemi = estEnnemi;
 }
 
 Joueur :: ~Joueur(){}

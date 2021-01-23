@@ -17,6 +17,7 @@ void TerminerTourCommande::execute (state::Etat& state){
     //joueur précendent n'est plus selectionné
     auto &joueurprec = state.getJoueurs()[jouantid];
     joueurprec->setStatut(ATT);
+    joueurprec->setDeplacements(3);
 
     //Changer le joueur jouant
     state.setJouant((jouantid +1 )% nbrJoueurs);
@@ -39,6 +40,6 @@ void TerminerTourCommande::execute (state::Etat& state){
             }
             // if it's not your turn, then your alive characters will wait.
             else
-                joueur->setStatut(ATT);
+                joueur->setStatut(MORT);
 
 }

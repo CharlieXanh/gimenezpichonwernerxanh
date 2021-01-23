@@ -2,6 +2,7 @@
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 #include <time.h>
+#include <SFML/Network.hpp>
 void testSFML() {
     sf::Texture texture;
 }
@@ -13,6 +14,7 @@ void testSFML() {
 #include "render.h"
 #include "engine.h"
 #include "ai.h"
+#include "client.h"
 #include <chrono>
 #include <unistd.h>
 
@@ -20,7 +22,7 @@ using namespace std;
 using namespace state;
 using namespace render;
 using namespace ai;
-
+using namespace client;
 int main(int argc,char* argv[])
 {
     //Exemple exemple;
@@ -241,8 +243,8 @@ int main(int argc,char* argv[])
     StateLayer *ptr_stateLayer = &stateLayer;
     ngine.getEtat().registerObserver(ptr_stateLayer);
 
+    KeyListener kl{ngine};
     RandomAI rai;
-
     rai.setNumeroEnnemi(1);
 
     cout << "--- joueur " << ngine.getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
@@ -264,12 +266,20 @@ int main(int argc,char* argv[])
       {
         if(waitkey){
 
-          cout << "Appuyer sur une touche pour lancer un tour" << endl;
+          cout << "Selectionnez une commande" << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
           window.close();
-        else if (event.type == sf::Event::KeyPressed)
+        else if(ngine.getEtat().getJouant() == rai.getNumeroEnnemi()){
+     cout<< "RAI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
+     cout << "turn number: " << ngine.getEtat().getTour() << endl;
+     cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+          << endl;
+            rai.run(ngine);
+        }
+
+        else if (event.type == sf::Event::KeyPressed || event.type ==  sf::Event::MouseButtonPressed)
         {
           cout << "Key pressed !" << endl;
           cout << endl
@@ -278,9 +288,20 @@ int main(int argc,char* argv[])
           cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
                << endl;
 
-          rai.run(ngine);
-          //ngine.update();
-          waitkey = true;
+
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+                kl.triggerAction(ngine, MOVE,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                kl.triggerAction(ngine, ATTAQUER,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (event.mouseButton.button == sf::Mouse::Right)
+                kl.triggerAction(ngine, SELECT,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
+             unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
+             ngine.ajoutCommande(move(finTurnCmd));
+             ngine.update();
+            }
+            waitkey = true;
         }
       }
     }
@@ -298,6 +319,7 @@ int main(int argc,char* argv[])
     cout << "--- state map initialized ---" << endl;
 
     ngine.getEtat().initJoueurs();
+    ngine.getEtat().getJoueurs()[0]->setStatut(SEL);
     cout <<"--- joueurs & ennemis initialisés ---" << endl;
 
     //-----------------------------
@@ -318,6 +340,7 @@ int main(int argc,char* argv[])
     StateLayer *ptr_stateLayer = &stateLayer;
     ngine.getEtat().registerObserver(ptr_stateLayer);
 
+    KeyListener kl{ngine};
     HeuristicAI hai;
 
     hai.setNumeroEnnemi(1);
@@ -341,12 +364,20 @@ int main(int argc,char* argv[])
       {
         if(waitkey){
 
-          cout << "Appuyer sur une touche pour lancer un tour" << endl;
+          cout << "Selectionnez une commande\n"  << endl;
           waitkey = false;
         }
         if(event.type ==sf::Event::Closed)
           window.close();
-        else if (event.type == sf::Event::KeyPressed)
+        else if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi()){
+            cout << "AI turn !\n|||||||||||||||||||||||||||||||||||||||||" << endl;
+            cout << "turn number: " << ngine.getEtat().getTour() << endl;
+            cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+                 << endl;
+            hai.run(ngine);
+        }
+
+        else if ((event.type == sf::Event::KeyPressed || event.type ==  sf::Event::MouseButtonPressed) && !ngine.getEtat().getTerminerJeu())
         {
           cout << "Key pressed !" << endl;
           cout << endl
@@ -355,19 +386,66 @@ int main(int argc,char* argv[])
           cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
                << endl;
 
-          if(ngine.getEtat().getJouant() == hai.getNumeroEnnemi())
-            hai.run(ngine);
-          else{
-            unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
-            ngine.ajoutCommande(move(finTurnCmd));
-            ngine.update();
-          }
 
-          waitkey = true;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+                kl.triggerAction(ngine, MOVE,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                kl.triggerAction(ngine, ATTAQUER,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (event.mouseButton.button == sf::Mouse::Right)
+                kl.triggerAction(ngine, SELECT,event.mouseButton.x/32,event.mouseButton.y/32);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
+             unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
+             ngine.ajoutCommande(move(finTurnCmd));
+             ngine.update();
+            }
+            waitkey = true;
         }
       }
     }
 
 
   }//end heuristic_ai
+  if(argc >= 2 && strcmp(argv[1],"thread") == 0 ){
+
+		cout << "=== Thread client ==="<<endl;
+		engine::Engine ngine("random_ai");
+		sf::RenderWindow window(sf::VideoMode(ngine.getEtat().getMap()[0].size() * 32 + 256, ngine.getEtat().getMap().size() * 32 + 32, 32), "Once upon a wei");
+
+		Client client(&window,&ngine);
+		cout << "--- Client chargé ---"<<endl;
+		client.run();
+		while(window.isOpen()){}
+		cout<<"=== End thread ==="<<endl;
+	}//end thread
+
+	if(argc >= 2 && strcmp(argv[1],"local") == 0 ){
+    sf::IpAddress ip=sf::IpAddress::getLocalAddress();
+    sf::TcpSocket socket;
+    char connectionType;
+    std ::string text ="Connected to:";
+    char buffer[2000];
+    std::size_t received;
+    std::cout <<"Enter (s) for server , Enter (c) for client" <<std::endl;
+    cin>> connectionType;
+    if(connectionType=='s')
+    {
+      sf::TcpListener listener;
+      listener.listen(2000);
+      listener.accept(socket);
+      text+="Server";
+      socket.send(text.c_str(),text.length()+1);
+    }
+    else if(connectionType=='c')
+    {
+      socket.connect(ip,2000);
+      text+="Client";
+    }
+    socket.send(text.c_str(),text.length()+1);
+    socket.receive(buffer,sizeof(buffer),received);
+    std::cout << buffer<<std::endl;
+
+
+  }
+  return 0;
 }

@@ -71,9 +71,9 @@ void Engine::update()
 {
     if (!etatActuel.getTerminerJeu())
     {
-        cout << "Adding passive commands ..." << endl;
+      //  cout << "Adding passive commands ..." << endl;
         addPassiveCommandes();
-        cout << "Executing commands from turn " << etatActuel.getTour() << endl;
+      //  cout << "Executing commands from turn " << etatActuel.getTour() << endl;
         //default event
         StateEvent stateEvent(ALLCHANGED);
         bool endTurn = false;
@@ -102,9 +102,8 @@ void Engine::update()
             // TODO: Execute only the player active's commands.
             commandesActuelles[i]->execute(etatActuel);
             etatActuel.notifyObservers(stateEvent, etatActuel);
-            if(etatActuel.getMode() == "engine"){
-                usleep(200 * 1000);
-            }
+            usleep(150 * 1000);
+
         }
         // clean using iterator
         map<int, std::unique_ptr<Commande>>::iterator iterator;
@@ -115,6 +114,7 @@ void Engine::update()
     }
     else
     {
+        etatActuel.setJouant(500); // no more playing player 
         cout << "The game is ended, we have a winner" << endl;
     }
 }
