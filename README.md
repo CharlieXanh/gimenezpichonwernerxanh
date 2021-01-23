@@ -4,7 +4,7 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
 
-## Release 3.1
+## Release 4.1
 
 ## Get Started
 
@@ -60,8 +60,8 @@ $ ./bin/client hello
 
 ## Test unitaire
 ```sh
-$ cd build
-$ ./test/shared/test_shared_dummy
+$ cd gimenezpichonwernerxanh
+$ ./boost.sh
 ```
 ## Affichage d'une fenêtre
 ```sh
@@ -93,6 +93,11 @@ $ ./bin/client thread
 
 
 ## Historique des release
+
+- 4.1
+  - Implémentation du thread client
+  - Simplification des commandes d'installation, commandes de build et commande de tests unitaires à l'aide de fichier script bash
+  - Rapport 4.1
 
 * 3.1
     * Création du diagramme de l'IA heuristique
