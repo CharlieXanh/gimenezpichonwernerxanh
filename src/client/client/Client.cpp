@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unistd.h>
+#include <mutex>
 #include "Client.h"
 #include "render.h"
 #include "engine.h"
@@ -14,6 +15,7 @@ using namespace ai;
 using namespace render;
 using namespace client;
 
+std::mutex ngine_mutex;
 bool engineUpdate = false;
 bool threadBool = true;
 
@@ -34,7 +36,11 @@ void threadEngine(Engine *ptr){
 	{
 		usleep(1000);
 		if(engineUpdate){
+      {
+      ngine_mutex.lock();
 			ptr->update();
+      ngine_mutex.unlock();
+      }
 			engineUpdate = false;
 		}
 	}
@@ -58,65 +64,60 @@ void Client::run() {
 	this->ngine->getEtat().registerObserver(ptr_stateLayer);
 
 	RandomAI ai;
+	ai.setNumeroEnnemi(0);
 
-	ai.setNumeroEnnemi(1);
+  HeuristicAI hai;
+  hai.setNumeroEnnemi(1);
 
 
-  	cout << "--- joueur " << this->ngine->getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
+  //cout << "--- joueur " << this->ngine->getEtat().getJoueurs()[0]->getNom() << " positioné ---" << endl;
  	//cout << "--- joueur " << this->ngine->getEtat().getEnnemis()[0]->getNom() << " positioné ---" << endl;
 	std::thread th(threadEngine, this->ngine);
-	int turns2go = 4;
-    	bool waitkey=true;
-    	bool once = true;
+  bool once = true;
 	while (this->window->isOpen())
+  {
+    sf::Event event;
+	  // usleep(1000);
+	  if (once)
     {
-      sf::Event event;
-	usleep(1000);
-	if (once)
-      	{
-          stateLayer.draw(*window);
-          once = false;
-      	}
+      stateLayer.draw(*window);
+      once = false;
+    }
 
-      while(this->window->pollEvent(event))
-      {
-        if(waitkey){
-          cout << "Appuyer sur une touche pour lancer un tour" << endl;
-          waitkey = false;
-        }
+    while(this->window->pollEvent(event))
+    {
         if(event.type ==sf::Event::Closed)
           this->window->close();
-        else if (event.type == sf::Event::KeyPressed)
-        {
 
-          cout << "Key pressed !" << endl;
-          cout << endl
-               << "|||||||||||||||||||||||||||||||||||||||||" << endl;
-          cout << "turn number: " << this->ngine->getEtat().getTour() << endl;
-          cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
+        cout << "|||||||||||||||||||||||||||||||||||||||||" << endl;
+        cout << "turn number: " << this->ngine->getEtat().getTour() << endl;
+        cout << "|||||||||||||||||||||||||||||||||||||||||" << endl
                << endl;
 
 
-	  if(this->ngine->getEtat().getJouant() == ai.getNumeroEnnemi())
+	        if(this->ngine->getEtat().getJouant() == ai.getNumeroEnnemi()){
+            ngine_mutex.lock();
             ai.run(*ngine);
-          else{
-            unique_ptr<engine::Commande> finTurnCmd(new engine::TerminerTourCommande());
-            this->ngine->ajoutCommande(move(finTurnCmd));
-            engineUpdate = true;
-		//this->ngine->update();
+            ngine_mutex.unlock();
+          }
+          else if( this->ngine->getEtat().getJouant() == hai.getNumeroEnnemi()){
+            ngine_mutex.lock();
+            hai.run(*ngine);
+            ngine_mutex.unlock();
           }
 
-          //ai.run(*ngine);
-          //ngine.update();
-          waitkey = true;
-        }
-      }
+          engineUpdate = true;
+
     }
     threadBool = false;
-    th.join();
-    if(this->window->isOpen()){
-    	this->window->close();
-    }
+    if ( th.joinable())
+      th.join();
+    // if(this->window->isOpen()){
+    //  	this->window->close();
+    // }
+
+  }
 }
+
 Client::~Client() {
 }
